@@ -1,0 +1,1421 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gold — expression layer · Q2 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --ink: #1A1A1A;
+    --mute: #666666;
+    --rule: #E5E5E5;
+    --rule-soft: #F0F0F0;
+    --tint: #FAFAFA;
+    --accent: #A85F1E;
+    --good: #1B5E20;
+    --bad: #A33126;
+    --sans: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    background: var(--bg);
+    color: var(--ink);
+    margin: 0;
+    padding: 0;
+  }
+
+  /* top nav (cross-asset tabs) */
+  .topnav {
+    border-bottom: 1px solid var(--rule);
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .topnav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 32px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .topnav-brand {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  .topnav-tabs { display: flex; gap: 4px; }
+  .topnav-tab {
+    font-family: var(--sans);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mute);
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    text-decoration: none;
+  }
+  .topnav-tab:hover { color: var(--ink); border-color: var(--rule); border-bottom-color: var(--rule); }
+  .topnav-tab.active {
+    color: var(--ink);
+    background: var(--tint);
+    border-color: var(--rule);
+  }
+  body {
+    font-family: var(--sans);
+    font-size: 15.5px;
+    line-height: 1.55;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+  }
+  a:hover { border-bottom-color: var(--accent); }
+
+  /* masthead */
+  .masthead {
+    padding: 40px 0 28px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .mast-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 12px;
+    color: var(--mute);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+  .mast-title {
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    margin: 0 0 10px;
+  }
+  .mast-sub {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--mute);
+    margin: 0;
+    max-width: 720px;
+  }
+
+  /* sections */
+  section {
+    padding: 44px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  section:last-of-type { border-bottom: 0; }
+
+  h2.sec-title {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    margin: 0 0 8px;
+  }
+  .sec-deck {
+    font-size: 14.5px;
+    color: var(--mute);
+    margin: 0 0 24px;
+    max-width: 720px;
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    margin: 28px 0 12px;
+    color: var(--ink);
+  }
+  h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+
+  p { margin: 0 0 14px; }
+  strong { font-weight: 600; }
+
+  .accent { color: var(--accent); }
+  .pos { color: var(--good); }
+  .neg { color: var(--bad); }
+
+  /* executive summary bullets */
+  .exec-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .exec-list li {
+    padding: 11px 0 11px 22px;
+    border-top: 1px solid var(--rule-soft);
+    font-size: 14.5px;
+    line-height: 1.5;
+    position: relative;
+  }
+  .exec-list li:first-child { border-top: 1px solid var(--rule); }
+  .exec-list li:last-child { border-bottom: 1px solid var(--rule); }
+  .exec-list li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 21px;
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+
+  /* tables */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 8px 0 16px;
+  }
+  thead th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--mute);
+    padding: 10px 10px 10px 0;
+    border-bottom: 1px solid var(--ink);
+    vertical-align: bottom;
+    text-transform: none;
+  }
+  thead th.n { text-align: right; }
+  tbody td {
+    padding: 11px 10px 11px 0;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+    font-feature-settings: "tnum" 1;
+  }
+  tbody td.n {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  tbody td.t { font-weight: 600; }
+  tbody td.muted { color: var(--mute); }
+
+  tr.row-hl td { background: #FFF7EE; }
+  tr.row-hl td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+
+  /* two col cards */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 18px 0 6px;
+  }
+  .card {
+    border: 1px solid var(--rule);
+    padding: 18px 20px;
+    background: var(--bg);
+  }
+  .card .group-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--mute);
+    margin-top: 12px;
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .card ul li {
+    padding: 5px 0 5px 16px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    position: relative;
+  }
+  .card ul.pros li::before {
+    content: "+";
+    position: absolute;
+    left: 0;
+    top: 5px;
+    color: var(--good);
+    font-weight: 600;
+  }
+  .card ul.cons li::before {
+    content: "−";
+    position: absolute;
+    left: 0;
+    top: 5px;
+    color: var(--bad);
+    font-weight: 600;
+  }
+
+  .bottom-line {
+    margin-top: 22px;
+    padding: 14px 18px;
+    border-left: 3px solid var(--accent);
+    background: var(--tint);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* toggle */
+  .toggle-row {
+    display: flex;
+    gap: 0;
+    margin: 8px 0 22px;
+    border: 1px solid var(--rule);
+    width: fit-content;
+  }
+  .toggle-btn {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 9px 18px;
+    background: var(--bg);
+    color: var(--ink);
+    border: 0;
+    border-right: 1px solid var(--rule);
+    cursor: pointer;
+  }
+  .toggle-btn:last-child { border-right: 0; }
+  .toggle-btn.active {
+    background: var(--accent);
+    color: #FFFFFF;
+  }
+  .toggle-panel { display: none; }
+  .toggle-panel.active { display: block; }
+
+  /* vehicle cards inside toggle */
+  .vehicle {
+    border: 1px solid var(--rule);
+    padding: 18px 20px;
+    margin: 0 0 14px;
+  }
+  .vehicle.hl {
+    border-left: 3px solid var(--accent);
+    background: #FFFDF9;
+  }
+  .vehicle-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+  }
+  .vehicle-ticker {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .vehicle-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--mute);
+  }
+  .vehicle-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 10px 0 12px;
+    border-top: 1px solid var(--rule-soft);
+    border-bottom: 1px solid var(--rule-soft);
+  }
+  .vehicle-stats .stat {
+    padding: 8px 10px 8px 0;
+    border-right: 1px solid var(--rule-soft);
+  }
+  .vehicle-stats .stat:last-child { border-right: 0; }
+  .vehicle-stats .lbl {
+    font-size: 10.5px;
+    color: var(--mute);
+    text-transform: none;
+    letter-spacing: 0.02em;
+    margin-bottom: 2px;
+  }
+  .vehicle-stats .val {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .vehicle-stats .val.muted { color: var(--mute); font-weight: 500; }
+  .vehicle-pc {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin: 10px 0 12px;
+  }
+  .vehicle-pc ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .vehicle-pc ul li {
+    padding: 4px 0 4px 16px;
+    font-size: 13.5px;
+    line-height: 1.5;
+    position: relative;
+  }
+  .vehicle-pc ul.pros li::before {
+    content: "+";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--good);
+    font-weight: 600;
+  }
+  .vehicle-pc ul.cons li::before {
+    content: "−";
+    position: absolute;
+    left: 0;
+    top: 4px;
+    color: var(--bad);
+    font-weight: 600;
+  }
+  .vehicle-pc .group-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--mute);
+    margin-bottom: 4px;
+    letter-spacing: 0.03em;
+  }
+  .vehicle-cmt {
+    font-size: 13.5px;
+    color: var(--ink);
+    margin: 4px 0 0;
+    padding-top: 10px;
+    border-top: 1px solid var(--rule-soft);
+  }
+  .vehicle-cmt .cmt-lbl {
+    font-size: 10.5px;
+    color: var(--mute);
+    letter-spacing: 0.03em;
+    margin-right: 8px;
+  }
+
+  /* chart cards */
+  .chart-card {
+    margin: 22px 0;
+    padding: 0;
+  }
+  .chart-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .chart-title {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .chart-source {
+    font-size: 11.5px;
+    color: var(--mute);
+  }
+  .chart-box { position: relative; height: 280px; border: 1px solid var(--rule); padding: 12px; }
+
+  /* watchlist */
+  dl.watch { margin: 0; }
+  .watch dt {
+    font-weight: 600;
+    font-size: 14.5px;
+    margin-top: 16px;
+    color: var(--ink);
+  }
+  .watch dt .src {
+    font-weight: 400;
+    font-size: 12px;
+    color: var(--mute);
+    margin-left: 8px;
+  }
+  .watch dd {
+    margin: 4px 0 12px;
+    padding-left: 12px;
+    font-size: 14px;
+    color: var(--ink);
+    border-left: 2px solid var(--rule);
+  }
+
+  /* your view block */
+  .your-view {
+    border: 1px solid var(--rule);
+    background: #FFFDF9;
+    padding: 22px 24px;
+    margin: 24px 0 16px;
+  }
+  .your-view-head {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+  .your-view-deck {
+    font-size: 13px;
+    color: var(--mute);
+    margin: 0 0 14px;
+  }
+  .yv-prompts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 18px;
+    margin: 0 0 14px;
+  }
+  .yv-row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .yv-lbl {
+    font-size: 11.5px;
+    color: var(--mute);
+    letter-spacing: 0.02em;
+  }
+  .yv-fill {
+    font-family: var(--sans);
+    font-size: 13.5px;
+    color: var(--ink);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    padding: 4px 0 5px;
+    outline: none;
+    background: transparent;
+    min-height: 22px;
+  }
+  .yv-fill:focus { border-bottom-color: var(--accent); }
+  .yv-fill:empty::before {
+    content: attr(data-placeholder);
+    color: #BFBFBF;
+  }
+  .yv-note-lbl {
+    font-size: 11.5px;
+    color: var(--mute);
+    letter-spacing: 0.02em;
+    margin: 8px 0 6px;
+  }
+  .yv-note {
+    min-height: 110px;
+    border: 1px solid var(--rule);
+    padding: 10px 12px;
+    background: var(--bg);
+    font-family: var(--sans);
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--ink);
+    outline: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 21px,
+      var(--rule-soft) 21px,
+      var(--rule-soft) 22px
+    );
+  }
+  .yv-note:focus { border-color: var(--accent); }
+  .yv-note:empty::before {
+    content: attr(data-placeholder);
+    color: #BFBFBF;
+  }
+  .yv-foot {
+    font-size: 11.5px;
+    color: var(--mute);
+    margin: 10px 0 0;
+  }
+  @media (max-width: 720px) {
+    .yv-prompts { grid-template-columns: 1fr; }
+  }
+
+  /* colophon */
+  .colophon {
+    padding: 36px 0 56px;
+    border-top: 1px solid var(--rule);
+    font-size: 12px;
+    color: var(--mute);
+  }
+  .colophon p { margin: 0 0 6px; }
+
+  /* footnote */
+  .fn {
+    font-size: 12.5px;
+    color: var(--mute);
+    margin-top: 8px;
+  }
+
+  /* responsive */
+  @media (max-width: 720px) {
+    .two-col { grid-template-columns: 1fr; }
+    .vehicle-pc { grid-template-columns: 1fr; }
+    .vehicle-stats { grid-template-columns: repeat(2, 1fr); }
+    .vehicle-stats .stat { border-bottom: 1px solid var(--rule-soft); }
+    table { font-size: 12.5px; }
+    thead th, tbody td { padding-right: 6px; }
+    .mast-title { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="topnav-brand">GOLDBTC · expression layer</span>
+    <div class="topnav-tabs">
+      <a class="topnav-tab active" href="../gold/">Gold</a>
+      <a class="topnav-tab" href="../btc/">Bitcoin</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap masthead">
+  <div class="mast-meta">
+    <span>Gold — expression layer · Vol. 02</span>
+    <span>As of 13 May 2026</span>
+  </div>
+  <h1 class="mast-title">How to hold gold</h1>
+  <p class="mast-sub">The inclusion question is given. This note chooses the vehicle — benchmark, custody, fee, tax, roll — for a US-taxable investor with a ten-year horizon.</p>
+</div>
+
+<main class="wrap">
+
+<!-- ============== EXECUTIVE SUMMARY ============== -->
+<section id="exec">
+  <h2 class="sec-title">Executive summary</h2>
+
+  <ul class="exec-list">
+    <li>Wrapper, not roll, is the binding choice: spot grantor-trust ETF beats COMEX GC by ~60 bps/yr after-tax over ten years; §1256 annual mark-to-market is the disqualifying feature, regardless of the trailing-12m +231.7 bps GC backwardation.</li>
+    <li>LBMA Gold Price PM auction is the only single-asset gold benchmark in the consideration set. Bloomberg Gold Subindex (12.46% weight in BCOM) and S&amp;P GSCI Gold (7.24% in GSCI) are multi-commodity components, not gold expressions.</li>
+    <li>Five of the six grantor-trust ETFs sit inside a ~5 bps/yr tie-class. GLDM (10 bp ER, JPM-sole) wins at zero custody discount; SGOL (17 bp, ICBC-sole) wins once any JPM-vs-ICBC discount above ~5.2 bps/yr is priced in (RR3 parametric crossover).</li>
+    <li>GLD is excluded retail. The 40 bp ER is 4× GLDM and 2.3× SGOL; the dual HSBC + JPM custody premium does not defend the gap at any discount magnitude either advocate could support.</li>
+    <li>PHYS-with-QEF is a defensible bullion-core substitute for top-bracket holders willing to file Form 8621. RR-2 confirmed equity LTCG character; offset by a 93 bps/yr trailing-10y P/D drag (Q08) and an unresolved Schedule D Part II timing question.</li>
+    <li>Out of scope: inclusion sizing, royalty overlay, portfolio role. Settled by the verdict.</li>
+  </ul>
+</section>
+
+<!-- ============== 1. SPOT VS FUTURES DECISION ============== -->
+<section id="decision">
+  <h2 class="sec-title">Spot vs futures: the structural choice</h2>
+  <p class="sec-deck">§1256 annual mark-to-market is the disqualifying feature for a 10+y holder.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Spot grantor-trust ETF</th>
+        <th>COMEX GC / MGC futures</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="t">All-in cost (8% gross, 10y compounded)</td>
+        <td>~262–263 bps/yr at GLDM and SGOL. $174k terminal on $100k.</td>
+        <td>~275 bps/yr at the 10y historical roll anchor. After-tax ~60 bps/yr behind ETF.</td>
+      </tr>
+      <tr>
+        <td class="t">Tax wrapper</td>
+        <td>28% collectibles + 3.8% NIIT = 31.8% on disposition. Full deferral.</td>
+        <td>§1256 60/40 blended ≈ 26.8% federal. Mandatory year-end MTM. No deferral.</td>
+      </tr>
+      <tr>
+        <td class="t">Roll / path drag</td>
+        <td>None. 10–17 bps/yr slip-beyond-fee from NAV mechanics.</td>
+        <td>10y average −6.5 bps/yr (Q06). Trailing-12m +231.7 bps (RR5). Regime-conditional.</td>
+      </tr>
+      <tr>
+        <td class="t">Compounding mechanism</td>
+        <td>Unrealized gain compounds across the full holding period.</td>
+        <td>Gain recompounds from a reduced base every 31 December.</td>
+      </tr>
+      <tr>
+        <td class="t">Capital efficiency</td>
+        <td>None — principal is tied up in the gold.</td>
+        <td>~23× notional leverage on GC; freed collateral can earn T-bills.</td>
+      </tr>
+      <tr>
+        <td class="t">Operational burden</td>
+        <td>Buy and hold. No rolls, no margin, no Form 6781.</td>
+        <td>Six rolls/yr, margin monitoring, Form 6781 annually.</td>
+      </tr>
+      <tr>
+        <td class="t">Capacity</td>
+        <td>Any sleeve size; universe AUM spans $1B (BAR) to $157B (GLD).</td>
+        <td>GC notional ≈ $330k; MGC ≈ $33k. Coarse for individual sleeves.</td>
+      </tr>
+      <tr>
+        <td class="t">Best for</td>
+        <td>US-taxable 10+y buy-and-hold; structural diversifier role.</td>
+        <td>Sub-year tactical trades; portable-alpha overlays; tax-exempt accounts.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="two-col">
+    <div class="card">
+      <h4>Spot grantor-trust ETF</h4>
+      <div class="group-label">Pros</div>
+      <ul class="pros">
+        <li>Indefinite tax deferral until disposition; gain compounds on the full pre-tax balance.</li>
+        <li>NAV calibrated daily to LBMA PM; 5y observed slip-beyond-fee is a tight 10–17 bps.</li>
+        <li>1.0 bp spread on GLD/GLDM; AP creation/redemption keeps P/D within ±10 bps.</li>
+        <li>Any sleeve size; no roll, no margin, no contract calendar.</li>
+      </ul>
+      <div class="group-label">Cons</div>
+      <ul class="cons">
+        <li>28% collectibles + 3.8% NIIT = 31.8% top bracket on disposition.</li>
+        <li>No collateral yield.</li>
+        <li>Custody concentrated in one London vault entity (JPM, ICBC Std, or HSBC).</li>
+        <li>Sponsor-fee level can rise (no fee floor in any prospectus).</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>COMEX GC / MGC futures</h4>
+      <div class="group-label">Pros</div>
+      <ul class="pros">
+        <li>§1256 60/40 caps federal blended rate at ~26.8% — below the 28% collectibles ceiling.</li>
+        <li>~23× notional leverage on GC; freed collateral earns T-bills at the front-end rate.</li>
+        <li>§1256(c) three-year loss carryback against prior §1256 gains.</li>
+        <li>Trailing-12m roll: +231.7 bps tailwind (RR5) — tradeable by short-horizon holders.</li>
+        <li>Deepest futures liquidity in the gold complex; GC top-of-book ~0.2 bp at $330k notional.</li>
+      </ul>
+      <div class="group-label">Cons</div>
+      <ul class="cons">
+        <li>Mandatory year-end MTM under §1256(a)(1) destroys 10y deferral; after-tax ~60 bps/yr behind ETF, regime-invariant.</li>
+        <li>Six rolls per year; margin calls possible in stress (10–15% intraday move can force a same-day wire).</li>
+        <li>Notional coarse for individual sleeves; MGC carries ≈18 bps/yr spread tax (2–4 bp × 6 rolls).</li>
+        <li>Operational stack: futures-enabled brokerage, Form 6781, margin monitoring.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Commentary</h3>
+  <p>The current regime makes this counterintuitive. Trailing-12m GC vs LBMA PM is +231.7 bps/yr (RR5); trailing-24m is +102.4 bps. A 10+y holder captures any one year's tailwind as taxable income and recompounds from a reduced base — the wrapper math is regime-invariant.</p>
+
+  <div class="bottom-line">For 10+y US-taxable buy-and-hold, spot grantor-trust ETF dominates.</div>
+
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="chart-title">Futures roll cost vs LBMA spot, by regime (bps/yr)</div>
+      <div class="chart-source">Source: Q06 + RR5 · LBMA PM vs GC=F continuous</div>
+    </div>
+    <div class="chart-box"><canvas id="rollChart"></canvas></div>
+  </div>
+</section>
+
+<!-- ============== 2. INDEX / VEHICLE TOGGLE ============== -->
+<section id="toggle-sec">
+  <h2 class="sec-title">Vehicles by class</h2>
+
+  <h3 style="margin-top:8px;">Indices (reference only)</h3>
+  <p class="sec-deck" style="margin-bottom:12px;">Not routable as gold-only sleeves.</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Index</th>
+        <th>Administrator</th>
+        <th class="n">Gold weight in parent</th>
+        <th>Routing</th>
+        <th>Why excluded</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="t">Bloomberg Gold Subindex (BCOMGC)</td>
+        <td>BISL</td>
+        <td class="n">12.46%</td>
+        <td>BCOM ETF wrappers (PDBC, DBC)</td>
+        <td>Multi-commodity index; 88% of exposure is non-gold. Any sleeve labelled against BCOM is mis-named.</td>
+      </tr>
+      <tr>
+        <td class="t">S&amp;P GSCI Gold</td>
+        <td>S&amp;P DJI</td>
+        <td class="n">7.24%</td>
+        <td>GSCI ETF wrappers</td>
+        <td>Production-weighted parent; gold further diluted by oil. Methodology reference, not a routable vehicle.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Futures vs spot — toggle</h3>
+  <div class="toggle-row" role="tablist">
+    <button class="toggle-btn active" data-target="spot-panel" type="button">Spot ETFs</button>
+    <button class="toggle-btn" data-target="fut-panel" type="button">Futures (GC / MGC)</button>
+  </div>
+
+  <!-- ============ SPOT PANEL ============ -->
+  <div id="spot-panel" class="toggle-panel active">
+
+    <!-- GLDM -->
+    <div class="vehicle hl">
+      <div class="vehicle-head">
+        <span class="vehicle-ticker">GLDM <span class="vehicle-tag">SPDR Gold MiniShares · LBMA PM</span></span>
+        <span class="vehicle-tag accent">Tie-class default — zero custody discount</span>
+      </div>
+      <div class="vehicle-stats">
+        <div class="stat"><div class="lbl">Net ER</div><div class="val">10.0 bp</div></div>
+        <div class="stat"><div class="lbl">30d spread</div><div class="val">1.0 bp</div></div>
+        <div class="stat"><div class="lbl">5y drag vs LBMA</div><div class="val">23.0 bp</div></div>
+        <div class="stat"><div class="lbl">AUM</div><div class="val">$31.9B</div></div>
+        <div class="stat"><div class="lbl">Custodian</div><div class="val">JPM (sole)</div></div>
+        <div class="stat"><div class="lbl">Vault</div><div class="val">London</div></div>
+        <div class="stat"><div class="lbl">Sponsor</div><div class="val">SSGA / WGC</div></div>
+        <div class="stat"><div class="lbl">P/D 12m</div><div class="val">±10 bp</div></div>
+      </div>
+      <div class="vehicle-pc">
+        <div>
+          <div class="group-label">PROS</div>
+          <ul class="pros">
+            <li>Lowest fee in the universe; permanent per FY24/FY25 10-Ks, not a waiver that resets.</li>
+            <li>SSGA + WGC co-sponsorship — WGC bar-list disclosure regime, bar-level transparency non-WGC sponsors don't match.</li>
+            <li>$31.9B AUM anchors AP creation/redemption; P/D contained within ±10 bps year-round.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="group-label">CONS</div>
+          <ul class="cons">
+            <li>JPM-sole only since ICBC second-custodian termination 2025-12-05 — no track record under sole custody.</li>
+            <li>Any JPM London-branch regulatory action routes directly into the trust; no second-custodian fallback.</li>
+            <li>Sponsor-fee floor not contractually committed.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="vehicle-cmt"><span class="cmt-lbl">View</span>Wins at any JPM custody discount ≤ ~5 bps/yr. Default for holders who price ICBC sanctions tail above the JPM operational tail.</p>
+    </div>
+
+    <!-- SGOL -->
+    <div class="vehicle hl">
+      <div class="vehicle-head">
+        <span class="vehicle-ticker">SGOL <span class="vehicle-tag">abrdn Physical Gold · LBMA PM</span></span>
+        <span class="vehicle-tag accent">Tie-class default — non-zero custody discount</span>
+      </div>
+      <div class="vehicle-stats">
+        <div class="stat"><div class="lbl">Net ER</div><div class="val">17.0 bp</div></div>
+        <div class="stat"><div class="lbl">30d spread</div><div class="val muted">N/D</div></div>
+        <div class="stat"><div class="lbl">5y drag vs LBMA</div><div class="val">28.2 bp</div></div>
+        <div class="stat"><div class="lbl">AUM</div><div class="val">$8.0B</div></div>
+        <div class="stat"><div class="lbl">Custodian</div><div class="val">ICBC Std (sole)</div></div>
+        <div class="stat"><div class="lbl">Vault</div><div class="val">London + Zurich</div></div>
+        <div class="stat"><div class="lbl">Sponsor</div><div class="val">abrdn</div></div>
+        <div class="stat"><div class="lbl">P/D 12m</div><div class="val">≈ 0</div></div>
+      </div>
+      <div class="vehicle-pc">
+        <div>
+          <div class="group-label">PROS</div>
+          <ul class="pros">
+            <li>Outside the JPM London-branch concentration covering IAU, GLDM, AAAU; geographic split London + Zurich segregated.</li>
+            <li>Bureau Veritas physical audit twice yearly; ICBC operates its own vault under direct allocation.</li>
+            <li>Same LBMA PM NAV mechanics as GLDM/IAU.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="group-label">CONS</div>
+          <ul class="cons">
+            <li>ICBC Standard is 60% PRC-state-owned via ICBC parent; binary Taiwan-Strait OFAC tail risk on custody.</li>
+            <li>7 bp fee gap to GLDM is paid every year whether either tail materialises.</li>
+            <li>Sponsor's 2024-08-08 flip moved SGOL toward the riskier-tail custodian.</li>
+            <li>30-day spread not disclosed; aggregator-implied ~2–4 bps, wider than SSGA peers.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="vehicle-cmt"><span class="cmt-lbl">View</span>Default if any JPM-vs-ICBC discount ≥ 5 bps/yr is priced. Crossover with GLDM at ~5.2 bps/yr.</p>
+    </div>
+
+    <!-- BAR -->
+    <div class="vehicle">
+      <div class="vehicle-head">
+        <span class="vehicle-ticker">BAR <span class="vehicle-tag">GraniteShares Gold Trust · LBMA PM</span></span>
+        <span class="vehicle-tag">In tie-class; dominated by SGOL on AUM</span>
+      </div>
+      <div class="vehicle-stats">
+        <div class="stat"><div class="lbl">Net ER</div><div class="val">17.5 bp</div></div>
+        <div class="stat"><div class="lbl">30d spread</div><div class="val muted">N/D</div></div>
+        <div class="stat"><div class="lbl">5y drag vs LBMA</div><div class="val">30.4 bp</div></div>
+        <div class="stat"><div class="lbl">AUM</div><div class="val">$1.0B</div></div>
+        <div class="stat"><div class="lbl">Custodian</div><div class="val">ICBC Std (sole)</div></div>
+        <div class="stat"><div class="lbl">Vault</div><div class="val">London, 20 Gresham St.</div></div>
+        <div class="stat"><div class="lbl">Sponsor</div><div class="val">GraniteShares</div></div>
+        <div class="stat"><div class="lbl">P/D 12m</div><div class="val">≈ 0</div></div>
+      </div>
+      <div class="vehicle-pc">
+        <div>
+          <div class="group-label">PROS</div>
+          <ul class="pros">
+            <li>Captures the same geographic-vault diversification away from JPM that SGOL offers.</li>
+            <li>Twice-yearly Bureau Veritas physical audit, same cadence as the larger trusts.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="group-label">CONS</div>
+          <ul class="cons">
+            <li>Thinnest secondary liquidity in the gold-ETF universe; smallest sponsor with no SGOL-grade vault breadth.</li>
+            <li>Carries the same ICBC sanctions tail as SGOL but without the AUM scale or London + Zurich split to absorb it.</li>
+            <li>Aggregator-implied execution wider than the SSGA-disclosed peers; spread not published.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="vehicle-cmt"><span class="cmt-lbl">View</span>Dominated by SGOL at parity ER on AUM and vault breadth. Hold only if a specific sponsor relationship requires it.</p>
+    </div>
+
+    <!-- AAAU -->
+    <div class="vehicle">
+      <div class="vehicle-head">
+        <span class="vehicle-ticker">AAAU <span class="vehicle-tag">Goldman Physical Gold · LBMA PM</span></span>
+        <span class="vehicle-tag">Excluded — dominated by GLDM</span>
+      </div>
+      <div class="vehicle-stats">
+        <div class="stat"><div class="lbl">Net ER</div><div class="val">18.0 bp</div></div>
+        <div class="stat"><div class="lbl">30d spread</div><div class="val muted">N/D</div></div>
+        <div class="stat"><div class="lbl">5y drag vs LBMA</div><div class="val">28.2 bp</div></div>
+        <div class="stat"><div class="lbl">AUM</div><div class="val">$2.8B</div></div>
+        <div class="stat"><div class="lbl">Custodian</div><div class="val">JPM (sole)</div></div>
+        <div class="stat"><div class="lbl">Vault</div><div class="val">London</div></div>
+        <div class="stat"><div class="lbl">Sponsor</div><div class="val">Goldman Sachs</div></div>
+        <div class="stat"><div class="lbl">P/D 12m</div><div class="val">≈ 0</div></div>
+      </div>
+      <div class="vehicle-pc">
+        <div>
+          <div class="group-label">PROS</div>
+          <ul class="pros">
+            <li>Mechanically equivalent to GLDM at the vault and trustee layer — same LBMA PM tracking and same JPM London custodian.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="group-label">CONS</div>
+          <ul class="cons">
+            <li>Strictly dominated by GLDM: same JPM-sole custody, 8 bp higher fee, fraction of the AUM.</li>
+            <li>Goldman sponsor distribution is the only residual case.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="vehicle-cmt"><span class="cmt-lbl">View</span>No defensible holding case at retail given GLDM as the dominating alternative on the same custody footprint.</p>
+    </div>
+
+    <!-- IAU -->
+    <div class="vehicle">
+      <div class="vehicle-head">
+        <span class="vehicle-ticker">IAU <span class="vehicle-tag">iShares Gold Trust · LBMA PM</span></span>
+        <span class="vehicle-tag">Excluded — pre-2018 legacy only; the 15 bp fee premium is a tax on inattention</span>
+      </div>
+      <div class="vehicle-stats">
+        <div class="stat"><div class="lbl">Net ER</div><div class="val">25.0 bp</div></div>
+        <div class="stat"><div class="lbl">30d spread</div><div class="val muted">N/D (~2–5)</div></div>
+        <div class="stat"><div class="lbl">5y drag vs LBMA</div><div class="val">40.4 bp</div></div>
+        <div class="stat"><div class="lbl">AUM</div><div class="val">$78.4B</div></div>
+        <div class="stat"><div class="lbl">Custodian</div><div class="val">JPM (sole)</div></div>
+        <div class="stat"><div class="lbl">Vault</div><div class="val">London + sub-custody</div></div>
+        <div class="stat"><div class="lbl">Sponsor</div><div class="val">BlackRock</div></div>
+        <div class="stat"><div class="lbl">P/D 12m</div><div class="val">±0.1–0.3%</div></div>
+      </div>
+      <div class="vehicle-pc">
+        <div>
+          <div class="group-label">PROS</div>
+          <ul class="pros">
+            <li>$78.4B AUM — second-deepest in the gold-ETF universe; tightest aggregator-implied spreads outside the SSGA pair.</li>
+            <li>Permitted sub-custodian sites in New York and Toronto (trustee inspection scope) expand operational redundancy.</li>
+            <li>BlackRock distribution and creation-unit economics are the institutional default.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="group-label">CONS</div>
+          <ul class="cons">
+            <li>Dominated by GLDM at identical custody: 15 bp higher ER with no offsetting feature.</li>
+            <li>5y total drag of 40.4 bps/yr is fee-anchored — slip-beyond-fee of 15.4 bps is on the wide end.</li>
+            <li>Same JPM London-branch concentration as GLDM/AAAU without the GLDM fee floor.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="vehicle-cmt"><span class="cmt-lbl">View</span>No reason to open a new position; existing holders should weigh the embedded gain against the run-rate fee differential before rotating to GLDM.</p>
+    </div>
+
+    <!-- GLD -->
+    <div class="vehicle">
+      <div class="vehicle-head">
+        <span class="vehicle-ticker">GLD <span class="vehicle-tag">SPDR Gold Shares · LBMA PM</span></span>
+        <span class="vehicle-tag">Excluded retail — 40 bp ER swamps the dual-custody premium</span>
+      </div>
+      <div class="vehicle-stats">
+        <div class="stat"><div class="lbl">Net ER</div><div class="val">40.0 bp</div></div>
+        <div class="stat"><div class="lbl">30d spread</div><div class="val">1.0 bp</div></div>
+        <div class="stat"><div class="lbl">5y drag vs LBMA</div><div class="val">57.0 bp</div></div>
+        <div class="stat"><div class="lbl">AUM</div><div class="val">$157.5B</div></div>
+        <div class="stat"><div class="lbl">Custodian</div><div class="val">HSBC + JPM (dual)</div></div>
+        <div class="stat"><div class="lbl">Vault</div><div class="val">London (both)</div></div>
+        <div class="stat"><div class="lbl">Sponsor</div><div class="val">SSGA / WGC</div></div>
+        <div class="stat"><div class="lbl">P/D 12m</div><div class="val">±10 bp</div></div>
+      </div>
+      <div class="vehicle-pc">
+        <div>
+          <div class="group-label">PROS</div>
+          <ul class="pros">
+            <li>Only dual-custodian vehicle in the universe (HSBC original; JPM added 2022-12-06).</li>
+            <li>Deepest liquidity in the complex: $157.5B AUM, SSGA-disclosed 1.0 bp 30-day spread.</li>
+            <li>HSBC full bar-count audit at fiscal year-end plus interim Bureau Veritas random sample.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="group-label">CONS</div>
+          <ul class="cons">
+            <li>40 bps/yr fee is 4× GLDM and 2.3× SGOL — dual custody is not worth 30+ bps/yr to any defended discount.</li>
+            <li>Sub-custodian disclosure is the weakest in the universe (no written agreements per the 10-K).</li>
+            <li>5y total drag of 57.0 bps/yr is the worst LBMA-tracked vehicle.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="vehicle-cmt"><span class="cmt-lbl">View</span>Institutional-only when the mandate explicitly prices dual custody above 30 bps/yr; retail allocations are dominated by GLDM at parity custody-concentration risk and one-quarter the fee.</p>
+    </div>
+
+    <!-- PHYS -->
+    <div class="vehicle">
+      <div class="vehicle-head">
+        <span class="vehicle-ticker">PHYS <span class="vehicle-tag">Sprott Physical Gold Trust · Bloomberg GOLDS</span></span>
+        <span class="vehicle-tag">Closed-end · LTCG character via QEF (Form 8621)</span>
+      </div>
+      <div class="vehicle-stats">
+        <div class="stat"><div class="lbl">Net MER</div><div class="val">35.0 bp</div></div>
+        <div class="stat"><div class="lbl">P/D current</div><div class="val neg">−2.37%</div></div>
+        <div class="stat"><div class="lbl">10y drag (P/D)</div><div class="val">~93 bp</div></div>
+        <div class="stat"><div class="lbl">AUM</div><div class="val">$17.4B</div></div>
+        <div class="stat"><div class="lbl">Custodian</div><div class="val">Royal Canadian Mint</div></div>
+        <div class="stat"><div class="lbl">Vault</div><div class="val">Ottawa</div></div>
+        <div class="stat"><div class="lbl">Sponsor</div><div class="val">Sprott Asset Mgmt.</div></div>
+        <div class="stat"><div class="lbl">Structure</div><div class="val">Closed-end CA trust</div></div>
+      </div>
+      <div class="vehicle-pc">
+        <div>
+          <div class="group-label">PROS</div>
+          <ul class="pros">
+            <li>QEF election routes pass-through to Schedule D Part II — equity LTCG (15/20% + 3.8% NIIT), not 28% collectibles (RR-2).</li>
+            <li>Custody outside both JPM and ICBC — RCM Ottawa vault, Canadian sovereign-bullion infrastructure.</li>
+            <li>Physical redemption available above unit-count threshold; no grantor-trust ETF offers this.</li>
+            <li>Current entry at a 2.37% discount; hold-to-NAV exit harvests any narrowing.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="group-label">CONS</div>
+          <ul class="cons">
+            <li>Persistent −2.3% to −3.3% discount to NAV over the trailing 6 months; no in-kind AP arbitrage to close the gap.</li>
+            <li>93 bps/yr trailing-10y P/D drag (Q08) — pre-tax shortfall that survives any tax-character resolution.</li>
+            <li>Form 8621 QEF annual filing burden; timing question on Schedule D Part II routing unresolved.</li>
+            <li>Bloomberg GOLDS Comdty benchmark (continuous wholesale mid), not the LBMA PM auction.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="vehicle-cmt"><span class="cmt-lbl">View</span>Defensible substitute for the bullion core for top-bracket holders willing to file Form 8621. Edges SGOL by ~28 bps/yr if Sprott's routing supports full deferral; loses by ~30 bps/yr if it implies annual inclusion.</p>
+    </div>
+
+    <p class="fn">Spread is the issuer-disclosed 30-day median bid-ask (only SSGA publishes; SSGA methodology = NBBO end-of-10s intervals). 5y drag is computed against LBMA PM on 1,222 overlapping trading days, 2020-04-29 → 2025-04-29 (RR3). AUM as of 2026-05-13 per issuer pages (RR5).</p>
+  </div>
+
+  <!-- ============ FUTURES PANEL ============ -->
+  <div id="fut-panel" class="toggle-panel">
+
+    <!-- GC -->
+    <div class="vehicle">
+      <div class="vehicle-head">
+        <span class="vehicle-ticker">GC <span class="vehicle-tag">COMEX Gold · 100 troy oz</span></span>
+        <span class="vehicle-tag">Institutional / family-office sizing</span>
+      </div>
+      <div class="vehicle-stats">
+        <div class="stat"><div class="lbl">Contract size</div><div class="val">100 oz</div></div>
+        <div class="stat"><div class="lbl">Notional @ $3,300</div><div class="val">$330k</div></div>
+        <div class="stat"><div class="lbl">Initial margin</div><div class="val">~$14.3k</div></div>
+        <div class="stat"><div class="lbl">Tax</div><div class="val">§1256 60/40</div></div>
+        <div class="stat"><div class="lbl">Rolls/yr</div><div class="val">6</div></div>
+        <div class="stat"><div class="lbl">10y avg roll</div><div class="val neg">−6.5 bp</div></div>
+        <div class="stat"><div class="lbl">Trailing 12m basis</div><div class="val pos">+231.7 bp</div></div>
+        <div class="stat"><div class="lbl">Top-of-book</div><div class="val">~0.2 bp</div></div>
+      </div>
+      <div class="vehicle-pc">
+        <div>
+          <div class="group-label">PROS</div>
+          <ul class="pros">
+            <li>~23× notional leverage; collateral above margin earns T-bills at the front-end rate (~4% currently).</li>
+            <li>Deepest gold-futures liquidity (~250–400k contracts/day); 0.2 bp top-of-book at $330k notional is the cheapest entry in the complex.</li>
+            <li>§1256 60/40 caps blended federal rate at 26.8% versus 28% collectibles on grantor-trust ETFs.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="group-label">CONS</div>
+          <ul class="cons">
+            <li>Mandatory year-end MTM kills the 10y deferral edge — ETF still wins after-tax by ~60 bps/yr.</li>
+            <li>$330k contract size is coarse for sub-$500k sleeves; integer-rounding adds discretisation cost.</li>
+            <li>Margin call on a 10–15% intraday gold move can require same-day wire; spot ETFs carry no such risk.</li>
+            <li>First-Notice-Day rotation forces six rolls per year; missed roll = physical delivery obligation.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="vehicle-cmt"><span class="cmt-lbl">View</span>Best for $500k+ exposures in tax-exempt or short-horizon contexts. For 10+y US-taxable buy-and-hold, dominated by GLDM/SGOL after-tax.</p>
+    </div>
+
+    <!-- MGC -->
+    <div class="vehicle">
+      <div class="vehicle-head">
+        <span class="vehicle-ticker">MGC <span class="vehicle-tag">Micro Gold · 10 troy oz, cash-settled to GC</span></span>
+        <span class="vehicle-tag">Retail-sized futures</span>
+      </div>
+      <div class="vehicle-stats">
+        <div class="stat"><div class="lbl">Contract size</div><div class="val">10 oz</div></div>
+        <div class="stat"><div class="lbl">Notional @ $3,300</div><div class="val">$33k</div></div>
+        <div class="stat"><div class="lbl">Initial margin</div><div class="val">~$1.87k</div></div>
+        <div class="stat"><div class="lbl">Tax</div><div class="val">§1256 60/40</div></div>
+        <div class="stat"><div class="lbl">Rolls/yr</div><div class="val">6</div></div>
+        <div class="stat"><div class="lbl">10y avg roll</div><div class="val neg">−6.5 bp</div></div>
+        <div class="stat"><div class="lbl">Trailing 12m basis</div><div class="val pos">+231.7 bp</div></div>
+        <div class="stat"><div class="lbl">Top-of-book</div><div class="val">2–4 bp</div></div>
+      </div>
+      <div class="vehicle-pc">
+        <div>
+          <div class="group-label">PROS</div>
+          <ul class="pros">
+            <li>Cash-settled to the GC settlement price — no physical delivery risk for retail holders.</li>
+            <li>Notional sizing of $33k makes the $100k–$250k retail allocation workable in whole contracts.</li>
+            <li>~18× leverage on the underlying margin; freed collateral can earn T-bills.</li>
+            <li>Same §1256 60/40 wrapper as GC; same tax mechanics with retail-grade sizing.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="group-label">CONS</div>
+          <ul class="cons">
+            <li>2–4 bp top-of-book × 6 rolls/yr ≈ 18 bps/yr extra spread tax versus GC.</li>
+            <li>Daily volume ~50–80k contracts; cheap intraday, but a stress-day exit may widen the spread.</li>
+            <li>Same MTM-kills-deferral problem as GC; not a 10+y holder vehicle.</li>
+            <li>Six rolls per year plus operational stack (margin, Form 6781) for what is functionally a small position.</li>
+          </ul>
+        </div>
+      </div>
+      <p class="vehicle-cmt"><span class="cmt-lbl">View</span>Best for $100k–$250k tactical exposures; below $100k the operational overhead per dollar of exposure dominates the wrapper edge.</p>
+    </div>
+
+    <p class="fn">Trailing 12m basis from RR5 (GC=F continuous vs LBMA PM, 246 days through 2026-05-12); 10y average from Q06 (2,449 trading days, 2015–2025).</p>
+  </div>
+</section>
+
+<!-- ============== COST STACK ============== -->
+<section id="cost">
+  <h2 class="sec-title">All-in cost stack</h2>
+  <p class="sec-deck">Top federal bracket, 8% gross gold, ten years, deferred-to-disposition where applicable. Terminal wealth on $100,000. All figures in basis points per year except the final column.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Vehicle</th>
+        <th class="n">ER</th>
+        <th class="n">Slip</th>
+        <th class="n">P/D</th>
+        <th class="n">Roll</th>
+        <th class="n">Custody disc.</th>
+        <th class="n">Tax drag</th>
+        <th class="n">10y total</th>
+        <th class="n">$100k →</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="row-hl"><td class="t">SGOL</td><td class="n">17.0</td><td class="n">11.2</td><td class="n">0</td><td class="n">0</td><td class="n">+3</td><td class="n">232</td><td class="n">263</td><td class="n">$174,000</td></tr>
+      <tr class="row-hl"><td class="t">GLDM</td><td class="n">10.0</td><td class="n">13.0</td><td class="n">0</td><td class="n">0</td><td class="n">+7</td><td class="n">232</td><td class="n">262</td><td class="n">$174,000</td></tr>
+      <tr><td class="t">BAR</td><td class="n">17.5</td><td class="n">12.9</td><td class="n">0</td><td class="n">0</td><td class="n">+3</td><td class="n">232</td><td class="n">265</td><td class="n">$174,000</td></tr>
+      <tr><td class="t">AAAU</td><td class="n">18.0</td><td class="n">10.2</td><td class="n">0</td><td class="n">0</td><td class="n">+7</td><td class="n">232</td><td class="n">267</td><td class="n">$174,000</td></tr>
+      <tr><td class="t">IAU</td><td class="n">25.0</td><td class="n">15.4</td><td class="n">0</td><td class="n">0</td><td class="n">+7</td><td class="n">232</td><td class="n">279</td><td class="n">$172,000</td></tr>
+      <tr><td class="t">GLD</td><td class="n">40.0</td><td class="n">17.0</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">232</td><td class="n">289</td><td class="n">$171,000</td></tr>
+      <tr><td class="t">PHYS-QEF (full deferral)</td><td class="n">35.0</td><td class="n muted">—</td><td class="n">93</td><td class="n">0</td><td class="n">0</td><td class="n">168</td><td class="n">296</td><td class="n">$171,000</td></tr>
+      <tr><td class="t">PHYS-QEF (annual inclusion)</td><td class="n">35.0</td><td class="n muted">—</td><td class="n">93</td><td class="n">0</td><td class="n">0</td><td class="n">205</td><td class="n">333</td><td class="n">$167,000</td></tr>
+      <tr><td class="t">GC futures (§1256)</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">+6.5 / −232</td><td class="n">0</td><td class="n">268</td><td class="n">~275</td><td class="n neg">−60 bp/yr vs ETF</td></tr>
+    </tbody>
+  </table>
+  <p class="fn">Custody discount is the net JPM penalty (positive) for JPM-sole vehicles, with a symmetric ICBC offset applied where relevant. Tax drag is the after-tax CAGR shortfall vs 8% gross at the relevant character — collectibles 31.8% for grantor-trust ETFs; equity LTCG 23.8% for PHYS-QEF; §1256 60/40 blended ~26.8% for GC futures. The GC Roll cell shows the 10y historical drag (−6.5 bps/yr, Q06) alongside the trailing-12m realised basis (+231.7 bps tailwind, RR5). The 10y total uses the historical anchor; §1256 annual MTM dominates the after-tax outcome regardless of which roll regime spans the holding period.</p>
+
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="chart-title">Terminal wealth on $100,000 — ten years, 8% gross, top bracket</div>
+      <div class="chart-source">Source: verdict cost-stack table</div>
+    </div>
+    <div class="chart-box"><canvas id="termChart"></canvas></div>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="chart-title">Drag vs LBMA PM under a custody discount applied to JPM-sole vehicles</div>
+      <div class="chart-source">Source: RR3 · lower is better</div>
+    </div>
+    <div class="chart-box"><canvas id="crossChart"></canvas></div>
+  </div>
+</section>
+
+<!-- ============== WATCHLIST ============== -->
+<section id="watch">
+  <h2 class="sec-title">What changes the answer</h2>
+  <p class="sec-deck">Four observable thresholds. Each one flips the recommendation in a specific direction.</p>
+
+  <dl class="watch">
+    <dt>JPM London-branch custody event <span class="src">JPM 10-Q · CFTC · DOJ · PRA</span></dt>
+    <dd>Any named LBMA bar-count discrepancy with disclosed shortfall, sub-custodian default with named losses, or regulatory action restricting bullion movement — the JPM-sole vehicles (GLDM, IAU, AAAU) become un-investable. Default flips to SGOL or BAR. A symmetric ICBC event flips it back to GLDM.</dd>
+
+    <dt>Sprott Schedule D Part II routing <span class="src">Form 8621 instructions · Dec 2025</span></dt>
+    <dd>Full-deferral-to-disposition confirmed → PHYS-QEF becomes the default core for top-bracket holders. Annual LTCG inclusion confirmed → PHYS drops ~37 bps/yr behind SGOL/GLDM (cost-stack delta: 296 → 333) and remains an alternative only for non-JPM, non-ICBC custody preference.</dd>
+
+    <dt>PHYS premium/discount <span class="src">Sprott NAV vs market · 5-day average</span></dt>
+    <dd>Current regime is a sustained −2.3% to −3.3% discount (RR5, 12m). Discount widens beyond −5% sustained &gt;60 trading days → PHYS no longer a defensible substitute for the bullion core; revert to SGOL/GLDM. Discount narrows to ≤−1% sustained → PHYS-QEF strengthens; advances ahead of SGOL/GLDM.</dd>
+
+    <dt>GLDM expense-ratio stability <span class="src">Sponsor disclosures</span></dt>
+    <dd>Fee increase above 0.15% → ER differential vs SGOL collapses and the tie-class becomes a one-vehicle decision in favour of SGOL on custody grounds. Fee cut below 0.08% → the ~5 bp custody-discount crossover (RR3) needs to be re-priced.</dd>
+  </dl>
+</section>
+
+<!-- ============== CONCLUSION + YOUR VIEW ============== -->
+<section id="conclusion">
+  <h2 class="sec-title">Synthesis</h2>
+  <p>The wrapper is binding, not the roll. Spot grantor-trust ETF beats COMEX futures by ~60 bps/yr after-tax over a 10y compound, regime-invariant. Benchmark collapses to LBMA PM — Bloomberg and S&amp;P GSCI gold sub-indices are 7%–12% gold-weighted inside diluted parents.</p>
+  <p>Five of six grantor-trust ETFs sit inside a 5 bp/yr tie-class once a symmetric custody-tail discount is applied; GLD is excluded retail. Route to GLDM if no JPM custody discount is priced; route to SGOL once any discount above ~5 bps/yr is. Either delivers $174,000 on $100,000 over 10y at 8% gross. PHYS-QEF is a defensible substitute for top-bracket Form-8621 filers — edges SGOL by ~28 bps/yr at full deferral, loses by ~30 bps/yr at annual inclusion; the 93 bps/yr P/D drag survives either tax outcome.</p>
+
+  <div class="your-view">
+    <div class="your-view-head">Your view</div>
+    <p class="your-view-deck">The within-bullion call reduces to two numbers. Entries are local-only.</p>
+    <div class="yv-prompts">
+      <div class="yv-row">
+        <span class="yv-lbl">My JPM-vs-ICBC discount estimate (bps/yr)</span>
+        <span class="yv-fill" contenteditable="true" spellcheck="false" data-placeholder="e.g. 5 — at the crossover"></span>
+      </div>
+      <div class="yv-row">
+        <span class="yv-lbl">Implied pick: GLDM or SGOL</span>
+        <span class="yv-fill" contenteditable="true" spellcheck="false" data-placeholder="GLDM if discount ≤ 5 bps/yr; SGOL above"></span>
+      </div>
+    </div>
+    <div class="yv-note-lbl">Notes</div>
+    <div class="yv-note" contenteditable="true" spellcheck="true" data-placeholder="What changes your answer? Which threshold do you watch?"></div>
+    <p class="yv-foot">Entries are local-only and clear on reload. Nothing is sent to a server.</p>
+  </div>
+</section>
+
+</main>
+
+<div class="wrap colophon">
+  <p>Source: <code>debate2/verdict/verdict.md</code>; supporting fills RR3 (custody and tracking), RR5 (pricing depth and futures regime), Q06 (futures), Q08 (benchmark methodology).</p>
+</div>
+
+<script>
+  // data
+  const DATA = {
+    rollByRegime: [
+      { label: "Full 10y · 2015–2025 (Q06)", drag:   -6.5 },
+      { label: "Hiking · 2022–2024",         drag:  -84.3 },
+      { label: "Trailing 24m (RR5)",         drag:  102.4 },
+      { label: "Trailing 12m (RR5)",         drag:  231.7 },
+    ],
+    parametric: [
+      { t: "GLDM", series: [23.0, 28.0, 33.0, 38.0], jpmSole: true  },
+      { t: "SGOL", series: [28.2, 28.2, 28.2, 28.2], jpmSole: false },
+      { t: "AAAU", series: [28.2, 33.2, 38.2, 43.2], jpmSole: true  },
+      { t: "BAR",  series: [30.4, 30.4, 30.4, 30.4], jpmSole: false },
+      { t: "IAU",  series: [40.4, 45.4, 50.4, 55.4], jpmSole: true  },
+      { t: "GLD",  series: [57.0, 57.0, 57.0, 57.0], jpmSole: false },
+    ],
+    terminal: [
+      { v: "GLDM", k: 174 },
+      { v: "SGOL", k: 174 },
+      { v: "BAR",  k: 174 },
+      { v: "AAAU", k: 174 },
+      { v: "IAU",  k: 172 },
+      { v: "GLD",  k: 171 },
+      { v: "PHYS-QEF (deferral)", k: 171 },
+      { v: "PHYS-QEF (annual)",   k: 167 },
+    ],
+  };
+
+  const C = {
+    ink:    "#1A1A1A",
+    mute:   "#666666",
+    accent: "#A85F1E",
+    good:   "#1B5E20",
+    bad:    "#A33126",
+    rule:   "#E5E5E5",
+    bg:     "#FFFFFF",
+  };
+
+  Chart.defaults.font.family = '"Inter", Helvetica, Arial, sans-serif';
+  Chart.defaults.font.size = 11.5;
+  Chart.defaults.color = C.mute;
+  Chart.defaults.borderColor = C.rule;
+
+  // toggle behavior
+  document.querySelectorAll(".toggle-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll(".toggle-btn").forEach(b => b.classList.remove("active"));
+      document.querySelectorAll(".toggle-panel").forEach(p => p.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById(btn.dataset.target).classList.add("active");
+    });
+  });
+
+  // chart 1: regime roll
+  new Chart(document.getElementById("rollChart"), {
+    type: "bar",
+    data: {
+      labels: DATA.rollByRegime.map(d => d.label),
+      datasets: [{
+        label: "Drag bp/yr",
+        data: DATA.rollByRegime.map(d => d.drag),
+        backgroundColor: DATA.rollByRegime.map(d => d.drag >= 0 ? C.good : C.bad),
+        borderWidth: 0,
+        barThickness: 22,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: "y",
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: C.ink, titleColor: C.bg, bodyColor: C.bg, padding: 10, displayColors: false,
+          callbacks: { label: ctx => `${ctx.parsed.x >= 0 ? "+" : ""}${ctx.parsed.x} bp/yr` }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: C.rule, drawTicks: false },
+          border: { color: C.ink },
+          ticks: { color: C.mute, callback: v => v + " bp" }
+        },
+        y: {
+          grid: { display: false },
+          border: { color: C.ink },
+          ticks: { color: C.ink, font: { family: '"Inter", sans-serif', size: 11.5 } }
+        }
+      }
+    }
+  });
+
+  // chart 2: parametric custody crossover
+  new Chart(document.getElementById("crossChart"), {
+    type: "line",
+    data: {
+      labels: ["0 bp", "5 bp", "10 bp", "15 bp"],
+      datasets: DATA.parametric.map(row => ({
+        label: row.t,
+        data: row.series,
+        borderColor:
+            row.t === "GLDM" ? C.accent
+          : row.t === "SGOL" ? C.ink
+          : row.t === "BAR"  ? C.good
+          : row.t === "AAAU" ? "#C8884C"
+          : row.t === "IAU"  ? C.mute
+          :                    C.bad,
+        backgroundColor: "transparent",
+        borderWidth: (row.t === "GLDM" || row.t === "SGOL") ? 2 : 1.4,
+        borderDash: row.jpmSole ? [] : [4, 3],
+        tension: 0,
+        pointRadius: 3.5,
+        pointBackgroundColor: C.bg,
+        pointBorderWidth: 1.5,
+        pointBorderColor:
+            row.t === "GLDM" ? C.accent
+          : row.t === "SGOL" ? C.ink
+          : row.t === "BAR"  ? C.good
+          : row.t === "AAAU" ? "#C8884C"
+          : row.t === "IAU"  ? C.mute
+          :                    C.bad,
+        pointHoverRadius: 5,
+      }))
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: "index", intersect: false },
+      plugins: {
+        legend: {
+          position: "right",
+          labels: { color: C.ink, boxWidth: 16, boxHeight: 2, padding: 10, font: { family: '"Inter", sans-serif', size: 11.5 } }
+        },
+        tooltip: {
+          backgroundColor: C.ink, titleColor: C.bg, bodyColor: C.bg, padding: 10,
+          callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)} bp/yr` }
+        }
+      },
+      scales: {
+        x: {
+          title: { display: true, text: "custody discount on JPM-sole vehicles", color: C.mute, font: { family: '"Inter", sans-serif', size: 11 } },
+          grid: { color: C.rule, drawTicks: false },
+          border: { color: C.ink },
+          ticks: { color: C.mute }
+        },
+        y: {
+          title: { display: true, text: "drag vs LBMA PM · bp/yr", color: C.mute, font: { family: '"Inter", sans-serif', size: 11 } },
+          grid: { color: C.rule, drawTicks: false },
+          border: { color: C.ink },
+          ticks: { color: C.mute, callback: v => v + " bp" }
+        }
+      }
+    }
+  });
+
+  // chart 3: terminal wealth
+  new Chart(document.getElementById("termChart"), {
+    type: "bar",
+    data: {
+      labels: DATA.terminal.map(d => d.v),
+      datasets: [{
+        label: "Terminal $000",
+        data: DATA.terminal.map(d => d.k),
+        backgroundColor: DATA.terminal.map(d =>
+          (d.v === "GLDM" || d.v === "SGOL") ? C.accent
+          : d.v.startsWith("PHYS-QEF (annual") ? C.bad
+          : C.mute
+        ),
+        borderWidth: 0,
+        barThickness: 20,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      indexAxis: "y",
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: C.ink, titleColor: C.bg, bodyColor: C.bg, padding: 10, displayColors: false,
+          callbacks: { label: ctx => "$" + (ctx.parsed.x * 1000).toLocaleString() }
+        }
+      },
+      scales: {
+        x: {
+          min: 160, max: 180,
+          grid: { color: C.rule, drawTicks: false },
+          border: { color: C.ink },
+          ticks: { color: C.mute, callback: v => "$" + v + "k" }
+        },
+        y: {
+          grid: { display: false },
+          border: { color: C.ink },
+          ticks: { color: C.ink, font: { family: '"Inter", sans-serif', size: 11.5 } }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bitcoin expression — investment note · Q2 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --ink:#1A1A1A;
+    --mute:#666666;
+    --border:#E5E5E5;
+    --accent:#1F4E5F;
+    --good:#1B5E20;
+    --bad:#A33126;
+    --soft:#FAFAFA;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+
+  /* top nav (cross-asset tabs) */
+  .topnav {
+    border-bottom: 1px solid var(--border);
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .topnav-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 24px;
+    max-width: 880px;
+    margin: 0 auto;
+  }
+  .topnav-brand {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mute);
+  }
+  .topnav-tabs { display: flex; gap: 4px; }
+  .topnav-tab {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--mute);
+    padding: 6px 14px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    text-decoration: none;
+  }
+  .topnav-tab:hover { color: var(--ink); border-color: var(--border); border-bottom-color: var(--border); }
+  .topnav-tab.active {
+    color: var(--ink);
+    background: var(--soft);
+    border-color: var(--border);
+  }
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-weight:400;
+    font-size:15px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+  }
+  .page{
+    max-width:880px;
+    margin:0 auto;
+    padding:0 24px 6rem;
+  }
+  h1,h2,h3,h4{font-family:'Inter',sans-serif;letter-spacing:-0.01em;color:var(--ink)}
+  h1{font-weight:600;font-size:1.85rem;line-height:1.25;margin:0 0 .5rem}
+  h2{font-weight:600;font-size:1.3rem;line-height:1.3;margin:2.6rem 0 .9rem}
+  h3{font-weight:600;font-size:1rem;line-height:1.3;margin:1.6rem 0 .6rem}
+  h4{font-weight:600;font-size:.85rem;line-height:1.3;margin:0 0 .55rem}
+  p{margin:0 0 1rem}
+  a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent}
+  a:hover{border-bottom-color:var(--accent)}
+  strong{font-weight:600;color:var(--ink)}
+  .mute{color:var(--mute)}
+  .small{font-size:.86rem}
+  .xs{font-size:.78rem;color:var(--mute)}
+  .num{font-variant-numeric:tabular-nums}
+  .good{color:var(--good)}
+  .bad{color:var(--bad)}
+  .accent{color:var(--accent)}
+
+  /* masthead */
+  header.mast{
+    padding:2.6rem 0 1.3rem;
+    border-bottom:1px solid var(--border);
+    margin-bottom:1.8rem;
+  }
+  .mast .kicker{
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    color:var(--mute);
+    font-weight:500;
+    margin-bottom:.85rem;
+  }
+  .mast .sub{
+    color:var(--mute);
+    font-size:.98rem;
+    margin-top:.5rem;
+    max-width:700px;
+  }
+  .mast .meta{
+    margin-top:1.1rem;
+    font-size:.78rem;
+    color:var(--mute);
+    display:flex;
+    gap:1.4rem;
+    flex-wrap:wrap;
+  }
+
+  /* verdict line */
+  .verdict-line{
+    border:1px solid var(--border);
+    padding:1rem 1.1rem;
+    margin:0 0 2rem;
+    background:var(--soft);
+    border-left:3px solid var(--accent);
+  }
+  .verdict-line .label{
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.16em;
+    color:var(--accent);
+    font-weight:600;
+    margin-bottom:.4rem;
+  }
+  .verdict-line p{margin:0;font-size:.94rem;line-height:1.55}
+
+  /* exec summary */
+  ul.bullets{
+    list-style:none;
+    padding:0;
+    margin:.4rem 0 1.4rem;
+  }
+  ul.bullets li{
+    padding:.55rem 0;
+    border-bottom:1px solid var(--border);
+    font-size:.92rem;
+    line-height:1.5;
+  }
+  ul.bullets li:last-child{border-bottom:none}
+  ul.bullets li::before{
+    content:"";
+    display:inline-block;
+    width:4px;
+    height:4px;
+    background:var(--accent);
+    border-radius:50%;
+    margin-right:.7rem;
+    vertical-align:middle;
+    margin-bottom:2px;
+  }
+
+  /* tables */
+  .tbl-wrap{overflow-x:auto;margin:1rem 0 1.4rem}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:.88rem;
+    font-family:'Inter',sans-serif;
+  }
+  th,td{
+    text-align:left;
+    padding:.65rem .7rem .65rem 0;
+    border-bottom:1px solid var(--border);
+    vertical-align:top;
+    line-height:1.42;
+  }
+  th{
+    font-weight:600;
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--mute);
+    border-bottom:1px solid var(--ink);
+  }
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;padding-right:.4rem}
+  tr:last-child td{border-bottom:1px solid var(--border)}
+  caption{
+    text-align:left;
+    color:var(--mute);
+    font-size:.78rem;
+    margin-bottom:.4rem;
+    caption-side:top;
+  }
+
+  /* spot-vs-futures two-column */
+  .two-col{
+    border:1px solid var(--border);
+    margin:1rem 0 1.4rem;
+  }
+  .two-col table{font-size:.88rem}
+  .two-col th{
+    background:var(--soft);
+    border-bottom:1px solid var(--ink);
+    padding:.7rem .9rem;
+  }
+  .two-col td{
+    padding:.7rem .9rem;
+    border-bottom:1px solid var(--border);
+  }
+  .two-col .row-label{
+    font-weight:600;
+    width:28%;
+    color:var(--ink);
+  }
+
+  /* pros/cons cards */
+  .pc-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin:1.2rem 0 1.4rem;
+  }
+  @media(max-width:680px){.pc-grid{grid-template-columns:1fr}}
+  .pc-card{
+    border:1px solid var(--border);
+    padding:.95rem 1.1rem;
+  }
+  .pc-card h4{
+    font-size:.78rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    margin:0 0 .55rem;
+    font-weight:600;
+  }
+  .pc-card.pros h4{color:var(--good)}
+  .pc-card.cons h4{color:var(--bad)}
+  .pc-card ul{margin:0;padding-left:1rem;font-size:.88rem;line-height:1.5}
+  .pc-card li{margin-bottom:.4rem}
+
+  /* highlight line */
+  .highlight-line{
+    padding:1rem 1.1rem;
+    background:var(--soft);
+    border:1px solid var(--border);
+    border-left:3px solid var(--accent);
+    font-weight:600;
+    font-size:1rem;
+    margin:1.2rem 0 1.6rem;
+  }
+
+  /* toggle */
+  .toggle{
+    display:inline-flex;
+    border:1px solid var(--border);
+    margin:.6rem 0 1.2rem;
+    overflow:hidden;
+  }
+  .toggle button{
+    background:var(--bg);
+    color:var(--ink);
+    border:0;
+    padding:.55rem 1.2rem;
+    font-family:'Inter',sans-serif;
+    font-size:.88rem;
+    font-weight:500;
+    cursor:pointer;
+    border-right:1px solid var(--border);
+    transition:background .15s,color .15s;
+  }
+  .toggle button:last-child{border-right:0}
+  .toggle button.active{
+    background:var(--accent);
+    color:#FFFFFF;
+  }
+  .toggle button:hover:not(.active){background:var(--soft)}
+
+  .pane{display:none}
+  .pane.active{display:block}
+
+  /* chart */
+  .chart-card{
+    border:1px solid var(--border);
+    padding:1rem 1.2rem .9rem;
+    margin:1rem 0 1.4rem;
+  }
+  .chart-card h3{margin:0 0 .25rem;font-size:.95rem}
+  .chart-card .src{
+    font-size:.72rem;
+    color:var(--mute);
+    margin-top:.4rem;
+  }
+  .chart-holder{position:relative;height:280px}
+
+  /* your view block */
+  .your-view{
+    border:1px solid var(--border);
+    padding:1.2rem 1.3rem;
+    margin:1.2rem 0 1.4rem;
+    min-height:220px;
+    background:var(--soft);
+  }
+  .your-view .label{
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.14em;
+    color:var(--mute);
+    font-weight:600;
+    margin-bottom:.6rem;
+  }
+  .your-view .placeholder{
+    color:var(--mute);
+    font-size:.9rem;
+  }
+
+  /* colophon */
+  .colophon{
+    margin-top:3rem;
+    padding-top:1.4rem;
+    border-top:1px solid var(--border);
+    font-size:.78rem;
+    color:var(--mute);
+    line-height:1.6;
+  }
+  .colophon code{
+    background:var(--soft);
+    padding:.08rem .35rem;
+    border:1px solid var(--border);
+    font-size:.78rem;
+  }
+
+  /* misc cell helpers */
+  .cell-pros{color:var(--good);font-size:.84rem;margin-bottom:.25rem}
+  .cell-cons{color:var(--bad);font-size:.84rem;margin-bottom:.25rem}
+  .cell-com{color:var(--mute);font-size:.82rem}
+
+  /* stat-strip — symmetric across both panes */
+  .stat-strip{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1rem;
+    margin:.4rem 0 1rem;
+  }
+  @media(max-width:680px){.stat-strip{grid-template-columns:1fr}}
+  .stat-cell{
+    border:1px solid var(--border);
+    padding:.75rem .9rem;
+    background:var(--soft);
+  }
+  .stat-cell .stat-label{
+    font-size:.68rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--mute);
+    font-weight:600;
+    margin-bottom:.3rem;
+  }
+  .stat-cell .stat-val{
+    font-size:1.05rem;
+    font-weight:600;
+    color:var(--ink);
+    font-variant-numeric:tabular-nums;
+  }
+  .stat-cell .stat-sub{
+    font-size:.76rem;
+    color:var(--mute);
+    margin-top:.18rem;
+    line-height:1.4;
+  }
+
+  /* your view — structured fields */
+  .yv-field{
+    margin:.65rem 0;
+  }
+  .yv-field-label{
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--mute);
+    font-weight:600;
+    margin-bottom:.25rem;
+  }
+  .yv-input{
+    border:1px solid var(--border);
+    padding:.55rem .7rem;
+    min-height:1.6rem;
+    font-size:.92rem;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.5;
+    outline:none;
+    font-family:'Inter',sans-serif;
+  }
+  .yv-input:focus{
+    border-color:var(--accent);
+  }
+  .yv-input:empty::before{
+    content:attr(data-placeholder);
+    color:var(--mute);
+    font-style:italic;
+  }
+
+  hr.rule{
+    border:0;
+    border-top:1px solid var(--border);
+    margin:2rem 0;
+  }
+
+  /* HHI mini-bars — inline concentration visual */
+  .hhi-mini{
+    border:1px solid var(--border);
+    padding:.85rem 1rem .9rem;
+    margin:.1rem 0 1rem;
+    background:var(--bg);
+  }
+  .hhi-mini .hhi-label{
+    font-size:.68rem;
+    text-transform:uppercase;
+    letter-spacing:.12em;
+    color:var(--mute);
+    font-weight:600;
+    margin-bottom:.55rem;
+  }
+  .hhi-row{
+    display:grid;
+    grid-template-columns:130px 1fr 78px;
+    align-items:center;
+    gap:.55rem;
+    margin:.28rem 0;
+    font-size:.82rem;
+  }
+  .hhi-row .hhi-name{color:var(--ink);font-weight:500}
+  .hhi-row .hhi-bar{
+    height:10px;
+    background:var(--soft);
+    border:1px solid var(--border);
+    position:relative;
+  }
+  .hhi-row .hhi-fill{height:100%;display:block}
+  .hhi-row .hhi-val{
+    text-align:right;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink);
+    font-size:.82rem;
+  }
+  .hhi-mini .hhi-foot{
+    font-size:.72rem;
+    color:var(--mute);
+    margin-top:.5rem;
+    line-height:1.45;
+  }
+</style>
+</head>
+<body>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="topnav-brand">GOLDBTC · expression layer</span>
+    <div class="topnav-tabs">
+      <a class="topnav-tab" href="../gold/">Gold</a>
+      <a class="topnav-tab active" href="../btc/">Bitcoin</a>
+    </div>
+  </div>
+</nav>
+<div class="page">
+
+  <!-- Masthead -->
+  <header class="mast">
+    <div class="kicker">Investment note · Bitcoin expression layer</div>
+    <h1>Bitcoin expression for a US-taxable 10-year sleeve</h1>
+    <div class="meta">
+      <span>As of 2026-05-13</span>
+      <span>2 rounds · 5 research fills</span>
+      <span>Verdict: <code style="font-size:.74rem">debate2/verdict/verdict.md</code></span>
+    </div>
+  </header>
+
+  <!-- Verdict line -->
+  <div class="verdict-line">
+    <div class="label">Recommendation</div>
+    <p><strong>40 FBTC / 60 IBIT</strong> at 25bp ER each, tracking CME CF BRRNY. Defections: 100% FBTC for concentration-averse · 100% IBIT for liquidity-bound · BTC Mini at 15bp for cost-bound. Futures-based vehicles (BITO, direct CME) lose by <span class="num">400-900 bp/yr</span> after-tax in every regime tested. GBTC at 150bp ER is strictly dominated.</p>
+  </div>
+
+  <!-- ====== BLOCK 1 — EXECUTIVE SUMMARY ====== -->
+  <h2>Executive summary</h2>
+  <ul class="bullets">
+    <li><strong>30-day median spreads (RR5, 2026-05-09):</strong> IBIT 1bp · FBTC 2bp · BITB/ARKB/GBTC 3bp · HODL/BTC Mini/EZBC 4bp · BRRR 9bp. The spread range is dwarfed by 15-25bp annual ER on every fund except HODL during its waiver.</li>
+    <li><strong>Realized 28-month CAGR drag vs benchmark (RR4):</strong> HODL 30 / EZBC 32 / FBTC 51 / IBIT 52 / ARKB 54 / BTC Mini 58 / BITB 59 / BRRR 69 / GBTC 92 bps/yr. 62bp cross-fund spread compounds to ~6.4% over 10 years and is almost entirely an ER-less-waiver story, not an index methodology story.</li>
+    <li><strong>Coinbase Custody = 85% of US spot ETF AUM</strong>, deployed-HHI 7,428 (~3× the DOJ "highly concentrated" 2,500 threshold). 40/60 FBTC/IBIT blend drops single-sponsor HHI from 10,000 (single-fund) to 5,200 at zero incremental ER. Anchorage is named as alternate on IBIT and BTC Mini but holds <strong>0 BTC deployed</strong> (per Dec-2025 IBIT prospectus and reaffirmed in BTC Mini's Dec-2025 prospectus).</li>
+    <li><strong>FBTC is the only major non-Coinbase deployed custodian</strong> — Fidelity Digital Assets under OCC NT charter, at the same 25bp ER as IBIT. The concentration-mitigating tilt is therefore free at the wrapper layer.</li>
+    <li><strong>CME front-month vs spot basis (RR5):</strong> +2.88%/yr full-sample · +2.14% 2025 · +2.15% YTD 2026 — compressed ~45% from 2024 peak +3.90%/yr. RR3's +7.97% front-2nd slope is a separate statistic (curve carry a roller pays).</li>
+    <li><strong>HODL is the only active fee waiver</strong> — 0% until 2026-07-31 or $2.5B AUM, whichever first. At $1.1B AUM the date binds first (~11 weeks remaining as of 2026-05-13); ER snaps to 20bp at expiry.</li>
+    <li><strong>Premium/discount dispersion tightened ~27% post-SEC-2025-101</strong> (in-kind C/R order, 2025-07-29): uniform σ ratio of 0.73 across all 9 ETFs, indicating system-wide AP-arbitrage efficiency improvement rather than fund-level effect.</li>
+  </ul>
+
+  <!-- ====== BLOCK 2 — SPOT vs FUTURES DECISION ====== -->
+  <h2>Spot vs futures decision</h2>
+
+  <div class="two-col">
+    <table>
+      <thead>
+        <tr>
+          <th></th>
+          <th>Spot ETF</th>
+          <th>Futures-based (BITO / direct CME)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="row-label">All-in cost</td><td>~25bp ER + 1-4bp spread → ~28bp/yr structural drag for the leading funds.</td><td>BITO: 95bp ER + 5.86%/yr realized drag (RR3 Regime C). Direct CME: 0bp ER + 2.88%/yr curve carry + operational roll burden.</td></tr>
+        <tr><td class="row-label">10y after-tax CAGR (12% gross)</td><td><strong class="num good">10.05%</strong> (LTCG, single realization at horizon).</td><td><strong class="num bad">3.77% BITO · 2.13% direct CME</strong> (Regime C; §1256 annual MTM).</td></tr>
+        <tr><td class="row-label">Tax wrapper</td><td>23.8% LTCG (20% + 3.8% NIIT) on a single realization at horizon under grantor-trust pass-through.</td><td>§1256 regulated-futures: 60/40 blended ≈ 30.6% top rate, applied <strong>annually</strong> via year-end mark-to-market. No deferral.</td></tr>
+        <tr><td class="row-label">Roll / path drag</td><td>0%. Wrapper holds spot BTC at a regulated custodian; no roll calendar.</td><td>BITO blends front + 2nd-month CME futures; +11.83%/yr 12m rolling front-2nd slope, partly offset by ~4%/yr T-bill collateral kicker at current rates.</td></tr>
+        <tr><td class="row-label">Compounding mechanism</td><td>Pre-tax gains compound inside the wrapper for the full horizon; tax paid once at exit.</td><td>Annual MTM forces tax payment each year regardless of sale → after-tax compound rate is permanently reduced; deferral is destroyed by statute.</td></tr>
+        <tr><td class="row-label">Capital efficiency</td><td>Fully funded; no margin; no embedded leverage inside the wrapper.</td><td>~40-45% SPAN initial margin; embedded ~2x effective leverage; T-bill cash collateral earns ~4%/yr in the current rate regime.</td></tr>
+        <tr><td class="row-label">Custody mechanism</td><td>Bankruptcy-remote trust holding spot BTC at CCTC / FDA / Anchorage / Gemini / BitGo / Komainu; §541(d) trust-property treatment.</td><td>No spot BTC at any layer. Cash-settled futures contracts at a CME clearing member; collateral in T-bills; pure synthetic exposure.</td></tr>
+        <tr><td class="row-label">Operational burden</td><td>None. Buy, hold. 1099-DIV is structural; no roll calendar; no margin maintenance.</td><td>BITO: 1099 with §1256 character. Direct CME: holder rolls front-month every ~30 days; Form 6781; carry-back/forward against other §1256 positions.</td></tr>
+        <tr><td class="row-label">Best for</td><td>10y+ US-taxable buy-and-hold. Tax-advantaged accounts (Roth/Traditional IRA, institutional UBTI-sensitive).</td><td>Short-term tactical exposure. Capital-efficient overlay/hedge. Tax-exempt accounts. Sub-$200k tactical sizing via CME Micro MBT.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="pc-grid">
+    <div class="pc-card pros">
+      <h4>Spot ETF — pros</h4>
+      <ul>
+        <li>Deferral preserved: 23.8% LTCG paid once at horizon. After-tax 10y CAGR <span class="num">10.05%</span> at 12% gross.</li>
+        <li>1bp median spread (IBIT); ~28bp/yr total structural drag including 25bp ER.</li>
+        <li>Bankruptcy-remote trust under §541(d); holder is trust beneficiary, not unsecured creditor.</li>
+        <li>Roth IRA wrapper moots both the §408(m) collectibles tail and the LTCG realization event.</li>
+      </ul>
+    </div>
+    <div class="pc-card cons">
+      <h4>Spot ETF — cons</h4>
+      <ul>
+        <li>Custody concentration: deployed-HHI 7,428; Coinbase Custody holds 85% of complex AUM. The named-alternate roster is undeployed at the wrapper layer.</li>
+        <li>AUM concentration: IBIT alone is 54% of complex AUM ($54.2B / $89.4B); top three (IBIT + FBTC + GBTC) is ~88%; sub-scale funds (BRRR $0.43B, EZBC $0.41B) carry consolidation risk.</li>
+        <li>Administrator-sponsor conflicts: FBTC three-hat (admin + sponsor + custodian); HODL two-hat (MarketVector admin = VanEck affiliate); CF Benchmarks owned by Kraken parent.</li>
+        <li>Self-custody crossover at ~$1.4-1.9M position size — above that, ETF-only is dominated by an ETF + collaborative-custody barbell on TCO basis (Q06).</li>
+        <li>§408(m) collectibles tail latent for IRA distributions; no IRS revenue ruling on spot-BTC grantor-trust shares specifically.</li>
+      </ul>
+    </div>
+    <div class="pc-card pros">
+      <h4>Futures-based — pros</h4>
+      <ul>
+        <li>Tax-exempt accounts (Roth IRA, qualified plans, foundations) sidestep §1256 MTM entirely — the deferral-destruction kill chain does not apply at the holder level.</li>
+        <li>Capital-efficient overlay: ~40-45% SPAN margin ≈ $170k per direct-BTC contract on $410k notional; embedded ~2× effective leverage usable for overlay or short-hedge structures.</li>
+        <li>T-bill collateral on direct CME and inside BITO earns ~4%/yr in the current rate regime — offsets ~half the front-vs-spot basis at sustained rates.</li>
+        <li>CME Micro Bitcoin (MBT) at 0.10 BTC / ~$8.2k notional enables sub-$200k tactical sizing that spot-ETF round-trip cost makes inefficient.</li>
+        <li>CME-cleared, no custody-counterparty exposure to any single crypto firm; pure regulatory clearing-member risk.</li>
+      </ul>
+    </div>
+    <div class="pc-card cons">
+      <h4>Futures-based — cons</h4>
+      <ul>
+        <li>BITO realized 5.86%/yr drag in Regime C; trailing 12m 3.73%/yr reflects T-bill collateral kicker, not structural improvement.</li>
+        <li>Direct CME: holder rolls every ~30 days at +7.97%/yr front-2nd slope; ops burden and bid/ask not modeled.</li>
+        <li>No spot BTC at any layer — pure synthetic, no §541(d) protection.</li>
+        <li>BITO 95bp ER is the most expensive in the complex; curve carry it eats is then taxed annually on top.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="small">Futures route wins only in: (i) tax-exempt accounts (§1256 MTM doesn't bind), (ii) capital-efficient overlay/hedge structures, (iii) sub-$200k tactical sizing via CME Micro MBT. None applies here.</p>
+
+  <div class="highlight-line">For 10+y US-taxable buy-and-hold, spot ETF dominates.</div>
+
+  <!-- ====== BLOCK 3 — TOGGLE: SPOT ETFs / FUTURES VEHICLES ====== -->
+  <h2>Vehicle catalogue</h2>
+  <p class="small mute">Net ER post-waiver as of 2026-05-09.</p>
+
+  <div class="toggle" id="vehicleToggle">
+    <button class="active" data-pane="spot">Spot ETFs</button>
+    <button data-pane="futures">Futures vehicles</button>
+  </div>
+
+  <!-- SPOT pane -->
+  <div class="pane active" id="pane-spot">
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <div class="stat-label">Cost stat — realized drag</div>
+        <div class="stat-val">30 – 92 bp/yr</div>
+        <div class="stat-sub">Realized 28m CAGR drag vs benchmark, 9 funds (RR4). Compounds linearly with ER less waiver.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Underlying reference — index</div>
+        <div class="stat-val">CME CF BRRNY (8 of 9)</div>
+        <div class="stat-sub">UK-BMR-authorised, 8-venue VWMP at 15:00-16:00 NY, 10% outlier rule. BTC Mini / GBTC use CoinDesk BBR.</div>
+      </div>
+    </div>
+
+    <div class="hhi-mini">
+      <div class="hhi-label">Custody concentration — single-sponsor HHI vs 40/60 blend vs DOJ threshold</div>
+      <div class="hhi-row">
+        <span class="hhi-name">Single fund</span>
+        <span class="hhi-bar"><span class="hhi-fill" style="width:100%;background:#A33126"></span></span>
+        <span class="hhi-val">10,000</span>
+      </div>
+      <div class="hhi-row">
+        <span class="hhi-name">Complex (deployed)</span>
+        <span class="hhi-bar"><span class="hhi-fill" style="width:74.28%;background:#A33126"></span></span>
+        <span class="hhi-val">7,428</span>
+      </div>
+      <div class="hhi-row">
+        <span class="hhi-name">40 FBTC / 60 IBIT</span>
+        <span class="hhi-bar"><span class="hhi-fill" style="width:52%;background:#1F4E5F"></span></span>
+        <span class="hhi-val">5,200</span>
+      </div>
+      <div class="hhi-row">
+        <span class="hhi-name">DOJ "highly concentrated"</span>
+        <span class="hhi-bar"><span class="hhi-fill" style="width:25%;background:#666666"></span></span>
+        <span class="hhi-val">2,500</span>
+      </div>
+      <div class="hhi-foot">Both wrappers at 25bp; blend halves the gap to the DOJ line but does not close it.</div>
+    </div>
+
+    <div class="tbl-wrap">
+      <table>
+        <caption>US spot Bitcoin ETFs · ranked by realized 28-month CAGR drag (RR4 v3_tracking_error_summary.csv; AUM, spread, waivers from RR5).</caption>
+        <thead>
+          <tr>
+            <th>Vehicle</th>
+            <th>Index</th>
+            <th class="n">Net ER</th>
+            <th class="n">Spread</th>
+            <th>Custodian</th>
+            <th class="n">28m drag</th>
+            <th class="n">AUM ($B)</th>
+            <th>Pros / Cons / Commentary</th>
+          </tr>
+        </thead>
+        <tbody id="spotTbody"></tbody>
+      </table>
+    </div>
+
+    <div class="chart-card">
+      <h3>Realized 28-month CAGR drag, by ETF (bp/yr)</h3>
+      <div class="chart-holder"><canvas id="chartDrag"></canvas></div>
+      <div class="src">RR4 v3_tracking_error_summary.csv · window: each ETF inception → 2026-05-11 · reference = Coinmetrics PriceUSD (BRRNY calculation series).</div>
+    </div>
+  </div>
+
+  <!-- FUTURES pane -->
+  <div class="pane" id="pane-futures">
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <div class="stat-label">Cost stat — realized drag</div>
+        <div class="stat-val">3.73 – 7.97 %/yr</div>
+        <div class="stat-sub">BITO trailing-12m 3.73%/yr · Regime C 5.86%/yr · direct CME front-2nd curve carry 7.97%/yr (RR3). 100-300× the spot-ETF complex.</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-label">Underlying reference — basis</div>
+        <div class="stat-val">+2.88%/yr full / +2.15% YTD</div>
+        <div class="stat-sub">CME front-vs-spot annualised, RR5 v3_cme_roll_summary.json. Compressed ~45% from 2024 peak +3.90%. Front-2nd slope is a separate +7.97%/yr statistic.</div>
+      </div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <caption>Futures-based BTC expression vehicles · §1256 60/40 mark-to-market applies to all three (RR3, RR5 §4).</caption>
+        <thead>
+          <tr>
+            <th>Vehicle</th>
+            <th>Methodology</th>
+            <th class="n">Tick / size</th>
+            <th class="n">Initial margin</th>
+            <th>Tax</th>
+            <th class="n">Trailing 12m basis</th>
+            <th class="n">Trailing 12m drag</th>
+            <th>Pros / Cons / Commentary</th>
+          </tr>
+        </thead>
+        <tbody id="futTbody"></tbody>
+      </table>
+    </div>
+
+    <div class="chart-card">
+      <h3>CME front-month-vs-spot basis, by window (%/yr annualized)</h3>
+      <div class="chart-holder"><canvas id="chartBasis"></canvas></div>
+      <div class="src">RR5 v3_cme_roll_summary.json · DTM=30 · spot = Coinmetrics PriceUSD. Dashed reference lines are the front-2nd curve slope (+7.97%/yr) and 12m rolling roll-yield (+11.83%/yr) — the carry a roller actually pays. Blue line is front-vs-spot only.</div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- ====== BLOCK 4 — CONCLUSION + YOUR VIEW ====== -->
+  <h2>Conclusion</h2>
+
+  <h3>Synthesis</h3>
+  <p>Tax code decides wrapper; §1256 annual MTM eliminates the deferral that compounds over 10y. Within the spot complex, tracking error is index-agnostic (all 9 cluster at 20.3-21.3% annualized) — the differentiator is ER less waiver. FBTC + IBIT pair at 25bp across OCC NT and NYDFS Article-III charters: diversification at zero incremental cost. <strong>Flips the call:</strong> deployed Anchorage migration disclosed in any IBIT/Mini 10-Q, or sub-10bp ER from a non-Coinbase custodian.</p>
+
+  <h3>Your view</h3>
+  <div class="your-view">
+    <div class="yv-field">
+      <div class="yv-field-label">Size / horizon</div>
+      <div class="yv-input" contenteditable="true" data-placeholder="e.g. $250k initial, DCA $5k/mo, 12y horizon — near the ~$1.4M collaborative-custody crossover?"></div>
+    </div>
+    <div class="yv-field">
+      <div class="yv-field-label">Wrapper constraints</div>
+      <div class="yv-input" contenteditable="true" data-placeholder="e.g. Roth capacity available · taxable only · UBTI-sensitive"></div>
+    </div>
+    <div class="yv-field">
+      <div class="yv-field-label">What would disqualify the 40 / 60 default</div>
+      <div class="yv-input" contenteditable="true" data-placeholder="e.g. CCTC tail priced above 16 bp/yr → 100% FBTC · liquidity-bound → 100% IBIT · need MBT for sub-$200k tactical"></div>
+    </div>
+  </div>
+
+  <div class="colophon">
+    Methodology: 2-round iterative debate · 5 research fills (RR1-RR5) · asymmetric-context discipline · Moderator-adjudicated. R1 advocates blind; R2 exchanged. Closed at R2.<br>
+    Verdict of record: <code>debate2/verdict/verdict.md</code><br>
+    Sources: RR3 (basis regimes, BITO drag decomposition); RR4 (tracking error, index ↔ ETF map); RR5 (spreads, prem/disc regime, AUM/waivers, CME futures roll); Q08 (BITO drag headline); Q11 (after-tax matrix). Primary index methodologies: CME CF Benchmarks, Fidelity FBRR, CoinDesk Indices, MarketVector MVBTC. SEC EDGAR S-1/424(b)(3) per ETF; SEC press release 2025-101.
+  </div>
+
+</div>
+
+<script>
+/* Inlined data — no fetch. Sourced from verdict.md, RR3, RR4, RR5. */
+
+const PALETTE = {
+  bg:'#FFFFFF', ink:'#1A1A1A', mute:'#666666', border:'#E5E5E5',
+  accent:'#1F4E5F', good:'#1B5E20', bad:'#A33126'
+};
+
+// Spot ETFs (RR4 drag · RR5 spreads/AUM/waivers · verdict.md custodians)
+const SPOT = [
+  { tk:'HODL', sp:'VanEck', idx:'MVBTC', er:'0% (waiver)', spr:'4bp', cust:'Gemini + Coinbase (split undisclosed)', drag:30.3, aum:1.1,
+    pros:'Lowest current ER (0% waiver); MarketVector administrator regulated under EU BMR.',
+    cons:'Waiver sunsets 2026-07-31 (~11 weeks); two-hat MarketVector-VanEck admin conflict; per-custodian BTC split undisclosed.',
+    com:'Tactical play for the next quarter; loses cost-bound default once the waiver expires and ER snaps to 20bp.' },
+  { tk:'EZBC', sp:'Franklin Templeton', idx:'BRRNY', er:'19bp', spr:'4bp', cust:'Coinbase sole', drag:31.9, aum:0.41,
+    pros:'Lowest non-waiver permanent ER among BRRNY trackers (19bp).',
+    cons:'Sub-scale ($410M AUM); single-custodian Coinbase; spread 4bp vs IBIT 1bp closes the ER gap on round-trip.',
+    com:'6bp ER discount vs IBIT/FBTC, but full CCTC concentration; not a structural advantage at this scale.' },
+  { tk:'FBTC', sp:'Fidelity', idx:'FBRR (≈BRRNY)', er:'25bp', spr:'2bp', cust:'Fidelity Digital Assets (OCC NT)', drag:51.3, aum:13.5,
+    pros:'Only major non-Coinbase deployed custodian; OCC national-trust charter; tight 2bp spread.',
+    cons:'Three-hat Fidelity stack (administrator + sponsor + custodian); same 25bp ER as IBIT with no fee advantage.',
+    com:'Default tilt for the concentration-averse — absorbs the ~16bp/yr unpriced CCTC-concentration premium at zero incremental fee.' },
+  { tk:'IBIT', sp:'BlackRock', idx:'BRRNY', er:'25bp', spr:'1bp', cust:'Coinbase Custody (Anchorage named, 0 BTC deployed per Dec-2025 prospectus)', drag:52.3, aum:54.2,
+    pros:'Deepest secondary market; tightest 1bp spread; largest AP roster; 60% of US spot ETF AUM.',
+    cons:'Full CCTC custody concentration; Anchorage migration disclosed but undeployed per Dec-2025 prospectus.',
+    com:'Default tilt for the liquidity-bound; the 60-leg of the 40/60 blend; AP arbitrage is most efficient here.' },
+  { tk:'ARKB', sp:'ARK 21Shares', idx:'BRRNY', er:'21bp', spr:'3bp', cust:'Coinbase sole', drag:54.1, aum:2.5,
+    pros:'4bp ER discount vs IBIT/FBTC; mid-scale ($2.5B AUM).',
+    cons:'Single-custodian Coinbase; offers nothing vs IBIT on liquidity or vs FBTC on custody diversification.',
+    com:'Dominated on every axis except modest ER savings; not a recommended default.' },
+  { tk:'BTC Mini', sp:'Grayscale', idx:'BBR (CoinDesk)', er:'15bp', spr:'4bp', cust:'Coinbase Custody (Anchorage named, 0 BTC deployed per Dec-2025 prospectus)', drag:57.8, aum:3.4,
+    pros:'Lowest permanent ER in complex (15bp); no waiver to lose; ~1% cumulative ER advantage over IBIT/FBTC at 10y.',
+    cons:'Full CCTC concentration; CoinDesk BBR not BRRNY-family (no NAV penalty); GBTC sibling absorbs tax-stranded outflow pressure.',
+    com:'Defensible default for cost-bound holders accepting CCTC concentration; 10bp/yr saving vs IBIT/FBTC.' },
+  { tk:'BITB', sp:'Bitwise', idx:'BRRNY', er:'20bp', spr:'3bp', cust:'Coinbase sole', drag:59.4, aum:2.7,
+    pros:'5bp ER discount vs IBIT/FBTC; Bitwise explicitly chose BRRNY over its in-house BITW index — sponsor-administrator conflict avoided.',
+    cons:'Single-custodian Coinbase; mid-pack scale.',
+    com:'Solid construction but no structural advantage; 3bp vs 1bp spread closes the ER gap on round-trip cost.' },
+  { tk:'BRRR', sp:'Valkyrie / CoinShares', idx:'BBR (CoinDesk)', er:'25bp', spr:'9bp', cust:'Coinbase + BitGo + Komainu (split undisclosed)', drag:69.1, aum:0.43,
+    pros:'Three custodians <em>named</em> at the wrapper layer (Coinbase + BitGo + Komainu) — broadest named-custodian roster in the complex.',
+    cons:'Sub-scale ($430M AUM); 9bp spread is the worst in the complex; per-custodian BTC split undisclosed in N-CSR — the named roster is not a verified concentration mitigant; high realized drag.',
+    com:'Named multi-custody is interesting on paper but the undisclosed split keeps it from being a structural HHI mitigant; scale and round-trip cost compound the gap.' },
+  { tk:'GBTC', sp:'Grayscale', idx:'BBR (CoinDesk)', er:'150bp', spr:'3bp', cust:'Coinbase sole', drag:92.5, aum:11.0,
+    pros:'Deepest history; large embedded AUM; tax-stranded holders rationally stay rather than realize embedded gains.',
+    cons:'150bp ER compounds to ~14% drag over 10y; strictly dominated by BTC Mini sibling on cost.',
+    com:'Excluded for new money; Grayscale\'s explicit dual-vehicle design routes new flow to BTC Mini.' }
+];
+
+// Futures vehicles (RR5 §4 CME specs; RR3 realized drag)
+const FUTURES = [
+  { tk:'BITO', meth:'ProShares Bitcoin Strategy ETF · blended front + 2nd-month CME futures · 1940-Act wrapper', tick:'ETF share · ~$25 NAV', margin:'N/A (1940-Act ETF)',
+    tax:'§1256 60/40 fund-level MTM; 1099 pass-through; T-bill collateral ~4%/yr partially offsets curve drag',
+    basis:'+5-6%/yr front-2nd slope (RR3)', drag:'5.86%/yr Regime C · 3.73%/yr trailing 12m (RR3)',
+    pros:'1940-Act wrapper; no margin/roll burden for end holder; sub-1099 tax reporting; brokerage-account accessible.',
+    cons:'95bp ER (highest in complex); §1256 annual MTM destroys deferral; realized 5.86%/yr drag in current regime.',
+    com:'Excluded by 628bp/yr after-tax shortfall vs spot ETF at 12% gross BTC (Regime C, RR3).' },
+  { tk:'Direct CME BTC', meth:'CME ticker BTC · cash-settled to BRR (16:00 London fix) · holder rolls front-month', tick:'$5/BTC tick · 5 BTC/contract · ~$410k notional at $82k spot',
+    margin:'~40-45% SPAN ≈ $170k per contract',
+    tax:'§1256 60/40 MTM at the holder; Form 6781; carry-back/forward against other §1256 positions',
+    basis:'+2.13%/yr trailing 12m front-vs-spot (RR5)', drag:'~7.97%/yr front-2nd curve carry, Regime C (RR3)',
+    pros:'0bp ER; CME-cleared; tight bid/ask in regular hours; cleanest §1256 instrument; T-bill collateral earns rate.',
+    cons:'Holder rolls every ~30 days; $410k per-contract notional too coarse for sub-$200k allocations; ops burden.',
+    com:'Excluded for 10y buy-and-hold; reasonable for tactical overlay or institutional basis trade.' },
+  { tk:'CME Micro Bitcoin (MBT)', meth:'CME ticker MBT · cash-settled to BRR · 1/50th BTC notional · same settlement as standard BTC',
+    tick:'$5/BTC tick · 0.10 BTC/contract · ~$8.2k notional at $82k spot',
+    margin:'~40-45% SPAN ≈ $3.5k per contract',
+    tax:'Identical §1256 60/40 MTM; tick % identical to BTC (~6bp at $82k spot)',
+    basis:'+2.13%/yr (same curve as BTC)', drag:'~7.97%/yr curve carry',
+    pros:'50× finer granularity than BTC; sub-$200k allocation sizing feasible; identical tax/margin economics per unit.',
+    cons:'Same §1256 deferral problem; OI ~4-5% of BTC standard contract; slightly wider $/notional spread off-hours.',
+    com:'Sizing tool for tactical pivots and sub-$50k accounts. Not a 10y buy-and-hold instrument.' }
+];
+
+// Basis history (RR5 §4c)
+const BASIS_HIST = {
+  labels:['Full 2024-to-now','2024','2025','2026 YTD','Trailing 12m','Trailing 3m'],
+  data:[2.88, 3.90, 2.14, 2.15, 2.13, 2.46]
+};
+
+/* === Render Spot ETFs === */
+(function(){
+  const t = document.getElementById('spotTbody');
+  SPOT.forEach(e => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${e.tk}</strong><div class="xs">${e.sp}</div></td>
+      <td class="small">${e.idx}</td>
+      <td class="n small">${e.er}</td>
+      <td class="n small">${e.spr}</td>
+      <td class="xs">${e.cust}</td>
+      <td class="n">${e.drag.toFixed(1)}</td>
+      <td class="n">${e.aum.toFixed(2)}</td>
+      <td>
+        <div class="cell-pros"><strong>+</strong> ${e.pros}</div>
+        <div class="cell-cons"><strong>−</strong> ${e.cons}</div>
+        <div class="cell-com">${e.com}</div>
+      </td>`;
+    t.appendChild(tr);
+  });
+})();
+
+/* === Render Futures vehicles === */
+(function(){
+  const t = document.getElementById('futTbody');
+  FUTURES.forEach(e => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td><strong>${e.tk}</strong></td>
+      <td class="xs">${e.meth}</td>
+      <td class="xs">${e.tick}</td>
+      <td class="xs">${e.margin}</td>
+      <td class="xs">${e.tax}</td>
+      <td class="n small">${e.basis}</td>
+      <td class="n small">${e.drag}</td>
+      <td>
+        <div class="cell-pros"><strong>+</strong> ${e.pros}</div>
+        <div class="cell-cons"><strong>−</strong> ${e.cons}</div>
+        <div class="cell-com">${e.com}</div>
+      </td>`;
+    t.appendChild(tr);
+  });
+})();
+
+/* === Toggle === */
+(function(){
+  const buttons = document.querySelectorAll('#vehicleToggle button');
+  const panes = {
+    spot: document.getElementById('pane-spot'),
+    futures: document.getElementById('pane-futures')
+  };
+  buttons.forEach(b => b.addEventListener('click', () => {
+    buttons.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    Object.values(panes).forEach(p => p.classList.remove('active'));
+    panes[b.dataset.pane].classList.add('active');
+    if (window._charts && window._charts[b.dataset.pane]) window._charts[b.dataset.pane].resize();
+  }));
+})();
+
+/* === Charts === */
+const baseOpts = {
+  responsive:true,
+  maintainAspectRatio:false,
+  layout:{padding:{top:6,right:6,bottom:0,left:0}},
+  plugins:{
+    legend:{display:false},
+    tooltip:{
+      backgroundColor:PALETTE.ink,
+      titleFont:{family:'Inter',size:11,weight:'500'},
+      bodyFont:{family:'Inter',size:11},
+      padding:8,
+      displayColors:false
+    }
+  },
+  scales:{
+    x:{
+      grid:{display:false},
+      ticks:{color:PALETTE.mute, font:{family:'Inter',size:11}},
+      border:{color:PALETTE.border}
+    },
+    y:{
+      grid:{color:PALETTE.border, drawTicks:false},
+      ticks:{color:PALETTE.mute, font:{family:'Inter',size:11}},
+      border:{display:false}
+    }
+  }
+};
+
+window._charts = {};
+
+/* Drag chart — spot ETFs */
+(function(){
+  const ctx = document.getElementById('chartDrag').getContext('2d');
+  const sorted = [...SPOT].sort((a,b) => a.drag - b.drag);
+  const colors = sorted.map(e => e.tk === 'GBTC' ? PALETTE.bad : (e.drag < 40 ? PALETTE.good : PALETTE.accent));
+  window._charts.spot = new Chart(ctx, {
+    type:'bar',
+    data:{
+      labels: sorted.map(e => e.tk),
+      datasets:[{
+        label:'Realized CAGR drag (bp/yr)',
+        data: sorted.map(e => e.drag),
+        backgroundColor: colors,
+        borderColor: colors,
+        borderWidth:1,
+        borderRadius:0,
+        barThickness:22
+      }]
+    },
+    options:{
+      ...baseOpts,
+      plugins:{
+        ...baseOpts.plugins,
+        tooltip:{...baseOpts.plugins.tooltip, callbacks:{label:c => ` ${c.parsed.y.toFixed(1)} bp/yr`}}
+      },
+      scales:{
+        x:{grid:{display:false}, ticks:{color:PALETTE.ink, font:{family:'Inter',size:11,weight:'500'}}, border:{color:PALETTE.border}},
+        y:{...baseOpts.scales.y, suggestedMin:0, ticks:{...baseOpts.scales.y.ticks, callback:v => v + ' bp'}}
+      }
+    }
+  });
+})();
+
+/* Basis chart — futures */
+(function(){
+  const ctx = document.getElementById('chartBasis').getContext('2d');
+  const N = BASIS_HIST.labels.length;
+  window._charts.futures = new Chart(ctx, {
+    type:'line',
+    data:{
+      labels: BASIS_HIST.labels,
+      datasets:[
+        {
+          label:'Front-vs-spot basis (%/yr)',
+          data: BASIS_HIST.data,
+          borderColor: PALETTE.accent,
+          backgroundColor: PALETTE.accent,
+          pointBackgroundColor: PALETTE.accent,
+          pointBorderColor: PALETTE.accent,
+          pointRadius: 5,
+          pointHoverRadius: 6,
+          borderWidth: 1.8,
+          tension: 0,
+          fill: false
+        },
+        {
+          label:'Front-2nd curve slope (RR3, +7.97%/yr)',
+          data: Array(N).fill(7.97),
+          borderColor: PALETTE.mute,
+          backgroundColor: PALETTE.mute,
+          pointRadius: 0,
+          borderWidth: 1.2,
+          borderDash: [4,3],
+          tension: 0,
+          fill: false
+        },
+        {
+          label:'12m rolling roll-yield (RR3, +11.83%/yr)',
+          data: Array(N).fill(11.83),
+          borderColor: PALETTE.bad,
+          backgroundColor: PALETTE.bad,
+          pointRadius: 0,
+          borderWidth: 1.2,
+          borderDash: [4,3],
+          tension: 0,
+          fill: false
+        }
+      ]
+    },
+    options:{
+      ...baseOpts,
+      plugins:{
+        ...baseOpts.plugins,
+        legend:{display:true, position:'bottom', labels:{color:PALETTE.mute, font:{family:'Inter', size:10}, boxWidth:18, boxHeight:2}},
+        tooltip:{...baseOpts.plugins.tooltip, callbacks:{label:c => ` ${c.parsed.y.toFixed(2)} %/yr`}}
+      },
+      scales:{
+        ...baseOpts.scales,
+        y:{...baseOpts.scales.y, suggestedMin:0, suggestedMax:13, ticks:{...baseOpts.scales.y.ticks, callback:v => v + '%'}}
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
