@@ -63,6 +63,73 @@
     background: var(--soft);
     border-color: var(--border);
   }
+
+  /* matrix */
+  .mx-wrap { overflow-x: auto; margin: 12px 0 4px; }
+  table.mx {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    line-height: 1.4;
+    min-width: 720px;
+  }
+  table.mx th, table.mx td {
+    border: 1px solid var(--border);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+    background: var(--bg);
+  }
+  table.mx thead th {
+    background: var(--soft);
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: -0.005em;
+  }
+  table.mx thead th .mx-sub {
+    display: block;
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--mute);
+    margin-top: 2px;
+  }
+  .mx-corner { background: var(--bg) !important; border-top: 0 !important; border-left: 0 !important; }
+  .mx-row {
+    background: var(--soft) !important;
+    width: 140px;
+    font-weight: 600;
+    font-size: 12.5px;
+    color: var(--ink);
+  }
+  .mx-thsub {
+    font-weight: 400;
+    color: var(--mute);
+    font-size: 11px;
+    letter-spacing: 0.01em;
+  }
+  table.mx td { position: relative; }
+  .mx-cell { color: var(--ink); padding-right: 24px; }
+  .mx-pos, .mx-neu, .mx-neg {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 12.5px;
+    font-weight: 700;
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    text-align: center;
+    border-radius: 50%;
+  }
+  .mx-pos { background: rgba(27,94,32,0.10); color: var(--good); }
+  .mx-neu { background: rgba(102,102,102,0.10); color: var(--mute); }
+  .mx-neg { background: rgba(163,49,38,0.10); color: var(--bad); }
+  .mx-foot-row td { background: var(--soft) !important; font-size: 12.5px; }
+  .mx-verdict { padding-right: 12px; }
+  .mx-verdict-pos { border-top: 2px solid var(--good) !important; }
+  .mx-verdict-neg { border-top: 2px solid var(--bad) !important; }
+  .mx-verdict-neu { border-top: 2px solid var(--mute) !important; }
   body{
     background:var(--bg);
     color:var(--ink);
@@ -484,19 +551,20 @@
   <!-- Verdict line -->
   <div class="verdict-line">
     <div class="label">Recommendation</div>
-    <p><strong>40 FBTC / 60 IBIT</strong> at 25bp ER each, tracking CME CF BRRNY. Defections: 100% FBTC for concentration-averse · 100% IBIT for liquidity-bound · BTC Mini at 15bp for cost-bound. Futures-based vehicles (BITO, direct CME) lose by <span class="num">400-900 bp/yr</span> after-tax in every regime tested. GBTC at 150bp ER is strictly dominated.</p>
+    <p><strong>40 FBTC / 60 IBIT</strong> at 25bp ER each, tracking CME CF BRRNY. Defections: 100% FBTC for concentration-averse · 100% IBIT for liquidity-bound. GBTC at 150bp ER is strictly dominated for new money — held only by tax-stranded incumbents. Futures-based vehicles (BITO, direct CME) lose by <span class="num">400-900 bp/yr</span> after-tax in every regime tested.</p>
   </div>
 
   <!-- ====== BLOCK 1 — EXECUTIVE SUMMARY ====== -->
   <h2>Executive summary</h2>
   <ul class="bullets">
-    <li><strong>30-day median spreads (RR5, 2026-05-09):</strong> IBIT 1bp · FBTC 2bp · BITB/ARKB/GBTC 3bp · HODL/BTC Mini/EZBC 4bp · BRRR 9bp. The spread range is dwarfed by 15-25bp annual ER on every fund except HODL during its waiver.</li>
-    <li><strong>Realized 28-month CAGR drag vs benchmark (RR4):</strong> HODL 30 / EZBC 32 / FBTC 51 / IBIT 52 / ARKB 54 / BTC Mini 58 / BITB 59 / BRRR 69 / GBTC 92 bps/yr. 62bp cross-fund spread compounds to ~6.4% over 10 years and is almost entirely an ER-less-waiver story, not an index methodology story.</li>
-    <li><strong>Coinbase Custody = 85% of US spot ETF AUM</strong>, deployed-HHI 7,428 (~3× the DOJ "highly concentrated" 2,500 threshold). 40/60 FBTC/IBIT blend drops single-sponsor HHI from 10,000 (single-fund) to 5,200 at zero incremental ER. Anchorage is named as alternate on IBIT and BTC Mini but holds <strong>0 BTC deployed</strong> (per Dec-2025 IBIT prospectus and reaffirmed in BTC Mini's Dec-2025 prospectus).</li>
-    <li><strong>FBTC is the only major non-Coinbase deployed custodian</strong> — Fidelity Digital Assets under OCC NT charter, at the same 25bp ER as IBIT. The concentration-mitigating tilt is therefore free at the wrapper layer.</li>
-    <li><strong>CME front-month vs spot basis (RR5):</strong> +2.88%/yr full-sample · +2.14% 2025 · +2.15% YTD 2026 — compressed ~45% from 2024 peak +3.90%/yr. RR3's +7.97% front-2nd slope is a separate statistic (curve carry a roller pays).</li>
-    <li><strong>HODL is the only active fee waiver</strong> — 0% until 2026-07-31 or $2.5B AUM, whichever first. At $1.1B AUM the date binds first (~11 weeks remaining as of 2026-05-13); ER snaps to 20bp at expiry.</li>
-    <li><strong>Premium/discount dispersion tightened ~27% post-SEC-2025-101</strong> (in-kind C/R order, 2025-07-29): uniform σ ratio of 0.73 across all 9 ETFs, indicating system-wide AP-arbitrage efficiency improvement rather than fund-level effect.</li>
+    <li><strong>Universe (AUM &gt;$10B, May 2026):</strong> IBIT $65.4B · FBTC $15.0B · GBTC $11.9B. Sub-scale spot ETFs (BTC Mini $4.2B, BITB $3.0B, ARKB $3.0B, HODL $1.3B, BTCO $0.5B, EZBC $0.5B, BRRR $0.5B) collectively hold ~14% of complex AUM and offer no structural advantage over the three at-scale wrappers.</li>
+    <li><strong>Indices in scope:</strong> CME CF BRRNY (IBIT, FBTC) — UK-BMR-authorised, 8-venue VWMP, 15:00–16:00 NY, 10% outlier rule. CoinDesk Bitcoin Benchmark Rate (GBTC, since 2026-04-01, replacing the legacy CoinDesk XBX) — 11-venue volume-weighted with stale-quote penalties. Both are mature, audited, and behave identically over weekly windows; methodology is not a differentiator at horizon.</li>
+    <li><strong>30-day median spreads (RR5):</strong> IBIT 1bp · FBTC 2bp · GBTC 3bp. The spread range is dwarfed by the ER gap between 25bp (IBIT, FBTC) and 150bp (GBTC).</li>
+    <li><strong>Realized 28-month CAGR drag vs benchmark (RR4):</strong> FBTC 51 · IBIT 52 · GBTC 92 bps/yr. The 40bp/yr GBTC gap is pure ER differential, not index methodology — compounds to ~5% over 10y.</li>
+    <li><strong>Coinbase Custody = 85% of US spot ETF AUM</strong>, deployed-HHI 7,428 (~3× the DOJ "highly concentrated" 2,500 threshold). In the &gt;$10B set, both IBIT and GBTC use CCTC sole; only FBTC sits at Fidelity Digital Assets (OCC NT). 40/60 FBTC/IBIT blend drops single-sponsor HHI from 10,000 to 5,200 at zero incremental ER. Anchorage is named as alternate on IBIT but holds <strong>0 BTC deployed</strong> (Dec-2025 prospectus).</li>
+    <li><strong>FBTC is the only non-Coinbase deployed custodian</strong> in the &gt;$10B set — Fidelity Digital Assets under OCC NT charter, at the same 25bp ER as IBIT. The concentration-mitigating tilt is free at the wrapper layer.</li>
+    <li><strong>GBTC is in scope by AUM, dominated by economics.</strong> 150bp ER vs 25bp at IBIT/FBTC compounds to ~14% drag at 10y. Held only by tax-stranded incumbents; Grayscale's explicit dual-vehicle design routes new flow to the BTC Mini sibling.</li>
+    <li><strong>CME front-month vs spot basis (RR5):</strong> +2.88%/yr full-sample · +2.15% YTD 2026 — compressed ~45% from 2024 peak +3.90%/yr. Futures-based wrappers still lose by 400–900 bp/yr after-tax under §1256 annual MTM.</li>
   </ul>
 
   <!-- ====== BLOCK 2 — SPOT vs FUTURES DECISION ====== -->
@@ -539,8 +607,8 @@
       <h4>Spot ETF — cons</h4>
       <ul>
         <li>Custody concentration: deployed-HHI 7,428; Coinbase Custody holds 85% of complex AUM. The named-alternate roster is undeployed at the wrapper layer.</li>
-        <li>AUM concentration: IBIT alone is 54% of complex AUM ($54.2B / $89.4B); top three (IBIT + FBTC + GBTC) is ~88%; sub-scale funds (BRRR $0.43B, EZBC $0.41B) carry consolidation risk.</li>
-        <li>Administrator-sponsor conflicts: FBTC three-hat (admin + sponsor + custodian); HODL two-hat (MarketVector admin = VanEck affiliate); CF Benchmarks owned by Kraken parent.</li>
+        <li>AUM concentration: IBIT alone is 62% of complex AUM ($65.4B / $105.9B); top three (IBIT + FBTC + GBTC) is ~87% and the AUM cutoff used here ($10B); sub-scale funds (BRRR $0.49B, EZBC $0.49B, BTCO $0.53B) carry consolidation risk.</li>
+        <li>Administrator-sponsor conflicts: FBTC three-hat (admin + sponsor + custodian); CF Benchmarks owned by Kraken parent.</li>
         <li>Self-custody crossover at ~$1.4-1.9M position size — above that, ETF-only is dominated by an ETF + collaborative-custody barbell on TCO basis (Q06).</li>
         <li>§408(m) collectibles tail latent for IRA distributions; no IRS revenue ruling on spot-BTC grantor-trust shares specifically.</li>
       </ul>
@@ -584,13 +652,13 @@
     <div class="stat-strip">
       <div class="stat-cell">
         <div class="stat-label">Cost stat — realized drag</div>
-        <div class="stat-val">30 – 92 bp/yr</div>
-        <div class="stat-sub">Realized 28m CAGR drag vs benchmark, 9 funds (RR4). Compounds linearly with ER less waiver.</div>
+        <div class="stat-val">51 – 92 bp/yr</div>
+        <div class="stat-sub">28m CAGR drag vs benchmark (RR4) for the 3 in-scope ETFs: FBTC 51 · IBIT 52 · GBTC 92. Compounds linearly with ER.</div>
       </div>
       <div class="stat-cell">
         <div class="stat-label">Underlying reference — index</div>
-        <div class="stat-val">CME CF BRRNY (8 of 9)</div>
-        <div class="stat-sub">UK-BMR-authorised, 8-venue VWMP at 15:00-16:00 NY, 10% outlier rule. BTC Mini / GBTC use CoinDesk BBR.</div>
+        <div class="stat-val">BRRNY (2 of 3) · CoinDesk BBR (GBTC)</div>
+        <div class="stat-sub">CME CF BRRNY: UK-BMR-authorised, 8-venue VWMP at 15:00-16:00 NY, 10% outlier rule. GBTC moved to CoinDesk Bitcoin Benchmark Rate (11-venue) on 2026-04-01.</div>
       </div>
     </div>
 
@@ -621,7 +689,7 @@
 
     <div class="tbl-wrap">
       <table>
-        <caption>US spot Bitcoin ETFs · ranked by realized 28-month CAGR drag (RR4 v3_tracking_error_summary.csv; AUM, spread, waivers from RR5).</caption>
+        <caption>US spot Bitcoin ETFs &gt;$10B AUM · ranked by realized 28-month CAGR drag (RR4 v3_tracking_error_summary.csv; AUM May 2026, spread from RR5).</caption>
         <thead>
           <tr>
             <th>Vehicle</th>
@@ -691,7 +759,7 @@
   <h2>Conclusion</h2>
 
   <h3>Synthesis</h3>
-  <p>Tax code decides wrapper; §1256 annual MTM eliminates the deferral that compounds over 10y. Within the spot complex, tracking error is index-agnostic (all 9 cluster at 20.3-21.3% annualized) — the differentiator is ER less waiver. FBTC + IBIT pair at 25bp across OCC NT and NYDFS Article-III charters: diversification at zero incremental cost. <strong>Flips the call:</strong> deployed Anchorage migration disclosed in any IBIT/Mini 10-Q, or sub-10bp ER from a non-Coinbase custodian.</p>
+  <p>Tax code decides wrapper; §1256 annual MTM eliminates the deferral that compounds over 10y. Within the &gt;$10B set, tracking error is index-agnostic — IBIT and FBTC cluster at ~20.5% annualized realized vol vs benchmark; GBTC tracks identically but the 150bp ER overwhelms the methodology. FBTC + IBIT pair at 25bp across OCC NT (Fidelity Digital Assets) and NYDFS Article-III (Coinbase) charters: diversification at zero incremental cost. <strong>Flips the call:</strong> deployed Anchorage migration disclosed in any IBIT 10-Q, or sub-10bp ER from a non-Coinbase custodian at scale.</p>
 
   <h3>Your view</h3>
   <div class="your-view">
@@ -707,6 +775,74 @@
       <div class="yv-field-label">What would disqualify the 40 / 60 default</div>
       <div class="yv-input" contenteditable="true" data-placeholder="e.g. CCTC tail priced above 16 bp/yr → 100% FBTC · liquidity-bound → 100% IBIT · need MBT for sub-$200k tactical"></div>
     </div>
+  </div>
+
+  <hr class="rule">
+
+  <h2>Vehicle × factor matrix</h2>
+  <p class="small mute">Side-by-side read across seven factors. Sign convention: <span class="mx-pos">+</span> favourable · <span class="mx-neu">○</span> neutral · <span class="mx-neg">−</span> unfavourable. Sub-$10B ETFs excluded by AUM filter.</p>
+
+  <div class="mx-wrap">
+    <table class="mx">
+      <thead>
+        <tr>
+          <th class="mx-corner"></th>
+          <th>IBIT <span class="mx-sub">$65.4B</span></th>
+          <th>FBTC <span class="mx-sub">$15.0B</span></th>
+          <th>GBTC <span class="mx-sub">$11.9B</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th class="mx-row">Expense ratio</th>
+          <td><span class="mx-pos">+</span><div class="mx-cell">25 bp · joint cost minimum at scale</div></td>
+          <td><span class="mx-pos">+</span><div class="mx-cell">25 bp · matches IBIT exactly</div></td>
+          <td><span class="mx-neg">−</span><div class="mx-cell">150 bp · 6× IBIT/FBTC; ~14% drag compounded over 10y</div></td>
+        </tr>
+        <tr>
+          <th class="mx-row">Tracking quality<br><span class="mx-thsub">28m realized drag</span></th>
+          <td><span class="mx-pos">+</span><div class="mx-cell">52 bp/yr · fee-anchored</div></td>
+          <td><span class="mx-pos">+</span><div class="mx-cell">51 bp/yr · best in the &gt;$10B set</div></td>
+          <td><span class="mx-neg">−</span><div class="mx-cell">92 bp/yr · gap is ER, not methodology</div></td>
+        </tr>
+        <tr>
+          <th class="mx-row">Liquidity<br><span class="mx-thsub">30d median spread</span></th>
+          <td><span class="mx-pos">+</span><div class="mx-cell">1 bp · tightest in the complex</div></td>
+          <td><span class="mx-pos">+</span><div class="mx-cell">2 bp · still inside the ER differential</div></td>
+          <td><span class="mx-neu">○</span><div class="mx-cell">3 bp · acceptable; AP arbitrage works</div></td>
+        </tr>
+        <tr>
+          <th class="mx-row">Custody concentration</th>
+          <td><span class="mx-neg">−</span><div class="mx-cell">Coinbase Custody sole; Anchorage named, 0 BTC deployed (Dec-2025 prospectus)</div></td>
+          <td><span class="mx-pos">+</span><div class="mx-cell">Fidelity Digital Assets sole (OCC national-trust); only non-CCTC in the set</div></td>
+          <td><span class="mx-neg">−</span><div class="mx-cell">Coinbase Custody sole; same concentration as IBIT without the AUM/liquidity offset</div></td>
+        </tr>
+        <tr>
+          <th class="mx-row">Index methodology</th>
+          <td><span class="mx-pos">+</span><div class="mx-cell">CME CF BRRNY · 8-venue VWMP, UK-BMR-authorised, 10% outlier rule, 15:00–16:00 NY</div></td>
+          <td><span class="mx-pos">+</span><div class="mx-cell">Fidelity FBRR (≈ CME CF BRRNY); same NY window, same venue set</div></td>
+          <td><span class="mx-neu">○</span><div class="mx-cell">CoinDesk Bitcoin Benchmark Rate (since 2026-04-01); 11-venue volume-weighted with stale-quote penalties; broader exchange coverage including Binance/OKX/Bybit</div></td>
+        </tr>
+        <tr>
+          <th class="mx-row">In-kind C/R<br><span class="mx-thsub">post-SEC-2025-101</span></th>
+          <td><span class="mx-pos">+</span><div class="mx-cell">Approved 2025-07-29; largest AP set in the complex; P/D σ tightened ~27%</div></td>
+          <td><span class="mx-pos">+</span><div class="mx-cell">Approved 2025-07-29; same mechanism as IBIT</div></td>
+          <td><span class="mx-pos">+</span><div class="mx-cell">Approved 2025-07-29</div></td>
+        </tr>
+        <tr>
+          <th class="mx-row">Tax wrapper<br><span class="mx-thsub">top-bracket taxable</span></th>
+          <td><span class="mx-pos">+</span><div class="mx-cell">Grantor-trust pass-through; 23.8% LTCG (20% + NIIT) on single realization at horizon</div></td>
+          <td><span class="mx-pos">+</span><div class="mx-cell">Same as IBIT · 23.8% LTCG single realization</div></td>
+          <td><span class="mx-pos">+</span><div class="mx-cell">Same as IBIT · embedded gains create tax-stranding for legacy holders</div></td>
+        </tr>
+        <tr class="mx-foot-row">
+          <th class="mx-row">Verdict</th>
+          <td class="mx-verdict mx-verdict-pos"><strong>60-leg.</strong> Liquidity-bound default at the cost minimum.</td>
+          <td class="mx-verdict mx-verdict-pos"><strong>40-leg.</strong> Concentration-mitigating tilt at zero incremental fee.</td>
+          <td class="mx-verdict mx-verdict-neg"><strong>Legacy hold only.</strong> Strictly dominated for new money by IBIT/FBTC.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="colophon">
@@ -725,44 +861,20 @@ const PALETTE = {
   accent:'#1F4E5F', good:'#1B5E20', bad:'#A33126'
 };
 
-// Spot ETFs (RR4 drag · RR5 spreads/AUM/waivers · verdict.md custodians)
+// Spot ETFs (RR4 drag · RR5 spreads · AUM May 2026) — universe filter: AUM > $10B
 const SPOT = [
-  { tk:'HODL', sp:'VanEck', idx:'MVBTC', er:'0% (waiver)', spr:'4bp', cust:'Gemini + Coinbase (split undisclosed)', drag:30.3, aum:1.1,
-    pros:'Lowest current ER (0% waiver); MarketVector administrator regulated under EU BMR.',
-    cons:'Waiver sunsets 2026-07-31 (~11 weeks); two-hat MarketVector-VanEck admin conflict; per-custodian BTC split undisclosed.',
-    com:'Tactical play for the next quarter; loses cost-bound default once the waiver expires and ER snaps to 20bp.' },
-  { tk:'EZBC', sp:'Franklin Templeton', idx:'BRRNY', er:'19bp', spr:'4bp', cust:'Coinbase sole', drag:31.9, aum:0.41,
-    pros:'Lowest non-waiver permanent ER among BRRNY trackers (19bp).',
-    cons:'Sub-scale ($410M AUM); single-custodian Coinbase; spread 4bp vs IBIT 1bp closes the ER gap on round-trip.',
-    com:'6bp ER discount vs IBIT/FBTC, but full CCTC concentration; not a structural advantage at this scale.' },
-  { tk:'FBTC', sp:'Fidelity', idx:'FBRR (≈BRRNY)', er:'25bp', spr:'2bp', cust:'Fidelity Digital Assets (OCC NT)', drag:51.3, aum:13.5,
+  { tk:'IBIT', sp:'BlackRock', idx:'CME CF BRRNY', er:'25bp', spr:'1bp', cust:'Coinbase Custody (Anchorage named, 0 BTC deployed per Dec-2025 prospectus)', drag:52.3, aum:65.4,
+    pros:'Deepest secondary market; tightest 1bp spread; largest AP roster; 62% of US spot ETF AUM.',
+    cons:'Full CCTC custody concentration; Anchorage migration disclosed but undeployed per Dec-2025 prospectus.',
+    com:'Default tilt for the liquidity-bound; the 60-leg of the 40/60 blend; AP arbitrage is most efficient here.' },
+  { tk:'FBTC', sp:'Fidelity', idx:'FBRR (≈ CME CF BRRNY)', er:'25bp', spr:'2bp', cust:'Fidelity Digital Assets (OCC NT)', drag:51.3, aum:15.0,
     pros:'Only major non-Coinbase deployed custodian; OCC national-trust charter; tight 2bp spread.',
     cons:'Three-hat Fidelity stack (administrator + sponsor + custodian); same 25bp ER as IBIT with no fee advantage.',
     com:'Default tilt for the concentration-averse — absorbs the ~16bp/yr unpriced CCTC-concentration premium at zero incremental fee.' },
-  { tk:'IBIT', sp:'BlackRock', idx:'BRRNY', er:'25bp', spr:'1bp', cust:'Coinbase Custody (Anchorage named, 0 BTC deployed per Dec-2025 prospectus)', drag:52.3, aum:54.2,
-    pros:'Deepest secondary market; tightest 1bp spread; largest AP roster; 60% of US spot ETF AUM.',
-    cons:'Full CCTC custody concentration; Anchorage migration disclosed but undeployed per Dec-2025 prospectus.',
-    com:'Default tilt for the liquidity-bound; the 60-leg of the 40/60 blend; AP arbitrage is most efficient here.' },
-  { tk:'ARKB', sp:'ARK 21Shares', idx:'BRRNY', er:'21bp', spr:'3bp', cust:'Coinbase sole', drag:54.1, aum:2.5,
-    pros:'4bp ER discount vs IBIT/FBTC; mid-scale ($2.5B AUM).',
-    cons:'Single-custodian Coinbase; offers nothing vs IBIT on liquidity or vs FBTC on custody diversification.',
-    com:'Dominated on every axis except modest ER savings; not a recommended default.' },
-  { tk:'BTC Mini', sp:'Grayscale', idx:'BBR (CoinDesk)', er:'15bp', spr:'4bp', cust:'Coinbase Custody (Anchorage named, 0 BTC deployed per Dec-2025 prospectus)', drag:57.8, aum:3.4,
-    pros:'Lowest permanent ER in complex (15bp); no waiver to lose; ~1% cumulative ER advantage over IBIT/FBTC at 10y.',
-    cons:'Full CCTC concentration; CoinDesk BBR not BRRNY-family (no NAV penalty); GBTC sibling absorbs tax-stranded outflow pressure.',
-    com:'Defensible default for cost-bound holders accepting CCTC concentration; 10bp/yr saving vs IBIT/FBTC.' },
-  { tk:'BITB', sp:'Bitwise', idx:'BRRNY', er:'20bp', spr:'3bp', cust:'Coinbase sole', drag:59.4, aum:2.7,
-    pros:'5bp ER discount vs IBIT/FBTC; Bitwise explicitly chose BRRNY over its in-house BITW index — sponsor-administrator conflict avoided.',
-    cons:'Single-custodian Coinbase; mid-pack scale.',
-    com:'Solid construction but no structural advantage; 3bp vs 1bp spread closes the ER gap on round-trip cost.' },
-  { tk:'BRRR', sp:'Valkyrie / CoinShares', idx:'BBR (CoinDesk)', er:'25bp', spr:'9bp', cust:'Coinbase + BitGo + Komainu (split undisclosed)', drag:69.1, aum:0.43,
-    pros:'Three custodians <em>named</em> at the wrapper layer (Coinbase + BitGo + Komainu) — broadest named-custodian roster in the complex.',
-    cons:'Sub-scale ($430M AUM); 9bp spread is the worst in the complex; per-custodian BTC split undisclosed in N-CSR — the named roster is not a verified concentration mitigant; high realized drag.',
-    com:'Named multi-custody is interesting on paper but the undisclosed split keeps it from being a structural HHI mitigant; scale and round-trip cost compound the gap.' },
-  { tk:'GBTC', sp:'Grayscale', idx:'BBR (CoinDesk)', er:'150bp', spr:'3bp', cust:'Coinbase sole', drag:92.5, aum:11.0,
-    pros:'Deepest history; large embedded AUM; tax-stranded holders rationally stay rather than realize embedded gains.',
-    cons:'150bp ER compounds to ~14% drag over 10y; strictly dominated by BTC Mini sibling on cost.',
-    com:'Excluded for new money; Grayscale\'s explicit dual-vehicle design routes new flow to BTC Mini.' }
+  { tk:'GBTC', sp:'Grayscale', idx:'CoinDesk Bitcoin Benchmark Rate (from 2026-04-01; was XBX)', er:'150bp', spr:'3bp', cust:'Coinbase sole', drag:92.5, aum:11.9,
+    pros:'Deepest history; large embedded AUM; tax-stranded holders rationally hold rather than realize embedded gains. New 11-venue benchmark adds Binance, Bybit, OKX coverage.',
+    cons:'150bp ER compounds to ~14% drag over 10y; strictly dominated by IBIT/FBTC on cost; same CCTC custody concentration as IBIT without any offset.',
+    com:'In scope by AUM ($11.9B) — but strictly dominated for new money. Grayscale\'s explicit dual-vehicle design routes new flow to the sub-scale BTC Mini at 15bp.' }
 ];
 
 // Futures vehicles (RR5 §4 CME specs; RR3 realized drag)
