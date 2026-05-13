@@ -885,7 +885,7 @@
         <div class="stat"><div class="lbl">Net ER</div><div class="val">25.0 bp</div></div>
         <div class="stat"><div class="lbl">30d spread</div><div class="val muted">N/D (~2–5)</div></div>
         <div class="stat"><div class="lbl">5y drag vs LBMA</div><div class="val">40.4 bp</div></div>
-        <div class="stat"><div class="lbl">AUM</div><div class="val">$78.4B</div></div>
+        <div class="stat"><div class="lbl">AUM</div><div class="val">$73.4B</div></div>
         <div class="stat"><div class="lbl">Custodian</div><div class="val">JPM (sole)</div></div>
         <div class="stat"><div class="lbl">Vault</div><div class="val">London + sub-custody</div></div>
         <div class="stat"><div class="lbl">Sponsor</div><div class="val">BlackRock</div></div>
@@ -895,7 +895,7 @@
         <div>
           <div class="group-label">PROS</div>
           <ul class="pros">
-            <li>$78.4B AUM — second-deepest in the gold-ETF universe; tightest aggregator-implied spreads outside the SSGA pair.</li>
+            <li>$73.4B AUM — second-deepest in the gold-ETF universe; tightest aggregator-implied spreads outside the SSGA pair.</li>
             <li>Permitted sub-custodian sites in New York and Toronto (trustee inspection scope) expand operational redundancy.</li>
             <li>BlackRock distribution and creation-unit economics are the institutional default.</li>
           </ul>
@@ -922,7 +922,7 @@
         <div class="stat"><div class="lbl">Net ER</div><div class="val">40.0 bp</div></div>
         <div class="stat"><div class="lbl">30d spread</div><div class="val">1.0 bp</div></div>
         <div class="stat"><div class="lbl">5y drag vs LBMA</div><div class="val">57.0 bp</div></div>
-        <div class="stat"><div class="lbl">AUM</div><div class="val">$157.5B</div></div>
+        <div class="stat"><div class="lbl">AUM</div><div class="val">$157.6B</div></div>
         <div class="stat"><div class="lbl">Custodian</div><div class="val">HSBC + JPM (dual)</div></div>
         <div class="stat"><div class="lbl">Vault</div><div class="val">London (both)</div></div>
         <div class="stat"><div class="lbl">Sponsor</div><div class="val">SSGA / WGC</div></div>
@@ -1103,7 +1103,7 @@
       <tr><td class="t">GC futures (§1256)</td><td class="n">0</td><td class="n">0</td><td class="n">0</td><td class="n">+6.5 / −232</td><td class="n">0</td><td class="n">268</td><td class="n">~275</td><td class="n neg">−60 bp/yr vs ETF</td></tr>
     </tbody>
   </table>
-  <p class="fn">Custody discount is the net JPM penalty (positive) for JPM-sole vehicles, with a symmetric ICBC offset applied where relevant. Tax drag is the after-tax CAGR shortfall vs 8% gross at the relevant character — collectibles 31.8% for grantor-trust ETFs; equity LTCG 23.8% for PHYS-QEF; §1256 60/40 blended ~26.8% for GC futures. The GC Roll cell shows the 10y historical drag (−6.5 bps/yr, Q06) alongside the trailing-12m realised basis (+231.7 bps tailwind, RR5). The 10y total uses the historical anchor; §1256 annual MTM dominates the after-tax outcome regardless of which roll regime spans the holding period.</p>
+  <p class="fn">Custody discount is the net JPM penalty (positive) for JPM-sole vehicles, with a symmetric ICBC offset applied where relevant. Tax drag is the baseline 31.8% collectibles burden applied to an 8% gross compounded over 10y and held constant per character — by construction it doesn't vary within the grantor-trust column because the second-order ER-feedback effect on the taxed gain is &lt;1 bp/yr at 10y; ER differentials are captured in the ER column itself. Characters: collectibles 31.8% for grantor-trust ETFs; equity LTCG 23.8% for PHYS-QEF (full deferral) or annual-inclusion 26.8% blended (worst case); §1256 60/40 blended ~26.8% for GC futures. The GC Roll cell shows the 10y historical drag (−6.5 bps/yr, Q06) alongside the trailing-12m realised basis (+231.7 bps tailwind, RR5). The 10y total uses the historical anchor; §1256 annual MTM dominates the after-tax outcome regardless of which roll regime spans the holding period.</p>
 
   <div class="chart-card">
     <div class="chart-head">
@@ -1116,7 +1116,7 @@
   <div class="chart-card">
     <div class="chart-head">
       <div class="chart-title">Drag vs LBMA PM under a custody discount applied to JPM-sole vehicles</div>
-      <div class="chart-source">Source: RR3 · lower is better</div>
+      <div class="chart-source">Source: RR3 · lower is better. Grantor-trust ETF lines are ER + slip + custody discount only (pre-tax). The PHYS-QEF line is MER (35bp) + trailing-10y P/D drag (93bp) = 128bp pre-tax and flat across the x-axis (no JPM exposure) — not directly comparable to the ETF lines once tax character is layered in.</div>
     </div>
     <div class="chart-box"><canvas id="crossChart"></canvas></div>
   </div>

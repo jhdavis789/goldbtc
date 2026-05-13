@@ -606,8 +606,8 @@
     <div class="pc-card cons">
       <h4>Spot ETF — cons</h4>
       <ul>
-        <li>Custody concentration: deployed-HHI 7,428; Coinbase Custody holds 85% of complex AUM. The named-alternate roster is undeployed at the wrapper layer.</li>
-        <li>AUM concentration: IBIT alone is 62% of complex AUM ($65.4B / $105.9B); top three (IBIT + FBTC + GBTC) is ~87% and the AUM cutoff used here ($10B); sub-scale funds (BRRR $0.49B, EZBC $0.49B, BTCO $0.53B) carry consolidation risk.</li>
+        <li>Custody concentration: within the &gt;$10B set, CCTC holds ~83.8% of AUM (IBIT + GBTC); 3-fund HHI ≈ 5,020. The broader 10-fund complex HHI is 7,428 — both are &gt;2× the DOJ "highly concentrated" threshold. The named-alternate roster (Anchorage on IBIT) is undeployed at the wrapper layer.</li>
+        <li>AUM concentration: IBIT alone is 70.9% of the in-scope $92.3B AUM. Outside the filter, sub-scale funds (BTCO $0.53B, EZBC $0.49B, BRRR $0.49B) carry consolidation risk that wouldn't affect IBIT/FBTC/GBTC holders directly but is a wrapper-layer fragility signal.</li>
         <li>Administrator-sponsor conflicts: FBTC three-hat (admin + sponsor + custodian); CF Benchmarks owned by Kraken parent.</li>
         <li>Self-custody crossover at ~$1.4-1.9M position size — above that, ETF-only is dominated by an ETF + collaborative-custody barbell on TCO basis (Q06).</li>
         <li>§408(m) collectibles tail latent for IRA distributions; no IRS revenue ruling on spot-BTC grantor-trust shares specifically.</li>
@@ -663,16 +663,21 @@
     </div>
 
     <div class="hhi-mini">
-      <div class="hhi-label">Custody concentration — single-sponsor HHI vs 40/60 blend vs DOJ threshold</div>
+      <div class="hhi-label">Custody concentration — HHI across the in-scope set vs broader complex vs DOJ threshold</div>
       <div class="hhi-row">
         <span class="hhi-name">Single fund</span>
         <span class="hhi-bar"><span class="hhi-fill" style="width:100%;background:#A33126"></span></span>
         <span class="hhi-val">10,000</span>
       </div>
       <div class="hhi-row">
-        <span class="hhi-name">Complex (deployed)</span>
+        <span class="hhi-name">Broad complex (deployed)</span>
         <span class="hhi-bar"><span class="hhi-fill" style="width:74.28%;background:#A33126"></span></span>
         <span class="hhi-val">7,428</span>
+      </div>
+      <div class="hhi-row">
+        <span class="hhi-name">&gt;$10B set as-is</span>
+        <span class="hhi-bar"><span class="hhi-fill" style="width:50.2%;background:#A33126"></span></span>
+        <span class="hhi-val">5,020</span>
       </div>
       <div class="hhi-row">
         <span class="hhi-name">40 FBTC / 60 IBIT</span>
@@ -684,7 +689,7 @@
         <span class="hhi-bar"><span class="hhi-fill" style="width:25%;background:#666666"></span></span>
         <span class="hhi-val">2,500</span>
       </div>
-      <div class="hhi-foot">Both wrappers at 25bp; blend halves the gap to the DOJ line but does not close it.</div>
+      <div class="hhi-foot">Within the 3-fund set: CCTC holds ~83.8% of AUM (IBIT + GBTC = $77.3B of $92.3B); FDA holds the FBTC $15.0B. Broad-complex 7,428 weighs all 10 deployed funds. The 40/60 IBIT/FBTC blend at zero incremental ER closes most of the within-set gap to DOJ.</div>
     </div>
 
     <div class="tbl-wrap">
@@ -759,7 +764,7 @@
   <h2>Conclusion</h2>
 
   <h3>Synthesis</h3>
-  <p>Tax code decides wrapper; §1256 annual MTM eliminates the deferral that compounds over 10y. Within the &gt;$10B set, tracking error is index-agnostic — IBIT and FBTC cluster at ~20.5% annualized realized vol vs benchmark; GBTC tracks identically but the 150bp ER overwhelms the methodology. FBTC + IBIT pair at 25bp across OCC NT (Fidelity Digital Assets) and NYDFS Article-III (Coinbase) charters: diversification at zero incremental cost. <strong>Flips the call:</strong> deployed Anchorage migration disclosed in any IBIT 10-Q, or sub-10bp ER from a non-Coinbase custodian at scale.</p>
+  <p>Tax code decides wrapper; §1256 annual MTM eliminates the deferral that compounds over 10y. Within the &gt;$10B set, index methodology is not differentiating — IBIT/FBTC use CME CF BRRNY (8-venue VWMP), GBTC uses the CoinDesk Bitcoin Benchmark Rate (11-venue, post-2026-04-01), and the realized 28m drag (FBTC 51 / IBIT 52 / GBTC 92 bp/yr) maps cleanly to ER less waiver. FBTC + IBIT pair at 25bp across OCC NT (Fidelity Digital Assets) and NYDFS Article-III (Coinbase) charters: diversification at zero incremental cost. <strong>Flips the call:</strong> deployed Anchorage migration disclosed in any IBIT 10-Q, or sub-10bp ER from a non-Coinbase custodian at scale.</p>
 
   <h3>Your view</h3>
   <div class="your-view">
@@ -833,7 +838,7 @@
           <th class="mx-row">Tax wrapper<br><span class="mx-thsub">top-bracket taxable</span></th>
           <td><span class="mx-pos">+</span><div class="mx-cell">Grantor-trust pass-through; 23.8% LTCG (20% + NIIT) on single realization at horizon</div></td>
           <td><span class="mx-pos">+</span><div class="mx-cell">Same as IBIT · 23.8% LTCG single realization</div></td>
-          <td><span class="mx-pos">+</span><div class="mx-cell">Same as IBIT · embedded gains create tax-stranding for legacy holders</div></td>
+          <td><span class="mx-neu">○</span><div class="mx-cell">Same 23.8% LTCG character as IBIT/FBTC. Embedded gains create tax-stranding that holds legacy buyers — neutral for new money (no embedded basis), no advantage</div></td>
         </tr>
         <tr class="mx-foot-row">
           <th class="mx-row">Verdict</th>
@@ -874,7 +879,7 @@ const SPOT = [
   { tk:'GBTC', sp:'Grayscale', idx:'CoinDesk Bitcoin Benchmark Rate (from 2026-04-01; was XBX)', er:'150bp', spr:'3bp', cust:'Coinbase sole', drag:92.5, aum:11.9,
     pros:'Deepest history; large embedded AUM; tax-stranded holders rationally hold rather than realize embedded gains. New 11-venue benchmark adds Binance, Bybit, OKX coverage.',
     cons:'150bp ER compounds to ~14% drag over 10y; strictly dominated by IBIT/FBTC on cost; same CCTC custody concentration as IBIT without any offset.',
-    com:'In scope by AUM ($11.9B) — but strictly dominated for new money. Grayscale\'s explicit dual-vehicle design routes new flow to the sub-scale BTC Mini at 15bp.' }
+    com:'In scope by AUM ($11.9B) — but strictly dominated for new money by IBIT/FBTC. Grayscale routes new flow to its lower-ER sibling product (15bp ER, outside this $10B AUM filter); GBTC holders are overwhelmingly tax-stranded incumbents who rationally do not realize embedded gains.' }
 ];
 
 // Futures vehicles (RR5 §4 CME specs; RR3 realized drag)
