@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Gold market cap — share of financial assets · 1990–2024</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --ink: #1A1A1A;
+    --mute: #666666;
+    --rule: #E5E5E5;
+    --tint: #FAFAFA;
+    --accent: #A85F1E;
+    --line-total: #A85F1E;
+    --line-eq: #1F4E5F;
+    --sans: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--ink); margin: 0; padding: 0; }
+  body {
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+  a:hover { border-bottom-color: var(--accent); }
+
+  .topnav { border-bottom: 1px solid var(--rule); background: #fff; position: sticky; top: 0; z-index: 50; }
+  .topnav-inner { display: flex; justify-content: space-between; align-items: center; padding: 14px 32px; max-width: 880px; margin: 0 auto; }
+  .topnav-brand { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); }
+  .topnav-tabs { display: flex; gap: 4px; }
+  .topnav-tab { font-size: 13px; font-weight: 500; color: var(--mute); padding: 6px 14px; border-radius: 999px; border: 1px solid transparent; }
+  .topnav-tab:hover { color: var(--ink); border-color: var(--rule); }
+  .topnav-tab.active { color: var(--ink); background: var(--tint); border-color: var(--rule); }
+
+  .mast { padding: 40px 0 28px; border-bottom: 1px solid var(--rule); }
+  .mast-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--mute); font-weight: 500; margin-bottom: 16px; }
+  h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; line-height: 1.2; }
+  h1 + p { color: var(--mute); font-size: 15px; margin: 0; max-width: 720px; line-height: 1.5; }
+
+  section { padding: 32px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+  h2 { font-size: 18px; font-weight: 600; letter-spacing: -0.012em; margin: 0 0 14px; }
+
+  .chart-card { padding-top: 8px; }
+  .chart-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-bottom: 12px; }
+  .chart-title { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+  .chart-source { font-size: 11.5px; color: var(--mute); }
+  .chart-box { height: 420px; }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; margin-top: 10px; }
+  th, td { padding: 8px 10px; text-align: right; border-bottom: 1px solid var(--rule); font-variant-numeric: tabular-nums; }
+  th { background: var(--tint); font-weight: 600; font-size: 12px; color: var(--ink); }
+  th:first-child, td:first-child { text-align: left; }
+  th:first-child { width: 60px; }
+
+  .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 4px; }
+  .stat-cell { padding: 14px; border: 1px solid var(--rule); border-radius: 4px; background: var(--tint); }
+  .stat-cell .lbl { font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; font-weight: 600; }
+  .stat-cell .val { font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: -0.012em; }
+  .stat-cell .sub { font-size: 11.5px; color: var(--mute); margin-top: 4px; }
+
+  .fn { font-size: 11.5px; color: var(--mute); line-height: 1.5; margin: 14px 0 0; }
+  .colophon { padding: 22px 0 60px; font-size: 12px; color: var(--mute); border-top: 1px solid var(--rule); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: var(--tint); padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="topnav-brand">GOLDBTC · expression layer</span>
+    <div class="topnav-tabs">
+      <a class="topnav-tab active" href="../gold/">Gold</a>
+      <a class="topnav-tab" href="../btc/">Bitcoin</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <header class="mast">
+    <div class="mast-meta">
+      <span>Gold market cap · share of financial assets</span>
+      <span>Annual, 1990–2024</span>
+    </div>
+    <h1>Gold as a share of financial assets</h1>
+    <p>How much gold sits next to global stocks and bonds, and to equities alone. Above-ground stock × LBMA PM annual average, against SIFMA global capital-markets totals.</p>
+  </header>
+
+  <section>
+    <h2>Headline</h2>
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <div class="lbl">Gold market cap · 2024</div>
+        <div class="val">$16.6T</div>
+        <div class="sub">216,265 t × $2,388 avg LBMA PM</div>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">% of stocks + bonds</div>
+        <div class="val">6.11%</div>
+        <div class="sub">vs $271.8T global equity + debt</div>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">% of global equities</div>
+        <div class="val">13.10%</div>
+        <div class="sub">vs $126.7T global equity mcap</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Time series</h2>
+    <div class="chart-card">
+      <div class="chart-head">
+        <div class="chart-title">Gold market cap as % of total financial assets and of equities · 1990–2024</div>
+        <div class="chart-source">Source: <code>data/scripts/gold_share.py</code> · output <code>data/gold_share.json</code></div>
+      </div>
+      <div class="chart-box"><canvas id="shareChart"></canvas></div>
+      <p class="fn">"Total financial assets" = global equity market cap + global debt securities outstanding (SIFMA aggregate). Excludes bank deposits, private real estate, private credit. Gold market cap = WGC end-year above-ground stock × LBMA PM annual average. The two lines move together (gold mcap and equities both expand against debt over time), but the ratio against equities is more cycle-sensitive because equity mcap is more volatile than total debt.</p>
+    </div>
+
+    <h2 style="margin-top:32px">Underlying data</h2>
+    <div style="overflow-x:auto;">
+      <table id="dataTable">
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Stock (t)</th>
+            <th>$/oz (LBMA PM)</th>
+            <th>Gold mcap ($T)</th>
+            <th>Equity mcap ($T)</th>
+            <th>Debt ($T)</th>
+            <th>% of total</th>
+            <th>% of equities</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Read</h2>
+    <p>Gold's share of equities tracks a clear two-cycle pattern. The 2001–2011 secular gold bull pushed gold-vs-equities from ~5% at the 2000 equity peak to ~17% at the 2012 commodity-cycle high, after which the share halved during the 2013–2018 equity bull. The 2020–2024 leg is structurally different: gold mcap climbed alongside (not against) equities, with the central-bank purchase regime adding to demand outside private investor flows.</p>
+    <p>Against the broader financial-asset base, gold's share is more compressed and slower-moving — 3–6% for most of the period. The 2024 reading at 6.1% sits near the upper end of the post-1980 range without exceeding it, which is the more honest read of "where is gold positioned" than any equity-only ratio.</p>
+  </section>
+
+  <div class="colophon">
+    Underlying script: <code>gold/data/scripts/gold_share.py</code>. JSON: <code>gold/data/gold_share.json</code>. Sources: WGC above-ground stock series; LBMA PM via goldhub; World Bank <code>CM.MKT.LCAP.CD</code>; SIFMA Capital Markets Fact Book (2014–2025 editions). Annual frequency; year-end stock × annual-avg price for the gold leg. Compiled figures; underlying series are revised by data publishers.
+  </div>
+
+</main>
+
+<script>
+const C = {
+  ink: "#1A1A1A", mute: "#666666", accent: "#A85F1E", lineTotal: "#A85F1E", lineEq: "#1F4E5F",
+  rule: "#E5E5E5", bg: "#FFFFFF"
+};
+
+const DATA = {"definition": {"gold_mcap": "above-ground stock (tonnes) * 32150.7 oz/tonne * annual avg LBMA PM USD/oz", "total_financial_assets": "global equity mcap + global debt securities outstanding", "gold_pct_of_total": "gold mcap / (equities + debt securities), in percent", "gold_pct_of_equities": "gold mcap / global equity mcap, in percent"}, "sources": ["WGC above-ground stocks (annual estimates) + USGS mine production", "LBMA Gold Price PM annual average via goldhub.com", "World Bank CM.MKT.LCAP.CD (equity mcap, world aggregate)", "SIFMA Capital Markets Fact Book (2014-2025 editions): equity + debt outstanding"], "asof": "2026-05-14", "series": [{"year": 1990, "gold_stocks_t": 122500, "gold_price_usd_oz": 384, "gold_mcap_t_usd": 1.512, "global_equity_mcap_t_usd": 9.4, "global_debt_securities_t_usd": 15.0, "global_fin_assets_t_usd": 24.4, "gold_pct_of_total": 6.2, "gold_pct_of_equities": 16.09}, {"year": 1992, "gold_stocks_t": 125500, "gold_price_usd_oz": 344, "gold_mcap_t_usd": 1.388, "global_equity_mcap_t_usd": 10.9, "global_debt_securities_t_usd": 18.0, "global_fin_assets_t_usd": 28.9, "gold_pct_of_total": 4.8, "gold_pct_of_equities": 12.73}, {"year": 1994, "gold_stocks_t": 129000, "gold_price_usd_oz": 384, "gold_mcap_t_usd": 1.593, "global_equity_mcap_t_usd": 15.1, "global_debt_securities_t_usd": 22.0, "global_fin_assets_t_usd": 37.1, "gold_pct_of_total": 4.29, "gold_pct_of_equities": 10.55}, {"year": 1995, "gold_stocks_t": 130500, "gold_price_usd_oz": 384, "gold_mcap_t_usd": 1.611, "global_equity_mcap_t_usd": 17.8, "global_debt_securities_t_usd": 24.0, "global_fin_assets_t_usd": 41.8, "gold_pct_of_total": 3.85, "gold_pct_of_equities": 9.05}, {"year": 1996, "gold_stocks_t": 132500, "gold_price_usd_oz": 388, "gold_mcap_t_usd": 1.653, "global_equity_mcap_t_usd": 20.2, "global_debt_securities_t_usd": 26.0, "global_fin_assets_t_usd": 46.2, "gold_pct_of_total": 3.58, "gold_pct_of_equities": 8.18}, {"year": 1998, "gold_stocks_t": 135500, "gold_price_usd_oz": 294, "gold_mcap_t_usd": 1.281, "global_equity_mcap_t_usd": 26.5, "global_debt_securities_t_usd": 31.0, "global_fin_assets_t_usd": 57.5, "gold_pct_of_total": 2.23, "gold_pct_of_equities": 4.83}, {"year": 2000, "gold_stocks_t": 138500, "gold_price_usd_oz": 279, "gold_mcap_t_usd": 1.242, "global_equity_mcap_t_usd": 31.9, "global_debt_securities_t_usd": 36.0, "global_fin_assets_t_usd": 67.9, "gold_pct_of_total": 1.83, "gold_pct_of_equities": 3.89}, {"year": 2002, "gold_stocks_t": 142500, "gold_price_usd_oz": 310, "gold_mcap_t_usd": 1.42, "global_equity_mcap_t_usd": 23.0, "global_debt_securities_t_usd": 42.0, "global_fin_assets_t_usd": 65.0, "gold_pct_of_total": 2.19, "gold_pct_of_equities": 6.18}, {"year": 2004, "gold_stocks_t": 148500, "gold_price_usd_oz": 410, "gold_mcap_t_usd": 1.957, "global_equity_mcap_t_usd": 37.2, "global_debt_securities_t_usd": 53.0, "global_fin_assets_t_usd": 90.2, "gold_pct_of_total": 2.17, "gold_pct_of_equities": 5.26}, {"year": 2005, "gold_stocks_t": 151500, "gold_price_usd_oz": 445, "gold_mcap_t_usd": 2.168, "global_equity_mcap_t_usd": 43.8, "global_debt_securities_t_usd": 57.0, "global_fin_assets_t_usd": 100.8, "gold_pct_of_total": 2.15, "gold_pct_of_equities": 4.95}, {"year": 2006, "gold_stocks_t": 155000, "gold_price_usd_oz": 604, "gold_mcap_t_usd": 3.01, "global_equity_mcap_t_usd": 50.8, "global_debt_securities_t_usd": 65.0, "global_fin_assets_t_usd": 115.8, "gold_pct_of_total": 2.6, "gold_pct_of_equities": 5.93}, {"year": 2007, "gold_stocks_t": 158000, "gold_price_usd_oz": 695, "gold_mcap_t_usd": 3.53, "global_equity_mcap_t_usd": 60.7, "global_debt_securities_t_usd": 75.0, "global_fin_assets_t_usd": 135.7, "gold_pct_of_total": 2.6, "gold_pct_of_equities": 5.82}, {"year": 2008, "gold_stocks_t": 160500, "gold_price_usd_oz": 872, "gold_mcap_t_usd": 4.5, "global_equity_mcap_t_usd": 32.6, "global_debt_securities_t_usd": 83.0, "global_fin_assets_t_usd": 115.6, "gold_pct_of_total": 3.89, "gold_pct_of_equities": 13.8}, {"year": 2009, "gold_stocks_t": 163000, "gold_price_usd_oz": 972, "gold_mcap_t_usd": 5.094, "global_equity_mcap_t_usd": 47.4, "global_debt_securities_t_usd": 89.0, "global_fin_assets_t_usd": 136.4, "gold_pct_of_total": 3.73, "gold_pct_of_equities": 10.75}, {"year": 2010, "gold_stocks_t": 166000, "gold_price_usd_oz": 1225, "gold_mcap_t_usd": 6.538, "global_equity_mcap_t_usd": 54.7, "global_debt_securities_t_usd": 95.0, "global_fin_assets_t_usd": 149.7, "gold_pct_of_total": 4.37, "gold_pct_of_equities": 11.95}, {"year": 2011, "gold_stocks_t": 169000, "gold_price_usd_oz": 1572, "gold_mcap_t_usd": 8.541, "global_equity_mcap_t_usd": 47.1, "global_debt_securities_t_usd": 99.0, "global_fin_assets_t_usd": 146.1, "gold_pct_of_total": 5.85, "gold_pct_of_equities": 18.13}, {"year": 2012, "gold_stocks_t": 172000, "gold_price_usd_oz": 1669, "gold_mcap_t_usd": 9.229, "global_equity_mcap_t_usd": 53.0, "global_debt_securities_t_usd": 100.0, "global_fin_assets_t_usd": 153.0, "gold_pct_of_total": 6.03, "gold_pct_of_equities": 17.41}, {"year": 2013, "gold_stocks_t": 175000, "gold_price_usd_oz": 1411, "gold_mcap_t_usd": 7.939, "global_equity_mcap_t_usd": 64.7, "global_debt_securities_t_usd": 97.0, "global_fin_assets_t_usd": 161.7, "gold_pct_of_total": 4.91, "gold_pct_of_equities": 12.27}, {"year": 2014, "gold_stocks_t": 178000, "gold_price_usd_oz": 1266, "gold_mcap_t_usd": 7.245, "global_equity_mcap_t_usd": 66.4, "global_debt_securities_t_usd": 95.0, "global_fin_assets_t_usd": 161.4, "gold_pct_of_total": 4.49, "gold_pct_of_equities": 10.91}, {"year": 2015, "gold_stocks_t": 181000, "gold_price_usd_oz": 1160, "gold_mcap_t_usd": 6.75, "global_equity_mcap_t_usd": 61.7, "global_debt_securities_t_usd": 97.0, "global_fin_assets_t_usd": 158.7, "gold_pct_of_total": 4.25, "gold_pct_of_equities": 10.94}, {"year": 2016, "gold_stocks_t": 184500, "gold_price_usd_oz": 1251, "gold_mcap_t_usd": 7.421, "global_equity_mcap_t_usd": 64.7, "global_debt_securities_t_usd": 99.0, "global_fin_assets_t_usd": 163.7, "gold_pct_of_total": 4.53, "gold_pct_of_equities": 11.47}, {"year": 2017, "gold_stocks_t": 188000, "gold_price_usd_oz": 1257, "gold_mcap_t_usd": 7.598, "global_equity_mcap_t_usd": 79.2, "global_debt_securities_t_usd": 107.0, "global_fin_assets_t_usd": 186.2, "gold_pct_of_total": 4.08, "gold_pct_of_equities": 9.59}, {"year": 2018, "gold_stocks_t": 191500, "gold_price_usd_oz": 1268, "gold_mcap_t_usd": 7.807, "global_equity_mcap_t_usd": 68.7, "global_debt_securities_t_usd": 109.0, "global_fin_assets_t_usd": 177.7, "gold_pct_of_total": 4.39, "gold_pct_of_equities": 11.36}, {"year": 2019, "gold_stocks_t": 195000, "gold_price_usd_oz": 1393, "gold_mcap_t_usd": 8.733, "global_equity_mcap_t_usd": 87.8, "global_debt_securities_t_usd": 113.0, "global_fin_assets_t_usd": 200.8, "gold_pct_of_total": 4.35, "gold_pct_of_equities": 9.95}, {"year": 2020, "gold_stocks_t": 198500, "gold_price_usd_oz": 1770, "gold_mcap_t_usd": 11.296, "global_equity_mcap_t_usd": 93.9, "global_debt_securities_t_usd": 123.0, "global_fin_assets_t_usd": 216.9, "gold_pct_of_total": 5.21, "gold_pct_of_equities": 12.03}, {"year": 2021, "gold_stocks_t": 202000, "gold_price_usd_oz": 1799, "gold_mcap_t_usd": 11.684, "global_equity_mcap_t_usd": 117.0, "global_debt_securities_t_usd": 130.0, "global_fin_assets_t_usd": 247.0, "gold_pct_of_total": 4.73, "gold_pct_of_equities": 9.99}, {"year": 2022, "gold_stocks_t": 205500, "gold_price_usd_oz": 1800, "gold_mcap_t_usd": 11.893, "global_equity_mcap_t_usd": 93.7, "global_debt_securities_t_usd": 133.0, "global_fin_assets_t_usd": 226.7, "gold_pct_of_total": 5.25, "gold_pct_of_equities": 12.69}, {"year": 2023, "gold_stocks_t": 209000, "gold_price_usd_oz": 1940, "gold_mcap_t_usd": 13.036, "global_equity_mcap_t_usd": 109.2, "global_debt_securities_t_usd": 140.0, "global_fin_assets_t_usd": 249.2, "gold_pct_of_total": 5.23, "gold_pct_of_equities": 11.94}, {"year": 2024, "gold_stocks_t": 216265, "gold_price_usd_oz": 2388, "gold_mcap_t_usd": 16.604, "global_equity_mcap_t_usd": 126.7, "global_debt_securities_t_usd": 145.1, "global_fin_assets_t_usd": 271.8, "gold_pct_of_total": 6.11, "gold_pct_of_equities": 13.1}]};
+
+Chart.defaults.font.family = '"Inter", Helvetica, Arial, sans-serif';
+Chart.defaults.font.size = 11.5;
+Chart.defaults.color = C.mute;
+Chart.defaults.borderColor = C.rule;
+
+const years = DATA.series.map(r => r.year);
+const pctTotal = DATA.series.map(r => r.gold_pct_of_total);
+const pctEq    = DATA.series.map(r => r.gold_pct_of_equities);
+
+new Chart(document.getElementById("shareChart"), {
+  type: "line",
+  data: {
+    labels: years,
+    datasets: [
+      {
+        label: "Gold % of equities",
+        data: pctEq,
+        borderColor: C.lineEq,
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        tension: 0,
+        pointRadius: 3.5,
+        pointBackgroundColor: C.bg,
+        pointBorderColor: C.lineEq,
+        pointBorderWidth: 1.5,
+        pointHoverRadius: 5,
+      },
+      {
+        label: "Gold % of stocks + bonds",
+        data: pctTotal,
+        borderColor: C.lineTotal,
+        backgroundColor: "transparent",
+        borderWidth: 2,
+        tension: 0,
+        pointRadius: 3.5,
+        pointBackgroundColor: C.bg,
+        pointBorderColor: C.lineTotal,
+        pointBorderWidth: 1.5,
+        pointHoverRadius: 5,
+      },
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    interaction: { mode: "index", intersect: false },
+    plugins: {
+      legend: {
+        position: "top",
+        align: "end",
+        labels: { color: C.ink, boxWidth: 14, boxHeight: 2, padding: 14, font: { family: '"Inter", sans-serif', size: 12 } }
+      },
+      tooltip: {
+        backgroundColor: C.ink, titleColor: C.bg, bodyColor: C.bg, padding: 10,
+        callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}%` }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: C.rule, drawTicks: false },
+        border: { color: C.ink },
+        ticks: { color: C.mute, maxRotation: 0, autoSkip: true, maxTicksLimit: 12 }
+      },
+      y: {
+        grid: { color: C.rule, drawTicks: false },
+        border: { color: C.ink },
+        ticks: { color: C.mute, callback: v => v + "%" }
+      }
+    }
+  }
+});
+
+// table
+const tbody = document.querySelector("#dataTable tbody");
+DATA.series.forEach(r => {
+  const tr = document.createElement("tr");
+  tr.innerHTML = `<td>${r.year}</td>
+    <td>${r.gold_stocks_t.toLocaleString()}</td>
+    <td>${r.gold_price_usd_oz.toLocaleString()}</td>
+    <td>${r.gold_mcap_t_usd.toFixed(2)}</td>
+    <td>${r.global_equity_mcap_t_usd.toFixed(1)}</td>
+    <td>${r.global_debt_securities_t_usd.toFixed(1)}</td>
+    <td>${r.gold_pct_of_total.toFixed(2)}</td>
+    <td>${r.gold_pct_of_equities.toFixed(2)}</td>`;
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
