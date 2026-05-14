@@ -120,84 +120,154 @@
           </tr>
         </thead>
         <tbody>
-          <tr class="idx-divider"><td colspan="4">Gold · 4</td></tr>
+          <tr class="idx-divider"><td colspan="4">Gold · 10</td></tr>
 
           <tr>
-            <th>LBMA Gold Price PM<span class="idx-sub">IBA-administered</span></th>
-            <td>Auction-discovered spot fix at 15:00 London · ~10 LBMA member-bank participants · once-daily price discovery, real liquidity at the fix.</td>
+            <th>LBMA Gold Price PM<span class="idx-sub">IBA · auction</span></th>
+            <td>Auction-discovered spot fix at 15:00 London · ~10 LBMA member-bank participants · once-daily price discovery with real fill liquidity.</td>
             <td><span class="idx-aum">~$281B</span> — GLD $157.6B · IAU $73.4B · GLDM $31.9B · plus every sub-scale grantor-trust ETF (SGOL, AAAU, BAR, OUNZ, IAUM).</td>
             <td>UK-BMR-authorised · IOSCO-compliant · the regulated benchmark for institutional gold.</td>
           </tr>
 
           <tr>
-            <th>LBMA Gold Price AM<span class="idx-sub">IBA-administered</span></th>
-            <td>Same auction methodology as PM, 10:30 London. Older fix; some London wholesale settles to it.</td>
+            <th>LBMA Gold Price AM<span class="idx-sub">IBA · auction</span></th>
+            <td>Same auction methodology as PM, 10:30 London. Older fix; some London wholesale and Asian closes settle to it.</td>
             <td>Wholesale physical market and a few European products. No major US retail ETF uses AM as NAV anchor.</td>
             <td>UK-BMR-authorised · IOSCO-compliant.</td>
           </tr>
 
           <tr>
-            <th>Bloomberg GOLDS Comdty<span class="idx-sub">BISL admin</span></th>
+            <th>Bloomberg GOLDS Comdty<span class="idx-sub">BISL · continuous mid</span></th>
             <td>Continuous wholesale mid quote · stitched from contributor quotes throughout the day · not an auction-discovered fix.</td>
-            <td><span class="idx-aum">$17.4B</span> — PHYS only (NAV anchor for the Sprott closed-end trust; needs continuously-updating reference for non-auction-hours NAV strikes).</td>
-            <td>EU-BMR registered · Bloomberg Index Services Ltd · published-quote methodology rather than transaction-discovered.</td>
+            <td><span class="idx-aum">$17.4B</span> — PHYS only (the Sprott closed-end trust needs continuously-updating reference for non-auction-hours NAV strikes).</td>
+            <td>EU-BMR registered · Bloomberg Index Services Ltd (BISL) admin · published-quote methodology rather than transaction-discovered.</td>
           </tr>
 
           <tr>
-            <th>Bloomberg Gold Subindex (BCOMGC-TR)<span class="idx-sub">BISL admin</span></th>
-            <td>Futures total return · front-month GC + 3-mo T-bill collateral · BCOM monthly roll schedule (5–9 b-day) · <em>not</em> a spot index.</td>
-            <td>Inside BCOM commodity-basket wrappers (PDBC, DBC, GSG-gold leg). Gold is 12.46% of BCOM. No spot gold ETF tracks it directly.</td>
-            <td>EU-BMR registered · BISL admin · §1256 60/40 if held as futures (annual MTM destroys deferral).</td>
+            <th>Bloomberg Gold Subindex (BCOMGC-TR)<span class="idx-sub">BISL · futures TR</span></th>
+            <td>Futures total return · front-month GC + 3-mo T-bill collateral · BCOM monthly roll schedule (5–9 b-day window) · <em>not</em> a spot index.</td>
+            <td>Inside BCOM commodity-basket wrappers (PDBC ~$5B, DBC ~$2B; gold is 12.46% of BCOM parent). No spot gold ETF tracks it directly.</td>
+            <td>EU-BMR registered · BISL admin · §1256 60/40 if held as futures (annual MTM destroys deferral over a 10y hold).</td>
           </tr>
 
-          <tr class="idx-divider"><td colspan="4">Bitcoin · 6</td></tr>
+          <tr>
+            <th>S&amp;P GSCI Gold Total Return<span class="idx-sub">S&amp;P DJI · futures TR</span></th>
+            <td>Futures TR · GC roll on S&amp;P's schedule (5th–9th business day) · production-weighted parent makes gold 7.24% of GSCI.</td>
+            <td>Inside GSCI commodity wrappers (GSG, IGM-style products). No spot gold ETF tracks it directly.</td>
+            <td>EU-BMR / IOSCO-compliant · S&amp;P DJI admin.</td>
+          </tr>
 
           <tr>
-            <th>CME CF Bitcoin Reference Rate — New York (BRRNY)<span class="idx-sub">CF Benchmarks (Kraken parent)</span></th>
-            <td>VWMP across 8 regulated venues (Bitstamp, Coinbase, Gemini, Kraken, LMAX, itBit, Hashdex, Cumberland) · 4pm NY fix · 10% outlier rule.</td>
+            <th>DBIQ Optimum Yield Gold<span class="idx-sub">Deutsche Bank · futures with OY roll</span></th>
+            <td>Futures index with "optimum yield" rolling — picks the point on the GC curve that minimizes roll cost rather than mechanically holding front-month. Tries to outperform BCOMGC by curve selection.</td>
+            <td>Invesco DB Gold Fund (DGL ~$0.1B). Niche; never gathered material assets.</td>
+            <td>EU-BMR registered · Deutsche Bank index admin.</td>
+          </tr>
+
+          <tr>
+            <th>Refinitiv/WM Gold Fix<span class="idx-sub">WM Reuters / Refinitiv · FX-style spot</span></th>
+            <td>FX-style spot fix calculated at multiple intraday windows · used to mark gold-cross-currency exposure and for OTC accruals when LBMA hours are closed.</td>
+            <td>Mostly internal fund marking, FX-tied gold products, and risk systems. Not a primary ETF NAV anchor.</td>
+            <td>UK-BMR-authorised · WM/Refinitiv admin · same provider as the WM/R 4pm FX fix.</td>
+          </tr>
+
+          <tr>
+            <th>Shanghai Gold Benchmark Price (SHAU)<span class="idx-sub">SGE · auction</span></th>
+            <td>Auction at 10:15 + 14:15 Shanghai · SGE-administered · RMB/gram denominated. China's domestic equivalent to LBMA PM; covers the world's largest physical-gold market by volume.</td>
+            <td>Chinese-domiciled gold ETFs (e.g. Bosera Gold ETF, Huaan Gold). Not a NAV anchor for any US-domiciled product, but watched for Asia-tape divergence from LBMA.</td>
+            <td>PBoC-regulated · not BMR (separate Chinese benchmark regime); IOSCO-aligned methodology.</td>
+          </tr>
+
+          <tr>
+            <th>CME COMEX GC settlement<span class="idx-sub">CME · futures settlement</span></th>
+            <td>Daily settlement of the GC contract derived from a VWAP across the closing window of the front month. Not technically an index but functions as one for futures-based wrappers.</td>
+            <td>CME GC + MGC contracts · BITO-equivalent gold futures wrappers · all CME-cleared margin and §1256 vehicles.</td>
+            <td>CFTC-regulated · CME-administered · the settlement standard for the regulated US gold-futures market.</td>
+          </tr>
+
+          <tr>
+            <th>ICE Gold Daily Futures<span class="idx-sub">ICE · futures settlement</span></th>
+            <td>Cash-settled daily gold futures contract · 1oz size for retail · ICE-administered as a CFD-style daily-funded product.</td>
+            <td>Smaller US/EU retail futures platforms; niche compared to CME GC. Used by some FX/CFD brokers for retail gold exposure.</td>
+            <td>UK-FCA / CFTC-regulated · ICE admin.</td>
+          </tr>
+
+          <tr class="idx-divider"><td colspan="4">Bitcoin · 10</td></tr>
+
+          <tr>
+            <th>CME CF Bitcoin Reference Rate — NY (BRRNY)<span class="idx-sub">CF Benchmarks · VWMP</span></th>
+            <td>8-venue VWMP (Bitstamp, Coinbase, Gemini, Kraken, LMAX, itBit, Hashdex, Cumberland) · 4pm NY fix · 10% outlier rule.</td>
             <td><span class="idx-aum">~$71.5B</span> — IBIT $65.4B · ARKB $3.0B · BITB $3.0B · EZBC $0.5B. SEC-recognised standard for US spot BTC ETFs.</td>
-            <td>UK-BMR-authorised · IOSCO-compliant · the regulated default since 2020.</td>
+            <td>UK-BMR-authorised · IOSCO-compliant · the regulated default since 2020 · CF Benchmarks owned by Kraken parent.</td>
           </tr>
 
           <tr>
-            <th>Fidelity Bitcoin Reference Rate (FBRR)<span class="idx-sub">Fidelity self-admin</span></th>
-            <td>VWMP · methodology mirrors CME CF BRRNY · 4pm NY fix. Built by Fidelity in-house to avoid CF Benchmarks licensing.</td>
+            <th>Fidelity Bitcoin Reference Rate (FBRR)<span class="idx-sub">Fidelity · self-admin VWMP</span></th>
+            <td>Methodology mirrors CME CF BRRNY · 4pm NY fix · same 10% outlier rule. Built by Fidelity in-house to avoid CF Benchmarks licensing.</td>
             <td><span class="idx-aum">$15.0B</span> — FBTC only. Functionally interchangeable with BRRNY for tracking purposes.</td>
-            <td>Self-administered by Fidelity · IOSCO-style methodology · not third-party BMR-authorised · raises three-hat sponsor-admin-custodian conflict.</td>
+            <td>Self-administered by Fidelity · IOSCO-style methodology · not third-party BMR-authorised · three-hat sponsor-admin-custodian conflict.</td>
           </tr>
 
           <tr>
-            <th>CME CF Bitcoin Reference Rate (BRR, London)<span class="idx-sub">CF Benchmarks</span></th>
-            <td>Same 8-venue VWMP methodology as BRRNY, fixed at 4pm London. The original (2016).</td>
-            <td><span class="idx-aum">~$3B retail + futures</span> — BITB at 4pm London fix; CME bitcoin futures settle here; some EU spot BTC ETPs.</td>
+            <th>CME CF Bitcoin Reference Rate (BRR, London)<span class="idx-sub">CF Benchmarks · VWMP</span></th>
+            <td>Same 8-venue VWMP methodology as BRRNY, fixed at 4pm London. The original from 2016; CME bitcoin futures settle to it.</td>
+            <td><span class="idx-aum">~$3B</span> — BITB at 4pm London fix · CME bitcoin futures · several EU spot BTC ETPs.</td>
             <td>UK-BMR-authorised · IOSCO-compliant · the legacy reference for institutional crypto since 2016.</td>
           </tr>
 
           <tr>
-            <th>CoinDesk Bitcoin Benchmark Rate<span class="idx-sub">CoinDesk Indices (CCData)</span></th>
-            <td>VWMP across 11 venues including Binance, Bybit, OKX (broader coverage than CME CF's regulated-venue-only set) · stale-quote penalties · real-time + 4pm London fix.</td>
-            <td><span class="idx-aum">~$16.6B</span> — GBTC $11.9B · BTC Mini $4.2B · BRRR $0.5B. The "global tape" alternative to the regulated-venue CME CF family.</td>
-            <td>UK-BMR-authorised · IOSCO-compliant · administrator independent of any exchange/custodian.</td>
+            <th>CoinDesk Bitcoin Benchmark Rate<span class="idx-sub">CoinDesk Indices (CCData) · VWMP</span></th>
+            <td>11-venue VWMP including Binance, Bybit, OKX (broader than CME CF's regulated-venues-only set) · stale-quote penalties · real-time + 4pm London fix.</td>
+            <td><span class="idx-aum">~$16.6B</span> — GBTC $11.9B · BTC Mini $4.2B · BRRR $0.5B. The "global tape" alternative to the CME CF family.</td>
+            <td>UK-BMR-authorised · IOSCO-compliant · administrator independent of any exchange or custodian.</td>
           </tr>
 
           <tr>
-            <th>Bloomberg Galaxy Bitcoin Index<span class="idx-sub">BISL + Galaxy Digital co-sponsor</span></th>
-            <td>VWMP · multi-venue · Bloomberg-administered with Galaxy as crypto-methodology partner.</td>
-            <td><span class="idx-aum">$0.5B</span> — BTCO only (Invesco-Galaxy partnership). No third-party adoption — Galaxy's competitor status keeps other sponsors away.</td>
+            <th>Bloomberg Galaxy Bitcoin Index<span class="idx-sub">BISL + Galaxy Digital co-sponsor · VWMP</span></th>
+            <td>Multi-venue VWMP · Bloomberg-administered with Galaxy Digital as crypto-methodology partner. Real-time and daily-fix variants.</td>
+            <td><span class="idx-aum">$0.5B</span> — BTCO only (Invesco-Galaxy partnership). No third-party adoption — Galaxy's status as a competing asset manager keeps other sponsors away.</td>
             <td>UK-BMR-authorised · BISL admin · methodologically clean, commercially niche.</td>
           </tr>
 
           <tr>
-            <th>MarketVector MVBTC<span class="idx-sub">MarketVector Indexes (VanEck-affiliated)</span></th>
-            <td>VWMP · multi-venue · MarketVector-administered (VanEck affiliate).</td>
+            <th>MarketVector MVBTC<span class="idx-sub">MarketVector Indexes · VWMP</span></th>
+            <td>Multi-venue VWMP · MarketVector-administered (VanEck affiliate). Real-time + daily-close fixes.</td>
             <td><span class="idx-aum">$1.3B</span> — HODL only (VanEck product). Two-hat admin-sponsor structure.</td>
-            <td>EU-BMR-authorised · sponsor-administrator conflict (MarketVector is a VanEck affiliate).</td>
+            <td>EU-BMR-authorised · sponsor-administrator conflict — MarketVector is a VanEck affiliate.</td>
+          </tr>
+
+          <tr>
+            <th>Coin Metrics CMBI Bitcoin (CMBI BTC)<span class="idx-sub">Coin Metrics · sub-second composite</span></th>
+            <td>Multi-venue sub-second composite · trade-data cleansing · widely cited as a research benchmark and used as cascade/backup in prospectuses.</td>
+            <td>No primary spot ETF anchor, but the secondary/cascade reference in BRRNY's own failover, in GBTC's cascade, and in several other prospectuses.</td>
+            <td>UK-BMR-authorised · Coin Metrics admin (independent crypto-data provider).</td>
+          </tr>
+
+          <tr>
+            <th>S&amp;P Bitcoin Index<span class="idx-sub">S&amp;P DJI · VWMP</span></th>
+            <td>Multi-venue VWMP · S&amp;P DJI methodology · daily-fix and real-time tickers.</td>
+            <td>Reference and research uses; not the NAV anchor for any &gt;$1B US spot BTC ETF. S&amp;P targets institutional benchmarking and structured products.</td>
+            <td>UK-BMR / IOSCO-compliant · S&amp;P DJI admin · same provider as the S&amp;P 500 and GSCI families.</td>
+          </tr>
+
+          <tr>
+            <th>Nasdaq Bitcoin Reference Price (NQBTC)<span class="idx-sub">Nasdaq · multi-venue</span></th>
+            <td>Multi-venue · Nasdaq-administered · cleansed data with outlier filtering.</td>
+            <td>Niche US products and structured-note pricing. Not a NAV anchor for any major spot ETF.</td>
+            <td>UK-BMR-authorised · Nasdaq admin.</td>
+          </tr>
+
+          <tr>
+            <th>NYSE Bitcoin Index (NYXBT)<span class="idx-sub">NYSE · single-venue</span></th>
+            <td>Pre-multi-venue era methodology — single-venue (Coinbase only) · NYSE-administered. Legacy from 2015.</td>
+            <td>Legacy / niche; no major spot ETF uses it. Persistent as a historical reference.</td>
+            <td>Not BMR-authorised · NYSE admin · single-venue methodology now considered insufficient for institutional NAV use.</td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <p class="fn">AUM as of 2026-05-13 from issuer pages and bitbo.io tracker. The CME CF family (BRRNY + BRR + FBRR-as-mirror) anchors ~$92B of US spot BTC ETF AUM, or ~87% of the $105.9B complex; CoinDesk's family anchors ~$17B (~16%); MarketVector ~$1.3B; Bloomberg Galaxy ~$0.5B. The pattern in gold is even more concentrated: LBMA PM anchors essentially all spot grantor-trust AUM, with Bloomberg GOLDS used only by the one closed-end trust that needs continuous NAV (PHYS) and the BCOM/GSCI futures subindices serving commodity-basket products.</p>
+    <p class="fn">AUM as of 2026-05-13 from issuer pages and bitbo.io tracker. The CME CF family (BRRNY + BRR + FBRR-as-mirror) anchors ~$92B of US spot BTC ETF AUM, or ~87% of the $105.9B complex; CoinDesk's family anchors ~$17B (~16%); MarketVector ~$1.3B; Bloomberg Galaxy ~$0.5B. The pattern in gold is even more concentrated: LBMA PM anchors essentially all spot grantor-trust AUM, with Bloomberg GOLDS used only by the one closed-end trust that needs continuous NAV (PHYS), Bloomberg's BCOM Gold and S&amp;P GSCI Gold serving commodity-basket products as futures-TR subindices, and Shanghai's SHAU as the dominant Asian-tape reference.</p>
   </section>
 
   <section>
