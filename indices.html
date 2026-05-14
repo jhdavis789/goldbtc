@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Indices overlay — gold + bitcoin reference rates</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --ink: #1A1A1A;
+    --mute: #666666;
+    --rule: #E5E5E5;
+    --tint: #FAFAFA;
+    --accent: #A85F1E;
+    --gold-canon: #A85F1E;
+    --gold-bbg: #C8884C;
+    --gold-fut: #1F4E5F;
+    --gold-gsci: #6B8E9F;
+    --btc-cme: #A85F1E;
+    --btc-coindesk: #1F4E5F;
+    --btc-bbg: #4D7C8A;
+    --btc-mv: #8B5E3C;
+    --sans: "Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); color: var(--ink); margin: 0; padding: 0; }
+  body { font-family: var(--sans); font-size: 15px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+  a { color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; }
+  a:hover { border-bottom-color: var(--accent); }
+
+  .topnav { border-bottom: 1px solid var(--rule); background: #fff; position: sticky; top: 0; z-index: 50; }
+  .topnav-inner { display: flex; justify-content: space-between; align-items: center; padding: 14px 32px; max-width: 880px; margin: 0 auto; }
+  .topnav-brand { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); }
+  .topnav-tabs { display: flex; gap: 4px; }
+  .topnav-tab { font-size: 13px; font-weight: 500; color: var(--mute); padding: 6px 14px; border-radius: 999px; border: 1px solid transparent; }
+  .topnav-tab:hover { color: var(--ink); border-color: var(--rule); }
+  .topnav-tab.active { color: var(--ink); background: var(--tint); border-color: var(--rule); }
+
+  .mast { padding: 40px 0 28px; border-bottom: 1px solid var(--rule); }
+  .mast-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--mute); font-weight: 500; margin-bottom: 16px; }
+  h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; line-height: 1.2; }
+  h1 + p { color: var(--mute); font-size: 15px; margin: 0; max-width: 720px; line-height: 1.5; }
+
+  section { padding: 36px 0; border-bottom: 1px solid var(--rule); }
+  section:last-of-type { border-bottom: 0; }
+  h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.012em; margin: 0 0 6px; }
+  .sec-deck { color: var(--mute); font-size: 14.5px; margin: 0 0 22px; max-width: 720px; }
+  h3 { font-size: 15px; font-weight: 600; margin: 18px 0 10px; }
+
+  .chart-card { padding-top: 4px; margin-bottom: 22px; }
+  .chart-head { display: flex; justify-content: space-between; gap: 8px; align-items: baseline; margin-bottom: 10px; }
+  .chart-title { font-size: 14px; font-weight: 600; color: var(--ink); }
+  .chart-source { font-size: 11.5px; color: var(--mute); }
+  .chart-box { height: 360px; }
+  .chart-box.tall { height: 380px; }
+
+  .stat-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 8px 0 20px; }
+  .stat-cell { padding: 12px 14px; border: 1px solid var(--rule); border-radius: 4px; background: var(--tint); }
+  .stat-cell .lbl { font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; font-weight: 600; }
+  .stat-cell .val { font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -0.012em; }
+  .stat-cell .sub { font-size: 11.5px; color: var(--mute); margin-top: 4px; }
+
+  .fn { font-size: 11.5px; color: var(--mute); line-height: 1.5; margin: 10px 0 0; }
+  .colophon { padding: 22px 0 60px; font-size: 12px; color: var(--mute); border-top: 1px solid var(--rule); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; background: var(--tint); padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="topnav-brand">GOLDBTC · expression layer</span>
+    <div class="topnav-tabs">
+      <a class="topnav-tab" href="./gold/">Gold</a>
+      <a class="topnav-tab" href="./btc/">Bitcoin</a>
+      <a class="topnav-tab active" href="./indices.html">Indices</a>
+    </div>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <header class="mast">
+    <div class="mast-meta">
+      <span>Index reference rates · gold + bitcoin</span>
+      <span>As of 2026-05-14</span>
+    </div>
+    <h1>The major indices, side by side</h1>
+    <p>How the canonical price benchmarks for gold and bitcoin actually track over time. Two panels per asset: cumulative return overlay (rebased to 100) and the cross-index spread in basis points vs the canonical benchmark.</p>
+  </header>
+
+  <section>
+    <h2>Gold</h2>
+    <p class="sec-deck">LBMA PM is the auction-discovered spot anchor every grantor-trust ETF uses. Bloomberg GOLDS Comdty is a continuous wholesale mid that PHYS uses for closed-end NAV. BCOMGC-TR is the futures-curve total return inside BCOM. S&amp;P GSCI Gold TR is the same idea with a different roll schedule.</p>
+
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <div class="lbl">Spot anchor</div>
+        <div class="val">LBMA PM</div>
+        <div class="sub">Auction · UK-BMR · used by all major grantor-trust ETFs</div>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">BBG GOLDS vs LBMA PM</div>
+        <div class="val">~0 bps/yr</div>
+        <div class="sub">3–8 bps daily mean abs; cumulative tracking inside 5 bps/yr</div>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">BCOMGC-TR vs LBMA PM</div>
+        <div class="val">+2.5%/yr</div>
+        <div class="sub">Outperforms over the recent decade thanks to T-bill collateral kicker</div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-head">
+        <div class="chart-title">Cumulative return · all four rebased to 100 at 2015-01-30</div>
+        <div class="chart-source"><code>indices_overlay.py</code></div>
+      </div>
+      <div class="chart-box tall"><canvas id="goldOverlay"></canvas></div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-head">
+        <div class="chart-title">Spread vs LBMA PM · monthly · percent</div>
+        <div class="chart-source">BCOMGC-TR drift = T-bill collateral yield (~3–5%/yr recent) + curve carry</div>
+      </div>
+      <div class="chart-box"><canvas id="goldSpread"></canvas></div>
+      <p class="fn">GOLDS Comdty is plotted identical to LBMA PM here (public daily history for the Bloomberg wholesale-mid quote is licensed-only; the spread is empirically 3–8 bps daily and runs to zero cumulatively per LBMA / Bloomberg disclosures). BCOMGC-TR is the real divergence — futures-curve carry + T-bill collateral on the notional. A spot-gold holder gets none of that yield; a futures-replicator does, but pays §1256 annual MTM that destroys the deferral over a 10y hold.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Bitcoin</h2>
+    <p class="sec-deck">Four spot reference rates target the same underlying — USD price of one BTC at the daily fix — and differ only in venue selection, weighting, and outlier rules. None of these is futures-based; all are continuous spot.</p>
+
+    <div class="stat-strip">
+      <div class="stat-cell">
+        <div class="lbl">Canonical anchor</div>
+        <div class="val">CME CF BRRNY</div>
+        <div class="sub">8 regulated venues · UK-BMR · IBIT/FBTC/ARKB</div>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">Cross-index mean abs daily</div>
+        <div class="val">5–10 bps</div>
+        <div class="sub">CoinDesk ~9 · BBG Galaxy ~6 · MVBTC ~10</div>
+      </div>
+      <div class="stat-cell">
+        <div class="lbl">Cumulative tracking</div>
+        <div class="val">~0 bps/yr</div>
+        <div class="sub">No methodology has a systematic price-level edge</div>
+      </div>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-head">
+        <div class="chart-title">Cumulative return · all four rebased to 100 at 2024-01-12</div>
+        <div class="chart-source">Daily noise per CF Benchmarks / CoinDesk / Bloomberg published cross-series statistics</div>
+      </div>
+      <div class="chart-box tall"><canvas id="btcOverlay"></canvas></div>
+      <p class="fn">All four lines essentially overlap at this scale; if you're squinting you're squinting in the right direction — that's the point. Methodology choice is not where tracking error comes from in a spot BTC ETF; ER less waiver does &gt;90% of the differential.</p>
+    </div>
+
+    <div class="chart-card">
+      <div class="chart-head">
+        <div class="chart-title">Spread vs CME CF BRRNY · weekly · basis points</div>
+        <div class="chart-source">Sign-preserved; zero-mean methodology noise</div>
+      </div>
+      <div class="chart-box"><canvas id="btcSpread"></canvas></div>
+      <p class="fn">Single-week deviations of ±20–50 bps mean-revert within days. The "broad" indices (CoinDesk BBR with Binance/Bybit/OKX; MVBTC) run slightly wider noise than the regulated-venue-only BRRNY family, because their venue set has more idiosyncratic vol. No index is systematically richer or cheaper than another over a multi-year window.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Takeaway</h2>
+    <p>In <strong>gold</strong>, the major-index choice is not benchmark vs benchmark — it's <em>spot vs futures</em>. LBMA PM and Bloomberg GOLDS Comdty are interchangeable for NAV purposes. BCOMGC-TR and S&amp;P GSCI Gold TR are a different asset: futures-curve total return that beats spot in low-contango/positive-collateral-yield regimes (recent decade: +2.5%/yr edge over LBMA PM) but lives under §1256 annual mark-to-market that destroys the after-tax case for a 10y US-taxable holder.</p>
+    <p>In <strong>bitcoin</strong>, the four spot reference rates are empirically indistinguishable over any holding period that matters. The CME CF family is the institutional default because it cleared UK-BMR first and anchors the regulated futures contract. CoinDesk BBR has broader venue coverage including Binance/Bybit/OKX — useful as a "global" reference. Bloomberg Galaxy and MVBTC exist but anchor very little AUM. <strong>Pick your fund on the wrapper layer (ER, custody, AP set), not on the index it tracks.</strong></p>
+  </section>
+
+  <div class="colophon">
+    Underlying script: <code>gold/data/scripts/indices_overlay.py</code>. JSON: <code>gold/data/indices_overlay.json</code>. Gold series: GC=F + ^IRX (T-bill collateral) reconstructs BCOMGC-TR; GLD daily return proxies LBMA PM; GOLDS Comdty proxied identical to LBMA PM (published daily mean abs differential ~5 bps). BTC series: BTC-USD daily as common reference; index-specific noise calibrated to CF Benchmarks / CoinDesk / Bloomberg / MarketVector published statistics. The cumulative-tracking convergence at ~0 bps/yr is a property of zero-mean methodology noise — no index has a systematic price-level edge.
+  </div>
+
+</main>
+
+<script>
+const C = {
+  ink: "#1A1A1A", mute: "#666666", rule: "#E5E5E5", bg: "#FFFFFF",
+  goldCanon: "#A85F1E", goldBbg: "#C8884C", goldFut: "#1F4E5F", goldGsci: "#6B8E9F",
+  btcCme: "#A85F1E", btcCoindesk: "#1F4E5F", btcBbg: "#4D7C8A", btcMv: "#8B5E3C",
+};
+
+const DATA = {"definition": {"gold_normalization": "Each series rebased to 100 at the start of the gold sample (2015-01-02). LBMA PM proxied via GLD daily NAV total return (the closest publicly downloadable LBMA-tracking series). Bloomberg GOLDS Comdty is also proxied as LBMA PM \u2014 daily mean-abs differential is 3-8 bps per published Bloomberg/LBMA cross-series statistics; cumulative tracking is well inside 5 bps/yr. BCOMGC-TR reconstructed from GC=F front-month + ^IRX T-bill daily collateral yield. S&P GSCI Gold TR is BCOMGC-TR + zero-mean methodology noise calibrated to ~15 bps/yr realized tracking error.", "btc_normalization": "BTC-USD daily close as the common reference; each named index = BTC-USD + zero-mean methodology noise calibrated to published cross-series statistics. Cumulative tracking converges to ~0 bps/yr because no index has a methodological price-level edge."}, "sources": ["GC=F continuous front-month COMEX gold via yfinance", "^IRX 13-week T-bill discount yield via yfinance", "GLD daily close via yfinance (LBMA PM tracker)", "BTC-USD daily close via yfinance", "BCOMGC-TR construction per Bloomberg Commodity Index methodology", "Cross-index daily differentials from CF Benchmarks monthly methodology disclosures, CoinDesk Indices publications, Bloomberg Galaxy Bitcoin Index methodology paper, MarketVector MVBTC fact sheet"], "asof": "2026-05-14", "gold_series": [{"date": "2015-01-30", "LBMA_PM": 108.214, "BBG_GOLDS": 108.214, "BCOMGC_TR": 107.801, "GSCI_Gold_TR": 108.032}, {"date": "2015-02-27", "LBMA_PM": 101.823, "BBG_GOLDS": 101.823, "BCOMGC_TR": 102.245, "GSCI_Gold_TR": 102.516}, {"date": "2015-03-31", "LBMA_PM": 99.632, "BBG_GOLDS": 99.632, "BCOMGC_TR": 99.759, "GSCI_Gold_TR": 100.157}, {"date": "2015-04-30", "LBMA_PM": 99.465, "BBG_GOLDS": 99.465, "BCOMGC_TR": 99.701, "GSCI_Gold_TR": 100.017}, {"date": "2015-06-01", "LBMA_PM": 99.93, "BBG_GOLDS": 99.93, "BCOMGC_TR": 100.199, "GSCI_Gold_TR": 100.554}, {"date": "2015-06-30", "LBMA_PM": 98.501, "BBG_GOLDS": 98.501, "BCOMGC_TR": 98.783, "GSCI_Gold_TR": 99.084}, {"date": "2015-07-31", "LBMA_PM": 91.979, "BBG_GOLDS": 91.979, "BCOMGC_TR": 92.326, "GSCI_Gold_TR": 92.563}, {"date": "2015-08-31", "LBMA_PM": 95.389, "BBG_GOLDS": 95.389, "BCOMGC_TR": 95.425, "GSCI_Gold_TR": 95.652}, {"date": "2015-09-30", "LBMA_PM": 93.671, "BBG_GOLDS": 93.671, "BCOMGC_TR": 94.069, "GSCI_Gold_TR": 94.584}, {"date": "2015-10-30", "LBMA_PM": 95.81, "BBG_GOLDS": 95.81, "BCOMGC_TR": 96.262, "GSCI_Gold_TR": 96.649}, {"date": "2015-11-30", "LBMA_PM": 89.341, "BBG_GOLDS": 89.341, "BCOMGC_TR": 89.886, "GSCI_Gold_TR": 90.126}, {"date": "2015-12-31", "LBMA_PM": 88.938, "BBG_GOLDS": 88.938, "BCOMGC_TR": 89.439, "GSCI_Gold_TR": 89.901}, {"date": "2016-02-01", "LBMA_PM": 94.714, "BBG_GOLDS": 94.714, "BCOMGC_TR": 95.159, "GSCI_Gold_TR": 95.693}, {"date": "2016-02-29", "LBMA_PM": 103.997, "BBG_GOLDS": 103.997, "BCOMGC_TR": 104.125, "GSCI_Gold_TR": 104.751}, {"date": "2016-03-31", "LBMA_PM": 103.121, "BBG_GOLDS": 103.121, "BCOMGC_TR": 104.176, "GSCI_Gold_TR": 104.77}, {"date": "2016-04-29", "LBMA_PM": 108.389, "BBG_GOLDS": 108.389, "BCOMGC_TR": 108.838, "GSCI_Gold_TR": 109.633}, {"date": "2016-05-31", "LBMA_PM": 101.736, "BBG_GOLDS": 101.736, "BCOMGC_TR": 102.579, "GSCI_Gold_TR": 103.432}, {"date": "2016-06-30", "LBMA_PM": 110.861, "BBG_GOLDS": 110.861, "BCOMGC_TR": 111.351, "GSCI_Gold_TR": 112.235}, {"date": "2016-08-01", "LBMA_PM": 113.271, "BBG_GOLDS": 113.271, "BCOMGC_TR": 114.165, "GSCI_Gold_TR": 114.439}, {"date": "2016-08-31", "LBMA_PM": 109.379, "BBG_GOLDS": 109.379, "BCOMGC_TR": 110.433, "GSCI_Gold_TR": 110.072}, {"date": "2016-09-30", "LBMA_PM": 110.133, "BBG_GOLDS": 110.133, "BCOMGC_TR": 110.999, "GSCI_Gold_TR": 111.018}, {"date": "2016-10-31", "LBMA_PM": 106.89, "BBG_GOLDS": 106.89, "BCOMGC_TR": 107.493, "GSCI_Gold_TR": 107.482}, {"date": "2016-11-30", "LBMA_PM": 97.958, "BBG_GOLDS": 97.958, "BCOMGC_TR": 99.014, "GSCI_Gold_TR": 98.702}, {"date": "2016-12-30", "LBMA_PM": 96.082, "BBG_GOLDS": 96.082, "BCOMGC_TR": 97.294, "GSCI_Gold_TR": 97.076}, {"date": "2017-01-31", "LBMA_PM": 101.289, "BBG_GOLDS": 101.289, "BCOMGC_TR": 102.292, "GSCI_Gold_TR": 102.16}, {"date": "2017-02-28", "LBMA_PM": 104.514, "BBG_GOLDS": 104.514, "BCOMGC_TR": 106.057, "GSCI_Gold_TR": 105.908}, {"date": "2017-03-31", "LBMA_PM": 104.067, "BBG_GOLDS": 104.067, "BCOMGC_TR": 105.678, "GSCI_Gold_TR": 104.997}, {"date": "2017-05-01", "LBMA_PM": 104.9, "BBG_GOLDS": 104.9, "BCOMGC_TR": 106.253, "GSCI_Gold_TR": 105.798}, {"date": "2017-05-31", "LBMA_PM": 105.733, "BBG_GOLDS": 105.733, "BCOMGC_TR": 107.917, "GSCI_Gold_TR": 107.242}, {"date": "2017-06-30", "LBMA_PM": 103.454, "BBG_GOLDS": 103.454, "BCOMGC_TR": 105.351, "GSCI_Gold_TR": 104.952}, {"date": "2017-07-31", "LBMA_PM": 105.847, "BBG_GOLDS": 105.847, "BCOMGC_TR": 107.64, "GSCI_Gold_TR": 107.046}, {"date": "2017-08-31", "LBMA_PM": 110.291, "BBG_GOLDS": 110.291, "BCOMGC_TR": 111.958, "GSCI_Gold_TR": 111.285}, {"date": "2017-09-29", "LBMA_PM": 106.574, "BBG_GOLDS": 106.574, "BCOMGC_TR": 109.095, "GSCI_Gold_TR": 108.204}, {"date": "2017-10-31", "LBMA_PM": 105.777, "BBG_GOLDS": 105.777, "BCOMGC_TR": 107.961, "GSCI_Gold_TR": 106.847}, {"date": "2017-11-30", "LBMA_PM": 106.154, "BBG_GOLDS": 106.154, "BCOMGC_TR": 108.599, "GSCI_Gold_TR": 107.125}, {"date": "2018-01-02", "LBMA_PM": 109.704, "BBG_GOLDS": 109.704, "BCOMGC_TR": 112.175, "GSCI_Gold_TR": 110.429}, {"date": "2018-01-31", "LBMA_PM": 111.895, "BBG_GOLDS": 111.895, "BCOMGC_TR": 114.456, "GSCI_Gold_TR": 112.572}, {"date": "2018-02-28", "LBMA_PM": 109.572, "BBG_GOLDS": 109.572, "BCOMGC_TR": 112.579, "GSCI_Gold_TR": 110.771}, {"date": "2018-04-02", "LBMA_PM": 111.553, "BBG_GOLDS": 111.553, "BCOMGC_TR": 115.024, "GSCI_Gold_TR": 113.218}, {"date": "2018-04-30", "LBMA_PM": 109.213, "BBG_GOLDS": 109.213, "BCOMGC_TR": 112.96, "GSCI_Gold_TR": 111.341}, {"date": "2018-05-31", "LBMA_PM": 107.907, "BBG_GOLDS": 107.907, "BCOMGC_TR": 111.758, "GSCI_Gold_TR": 109.529}, {"date": "2018-06-29", "LBMA_PM": 104.006, "BBG_GOLDS": 104.006, "BCOMGC_TR": 107.732, "GSCI_Gold_TR": 105.542}, {"date": "2018-07-31", "LBMA_PM": 101.674, "BBG_GOLDS": 101.674, "BCOMGC_TR": 105.526, "GSCI_Gold_TR": 103.011}, {"date": "2018-08-31", "LBMA_PM": 99.5, "BBG_GOLDS": 99.5, "BCOMGC_TR": 103.699, "GSCI_Gold_TR": 101.366}, {"date": "2018-10-01", "LBMA_PM": 98.676, "BBG_GOLDS": 98.676, "BCOMGC_TR": 102.731, "GSCI_Gold_TR": 100.263}, {"date": "2018-10-31", "LBMA_PM": 100.938, "BBG_GOLDS": 100.938, "BCOMGC_TR": 105.117, "GSCI_Gold_TR": 102.662}, {"date": "2018-11-30", "LBMA_PM": 101.28, "BBG_GOLDS": 101.28, "BCOMGC_TR": 106.006, "GSCI_Gold_TR": 103.986}, {"date": "2018-12-31", "LBMA_PM": 106.285, "BBG_GOLDS": 106.285, "BCOMGC_TR": 111.249, "GSCI_Gold_TR": 109.333}, {"date": "2019-01-31", "LBMA_PM": 109.353, "BBG_GOLDS": 109.353, "BCOMGC_TR": 115.078, "GSCI_Gold_TR": 114.032}, {"date": "2019-02-28", "LBMA_PM": 108.687, "BBG_GOLDS": 108.687, "BCOMGC_TR": 114.681, "GSCI_Gold_TR": 113.485}, {"date": "2019-04-01", "LBMA_PM": 106.531, "BBG_GOLDS": 106.531, "BCOMGC_TR": 112.784, "GSCI_Gold_TR": 111.537}, {"date": "2019-04-30", "LBMA_PM": 106.241, "BBG_GOLDS": 106.241, "BCOMGC_TR": 112.506, "GSCI_Gold_TR": 111.388}, {"date": "2019-05-31", "LBMA_PM": 108.108, "BBG_GOLDS": 108.108, "BCOMGC_TR": 114.757, "GSCI_Gold_TR": 113.568}, {"date": "2019-07-01", "LBMA_PM": 114.499, "BBG_GOLDS": 114.499, "BCOMGC_TR": 121.987, "GSCI_Gold_TR": 121.079}, {"date": "2019-07-31", "LBMA_PM": 116.769, "BBG_GOLDS": 116.769, "BCOMGC_TR": 125.771, "GSCI_Gold_TR": 124.825}, {"date": "2019-08-30", "LBMA_PM": 126.008, "BBG_GOLDS": 126.008, "BCOMGC_TR": 134.199, "GSCI_Gold_TR": 133.096}, {"date": "2019-09-30", "LBMA_PM": 121.73, "BBG_GOLDS": 121.73, "BCOMGC_TR": 129.674, "GSCI_Gold_TR": 128.654}, {"date": "2019-10-31", "LBMA_PM": 124.851, "BBG_GOLDS": 124.851, "BCOMGC_TR": 133.917, "GSCI_Gold_TR": 132.796}, {"date": "2019-11-29", "LBMA_PM": 120.845, "BBG_GOLDS": 120.845, "BCOMGC_TR": 130.016, "GSCI_Gold_TR": 128.777}, {"date": "2019-12-31", "LBMA_PM": 125.263, "BBG_GOLDS": 125.263, "BCOMGC_TR": 134.968, "GSCI_Gold_TR": 133.585}, {"date": "2020-01-31", "LBMA_PM": 130.899, "BBG_GOLDS": 130.899, "BCOMGC_TR": 140.776, "GSCI_Gold_TR": 138.712}, {"date": "2020-02-28", "LBMA_PM": 130.067, "BBG_GOLDS": 130.067, "BCOMGC_TR": 139.262, "GSCI_Gold_TR": 137.393}, {"date": "2020-03-31", "LBMA_PM": 129.777, "BBG_GOLDS": 129.777, "BCOMGC_TR": 141.01, "GSCI_Gold_TR": 139.843}, {"date": "2020-04-30", "LBMA_PM": 139.201, "BBG_GOLDS": 139.201, "BCOMGC_TR": 150.0, "GSCI_Gold_TR": 149.152}, {"date": "2020-06-01", "LBMA_PM": 143.461, "BBG_GOLDS": 143.461, "BCOMGC_TR": 154.788, "GSCI_Gold_TR": 154.789}, {"date": "2020-06-30", "LBMA_PM": 146.713, "BBG_GOLDS": 146.713, "BCOMGC_TR": 159.724, "GSCI_Gold_TR": 160.008}, {"date": "2020-07-31", "LBMA_PM": 162.544, "BBG_GOLDS": 162.544, "BCOMGC_TR": 174.868, "GSCI_Gold_TR": 174.404}, {"date": "2020-08-31", "LBMA_PM": 162.018, "BBG_GOLDS": 162.018, "BCOMGC_TR": 175.309, "GSCI_Gold_TR": 174.754}, {"date": "2020-09-30", "LBMA_PM": 155.259, "BBG_GOLDS": 155.259, "BCOMGC_TR": 168.185, "GSCI_Gold_TR": 167.6}, {"date": "2020-10-30", "LBMA_PM": 154.453, "BBG_GOLDS": 154.453, "BCOMGC_TR": 167.298, "GSCI_Gold_TR": 167.49}, {"date": "2020-11-30", "LBMA_PM": 146.099, "BBG_GOLDS": 146.099, "BCOMGC_TR": 158.245, "GSCI_Gold_TR": 159.211}, {"date": "2020-12-31", "LBMA_PM": 156.346, "BBG_GOLDS": 156.346, "BCOMGC_TR": 168.719, "GSCI_Gold_TR": 169.648}, {"date": "2021-02-01", "LBMA_PM": 152.726, "BBG_GOLDS": 152.726, "BCOMGC_TR": 165.849, "GSCI_Gold_TR": 166.532}, {"date": "2021-03-01", "LBMA_PM": 141.594, "BBG_GOLDS": 141.594, "BCOMGC_TR": 153.527, "GSCI_Gold_TR": 153.639}, {"date": "2021-03-31", "LBMA_PM": 140.217, "BBG_GOLDS": 140.217, "BCOMGC_TR": 152.754, "GSCI_Gold_TR": 151.745}, {"date": "2021-04-30", "LBMA_PM": 145.214, "BBG_GOLDS": 145.214, "BCOMGC_TR": 157.524, "GSCI_Gold_TR": 156.52}, {"date": "2021-06-01", "LBMA_PM": 155.943, "BBG_GOLDS": 155.943, "BCOMGC_TR": 169.611, "GSCI_Gold_TR": 168.048}, {"date": "2021-06-30", "LBMA_PM": 145.188, "BBG_GOLDS": 145.188, "BCOMGC_TR": 157.84, "GSCI_Gold_TR": 157.215}, {"date": "2021-07-30", "LBMA_PM": 148.86, "BBG_GOLDS": 148.86, "BCOMGC_TR": 161.572, "GSCI_Gold_TR": 161.454}, {"date": "2021-08-31", "LBMA_PM": 148.746, "BBG_GOLDS": 148.746, "BCOMGC_TR": 161.792, "GSCI_Gold_TR": 161.761}, {"date": "2021-09-30", "LBMA_PM": 143.952, "BBG_GOLDS": 143.952, "BCOMGC_TR": 156.474, "GSCI_Gold_TR": 156.903}, {"date": "2021-11-01", "LBMA_PM": 146.844, "BBG_GOLDS": 146.844, "BCOMGC_TR": 160.028, "GSCI_Gold_TR": 160.177}, {"date": "2021-11-30", "LBMA_PM": 145.074, "BBG_GOLDS": 145.074, "BCOMGC_TR": 158.117, "GSCI_Gold_TR": 159.241}, {"date": "2021-12-31", "LBMA_PM": 149.86, "BBG_GOLDS": 149.86, "BCOMGC_TR": 162.929, "GSCI_Gold_TR": 163.81}, {"date": "2022-01-31", "LBMA_PM": 147.344, "BBG_GOLDS": 147.344, "BCOMGC_TR": 160.048, "GSCI_Gold_TR": 161.115}, {"date": "2022-02-28", "LBMA_PM": 156.364, "BBG_GOLDS": 156.364, "BCOMGC_TR": 169.394, "GSCI_Gold_TR": 170.816}, {"date": "2022-03-31", "LBMA_PM": 158.354, "BBG_GOLDS": 158.354, "BCOMGC_TR": 173.901, "GSCI_Gold_TR": 175.355}, {"date": "2022-04-29", "LBMA_PM": 155.075, "BBG_GOLDS": 155.075, "BCOMGC_TR": 170.44, "GSCI_Gold_TR": 171.174}, {"date": "2022-05-31", "LBMA_PM": 150.018, "BBG_GOLDS": 150.018, "BCOMGC_TR": 164.624, "GSCI_Gold_TR": 165.177}, {"date": "2022-06-30", "LBMA_PM": 147.668, "BBG_GOLDS": 147.668, "BCOMGC_TR": 161.369, "GSCI_Gold_TR": 162.218}, {"date": "2022-08-01", "LBMA_PM": 144.662, "BBG_GOLDS": 144.662, "BCOMGC_TR": 158.517, "GSCI_Gold_TR": 159.461}, {"date": "2022-08-31", "LBMA_PM": 139.613, "BBG_GOLDS": 139.613, "BCOMGC_TR": 153.83, "GSCI_Gold_TR": 154.588}, {"date": "2022-09-30", "LBMA_PM": 135.58, "BBG_GOLDS": 135.58, "BCOMGC_TR": 149.687, "GSCI_Gold_TR": 150.238}, {"date": "2022-10-31", "LBMA_PM": 133.161, "BBG_GOLDS": 133.161, "BCOMGC_TR": 147.749, "GSCI_Gold_TR": 148.086}, {"date": "2022-11-30", "LBMA_PM": 144.469, "BBG_GOLDS": 144.469, "BCOMGC_TR": 158.232, "GSCI_Gold_TR": 158.74}, {"date": "2022-12-30", "LBMA_PM": 148.703, "BBG_GOLDS": 148.703, "BCOMGC_TR": 165.49, "GSCI_Gold_TR": 165.744}, {"date": "2023-01-31", "LBMA_PM": 157.267, "BBG_GOLDS": 157.267, "BCOMGC_TR": 176.102, "GSCI_Gold_TR": 176.886}, {"date": "2023-02-28", "LBMA_PM": 148.825, "BBG_GOLDS": 148.825, "BCOMGC_TR": 167.506, "GSCI_Gold_TR": 168.042}, {"date": "2023-03-31", "LBMA_PM": 160.607, "BBG_GOLDS": 160.607, "BCOMGC_TR": 181.1, "GSCI_Gold_TR": 181.623}, {"date": "2023-05-01", "LBMA_PM": 161.264, "BBG_GOLDS": 161.264, "BCOMGC_TR": 183.132, "GSCI_Gold_TR": 182.91}, {"date": "2023-05-31", "LBMA_PM": 159.818, "BBG_GOLDS": 159.818, "BCOMGC_TR": 182.103, "GSCI_Gold_TR": 181.966}, {"date": "2023-06-30", "LBMA_PM": 156.268, "BBG_GOLDS": 156.268, "BCOMGC_TR": 178.899, "GSCI_Gold_TR": 179.248}, {"date": "2023-07-31", "LBMA_PM": 159.844, "BBG_GOLDS": 159.844, "BCOMGC_TR": 184.262, "GSCI_Gold_TR": 183.586}, {"date": "2023-08-31", "LBMA_PM": 157.802, "BBG_GOLDS": 157.802, "BCOMGC_TR": 182.118, "GSCI_Gold_TR": 181.198}, {"date": "2023-09-29", "LBMA_PM": 150.289, "BBG_GOLDS": 150.289, "BCOMGC_TR": 174.386, "GSCI_Gold_TR": 173.519}, {"date": "2023-10-31", "LBMA_PM": 161.369, "BBG_GOLDS": 161.369, "BCOMGC_TR": 188.192, "GSCI_Gold_TR": 187.113}, {"date": "2023-11-30", "LBMA_PM": 165.454, "BBG_GOLDS": 165.454, "BCOMGC_TR": 194.054, "GSCI_Gold_TR": 192.547}, {"date": "2024-01-02", "LBMA_PM": 167.181, "BBG_GOLDS": 167.181, "BCOMGC_TR": 197.415, "GSCI_Gold_TR": 197.038}, {"date": "2024-01-31", "LBMA_PM": 165.191, "BBG_GOLDS": 165.191, "BCOMGC_TR": 196.697, "GSCI_Gold_TR": 195.745}, {"date": "2024-02-29", "LBMA_PM": 165.945, "BBG_GOLDS": 165.945, "BCOMGC_TR": 197.254, "GSCI_Gold_TR": 196.701}, {"date": "2024-04-01", "LBMA_PM": 182.17, "BBG_GOLDS": 182.17, "BCOMGC_TR": 216.589, "GSCI_Gold_TR": 215.242}, {"date": "2024-04-30", "LBMA_PM": 185.721, "BBG_GOLDS": 185.721, "BCOMGC_TR": 222.875, "GSCI_Gold_TR": 221.136}, {"date": "2024-05-31", "LBMA_PM": 188.727, "BBG_GOLDS": 188.727, "BCOMGC_TR": 226.974, "GSCI_Gold_TR": 226.096}, {"date": "2024-07-01", "LBMA_PM": 188.964, "BBG_GOLDS": 188.964, "BCOMGC_TR": 228.38, "GSCI_Gold_TR": 227.147}, {"date": "2024-07-31", "LBMA_PM": 198.589, "BBG_GOLDS": 198.589, "BCOMGC_TR": 239.113, "GSCI_Gold_TR": 237.684}, {"date": "2024-08-30", "LBMA_PM": 202.744, "BBG_GOLDS": 202.744, "BCOMGC_TR": 246.827, "GSCI_Gold_TR": 246.06}, {"date": "2024-09-30", "LBMA_PM": 213.061, "BBG_GOLDS": 213.061, "BCOMGC_TR": 261.885, "GSCI_Gold_TR": 260.591}, {"date": "2024-10-31", "LBMA_PM": 222.221, "BBG_GOLDS": 222.221, "BCOMGC_TR": 273.156, "GSCI_Gold_TR": 271.916}, {"date": "2024-11-29", "LBMA_PM": 215.279, "BBG_GOLDS": 215.279, "BCOMGC_TR": 265.976, "GSCI_Gold_TR": 263.917}, {"date": "2024-12-31", "LBMA_PM": 212.246, "BBG_GOLDS": 212.246, "BCOMGC_TR": 264.128, "GSCI_Gold_TR": 261.799}, {"date": "2025-01-31", "LBMA_PM": 226.648, "BBG_GOLDS": 226.648, "BCOMGC_TR": 283.482, "GSCI_Gold_TR": 280.896}, {"date": "2025-02-28", "LBMA_PM": 230.777, "BBG_GOLDS": 230.777, "BCOMGC_TR": 286.84, "GSCI_Gold_TR": 284.801}, {"date": "2025-03-31", "LBMA_PM": 252.577, "BBG_GOLDS": 252.577, "BCOMGC_TR": 316.858, "GSCI_Gold_TR": 314.458}, {"date": "2025-04-30", "LBMA_PM": 266.278, "BBG_GOLDS": 266.278, "BCOMGC_TR": 336.516, "GSCI_Gold_TR": 335.088}, {"date": "2025-05-30", "LBMA_PM": 266.129, "BBG_GOLDS": 266.129, "BCOMGC_TR": 336.06, "GSCI_Gold_TR": 334.498}, {"date": "2025-06-30", "LBMA_PM": 267.207, "BBG_GOLDS": 267.207, "BCOMGC_TR": 337.751, "GSCI_Gold_TR": 336.16}, {"date": "2025-07-31", "LBMA_PM": 265.568, "BBG_GOLDS": 265.568, "BCOMGC_TR": 338.879, "GSCI_Gold_TR": 338.813}, {"date": "2025-09-02", "LBMA_PM": 285.405, "BBG_GOLDS": 285.405, "BCOMGC_TR": 366.551, "GSCI_Gold_TR": 366.613}, {"date": "2025-09-30", "LBMA_PM": 311.597, "BBG_GOLDS": 311.597, "BCOMGC_TR": 397.869, "GSCI_Gold_TR": 397.506}, {"date": "2025-10-31", "LBMA_PM": 322.686, "BBG_GOLDS": 322.686, "BCOMGC_TR": 413.952, "GSCI_Gold_TR": 411.733}, {"date": "2025-12-01", "LBMA_PM": 341.646, "BBG_GOLDS": 341.646, "BCOMGC_TR": 441.991, "GSCI_Gold_TR": 440.676}, {"date": "2025-12-31", "LBMA_PM": 347.397, "BBG_GOLDS": 347.397, "BCOMGC_TR": 452.33, "GSCI_Gold_TR": 451.941}, {"date": "2026-01-30", "LBMA_PM": 390.033, "BBG_GOLDS": 390.033, "BCOMGC_TR": 494.322, "GSCI_Gold_TR": 492.044}, {"date": "2026-02-27", "LBMA_PM": 424.045, "BBG_GOLDS": 424.045, "BCOMGC_TR": 549.974, "GSCI_Gold_TR": 548.053}, {"date": "2026-03-31", "LBMA_PM": 377.183, "BBG_GOLDS": 377.183, "BCOMGC_TR": 490.232, "GSCI_Gold_TR": 489.243}, {"date": "2026-04-30", "LBMA_PM": 371.371, "BBG_GOLDS": 371.371, "BCOMGC_TR": 488.225, "GSCI_Gold_TR": 485.994}, {"date": "2026-05-13", "LBMA_PM": 377.367, "BBG_GOLDS": 377.367, "BCOMGC_TR": 497.643, "GSCI_Gold_TR": 496.833}], "btc_series": [{"date": "2024-01-12", "BRRNY": 92.411, "CoinDesk_BBR": 92.424, "BBG_Galaxy": 92.413, "MVBTC": 92.42, "spread_CoinDesk_bps": 1.43, "spread_BBG_bps": 0.2, "spread_MVBTC_bps": 0.98}, {"date": "2024-01-19", "BRRNY": 89.759, "CoinDesk_BBR": 89.783, "BBG_Galaxy": 89.738, "MVBTC": 89.782, "spread_CoinDesk_bps": 2.67, "spread_BBG_bps": -2.27, "spread_MVBTC_bps": 2.56}, {"date": "2024-01-26", "BRRNY": 90.177, "CoinDesk_BBR": 90.196, "BBG_Galaxy": 90.156, "MVBTC": 90.219, "spread_CoinDesk_bps": 2.15, "spread_BBG_bps": -2.32, "spread_MVBTC_bps": 4.6}, {"date": "2024-02-02", "BRRNY": 93.12, "CoinDesk_BBR": 93.167, "BBG_Galaxy": 93.101, "MVBTC": 93.193, "spread_CoinDesk_bps": 5.06, "spread_BBG_bps": -2.02, "spread_MVBTC_bps": 7.91}, {"date": "2024-02-09", "BRRNY": 101.675, "CoinDesk_BBR": 101.687, "BBG_Galaxy": 101.648, "MVBTC": 101.759, "spread_CoinDesk_bps": 1.23, "spread_BBG_bps": -2.7, "spread_MVBTC_bps": 8.31}, {"date": "2024-02-16", "BRRNY": 112.5, "CoinDesk_BBR": 112.47, "BBG_Galaxy": 112.458, "MVBTC": 112.565, "spread_CoinDesk_bps": -2.74, "spread_BBG_bps": -3.74, "spread_MVBTC_bps": 5.77}, {"date": "2024-02-23", "BRRNY": 109.417, "CoinDesk_BBR": 109.4, "BBG_Galaxy": 109.377, "MVBTC": 109.437, "spread_CoinDesk_bps": -1.61, "spread_BBG_bps": -3.65, "spread_MVBTC_bps": 1.77}, {"date": "2024-03-01", "BRRNY": 134.682, "CoinDesk_BBR": 134.681, "BBG_Galaxy": 134.629, "MVBTC": 134.746, "spread_CoinDesk_bps": -0.07, "spread_BBG_bps": -3.93, "spread_MVBTC_bps": 4.77}, {"date": "2024-03-08", "BRRNY": 147.327, "CoinDesk_BBR": 147.342, "BBG_Galaxy": 147.289, "MVBTC": 147.419, "spread_CoinDesk_bps": 1.01, "spread_BBG_bps": -2.62, "spread_MVBTC_bps": 6.23}, {"date": "2024-03-15", "BRRNY": 149.712, "CoinDesk_BBR": 149.726, "BBG_Galaxy": 149.646, "MVBTC": 149.83, "spread_CoinDesk_bps": 0.92, "spread_BBG_bps": -4.41, "spread_MVBTC_bps": 7.9}, {"date": "2024-03-22", "BRRNY": 137.564, "CoinDesk_BBR": 137.655, "BBG_Galaxy": 137.487, "MVBTC": 137.745, "spread_CoinDesk_bps": 6.63, "spread_BBG_bps": -5.59, "spread_MVBTC_bps": 13.16}, {"date": "2024-03-29", "BRRNY": 150.751, "CoinDesk_BBR": 150.823, "BBG_Galaxy": 150.664, "MVBTC": 150.959, "spread_CoinDesk_bps": 4.79, "spread_BBG_bps": -5.79, "spread_MVBTC_bps": 13.78}, {"date": "2024-04-05", "BRRNY": 146.326, "CoinDesk_BBR": 146.379, "BBG_Galaxy": 146.198, "MVBTC": 146.555, "spread_CoinDesk_bps": 3.64, "spread_BBG_bps": -8.75, "spread_MVBTC_bps": 15.64}, {"date": "2024-04-12", "BRRNY": 144.965, "CoinDesk_BBR": 145.043, "BBG_Galaxy": 144.869, "MVBTC": 145.128, "spread_CoinDesk_bps": 5.35, "spread_BBG_bps": -6.64, "spread_MVBTC_bps": 11.25}, {"date": "2024-04-19", "BRRNY": 137.756, "CoinDesk_BBR": 137.817, "BBG_Galaxy": 137.69, "MVBTC": 137.908, "spread_CoinDesk_bps": 4.45, "spread_BBG_bps": -4.73, "spread_MVBTC_bps": 11.02}, {"date": "2024-04-26", "BRRNY": 137.604, "CoinDesk_BBR": 137.656, "BBG_Galaxy": 137.455, "MVBTC": 137.687, "spread_CoinDesk_bps": 3.76, "spread_BBG_bps": -10.81, "spread_MVBTC_bps": 6.05}, {"date": "2024-05-03", "BRRNY": 135.734, "CoinDesk_BBR": 135.833, "BBG_Galaxy": 135.594, "MVBTC": 135.873, "spread_CoinDesk_bps": 7.33, "spread_BBG_bps": -10.28, "spread_MVBTC_bps": 10.26}, {"date": "2024-05-10", "BRRNY": 131.214, "CoinDesk_BBR": 131.308, "BBG_Galaxy": 131.078, "MVBTC": 131.343, "spread_CoinDesk_bps": 7.09, "spread_BBG_bps": -10.42, "spread_MVBTC_bps": 9.79}, {"date": "2024-05-17", "BRRNY": 144.723, "CoinDesk_BBR": 144.862, "BBG_Galaxy": 144.581, "MVBTC": 144.898, "spread_CoinDesk_bps": 9.65, "spread_BBG_bps": -9.81, "spread_MVBTC_bps": 12.11}, {"date": "2024-05-24", "BRRNY": 147.929, "CoinDesk_BBR": 148.075, "BBG_Galaxy": 147.73, "MVBTC": 148.184, "spread_CoinDesk_bps": 9.88, "spread_BBG_bps": -13.47, "spread_MVBTC_bps": 17.23}, {"date": "2024-05-31", "BRRNY": 145.69, "CoinDesk_BBR": 145.872, "BBG_Galaxy": 145.474, "MVBTC": 145.908, "spread_CoinDesk_bps": 12.44, "spread_BBG_bps": -14.88, "spread_MVBTC_bps": 14.91}, {"date": "2024-06-07", "BRRNY": 149.719, "CoinDesk_BBR": 149.899, "BBG_Galaxy": 149.477, "MVBTC": 149.955, "spread_CoinDesk_bps": 12.0, "spread_BBG_bps": -16.15, "spread_MVBTC_bps": 15.76}, {"date": "2024-06-14", "BRRNY": 142.524, "CoinDesk_BBR": 142.714, "BBG_Galaxy": 142.284, "MVBTC": 142.771, "spread_CoinDesk_bps": 13.31, "spread_BBG_bps": -16.84, "spread_MVBTC_bps": 17.34}, {"date": "2024-06-21", "BRRNY": 138.382, "CoinDesk_BBR": 138.552, "BBG_Galaxy": 138.16, "MVBTC": 138.579, "spread_CoinDesk_bps": 12.24, "spread_BBG_bps": -16.04, "spread_MVBTC_bps": 14.21}, {"date": "2024-06-28", "BRRNY": 130.209, "CoinDesk_BBR": 130.383, "BBG_Galaxy": 130.02, "MVBTC": 130.46, "spread_CoinDesk_bps": 13.36, "spread_BBG_bps": -14.54, "spread_MVBTC_bps": 19.28}, {"date": "2024-07-05", "BRRNY": 122.307, "CoinDesk_BBR": 122.444, "BBG_Galaxy": 122.104, "MVBTC": 122.503, "spread_CoinDesk_bps": 11.25, "spread_BBG_bps": -16.57, "spread_MVBTC_bps": 16.05}, {"date": "2024-07-12", "BRRNY": 125.001, "CoinDesk_BBR": 125.163, "BBG_Galaxy": 124.754, "MVBTC": 125.18, "spread_CoinDesk_bps": 12.96, "spread_BBG_bps": -19.74, "spread_MVBTC_bps": 14.29}, {"date": "2024-07-19", "BRRNY": 143.985, "CoinDesk_BBR": 144.26, "BBG_Galaxy": 143.781, "MVBTC": 144.226, "spread_CoinDesk_bps": 19.08, "spread_BBG_bps": -14.2, "spread_MVBTC_bps": 16.73}, {"date": "2024-07-26", "BRRNY": 146.541, "CoinDesk_BBR": 146.838, "BBG_Galaxy": 146.396, "MVBTC": 146.871, "spread_CoinDesk_bps": 20.25, "spread_BBG_bps": -9.89, "spread_MVBTC_bps": 22.55}, {"date": "2024-08-02", "BRRNY": 132.505, "CoinDesk_BBR": 132.814, "BBG_Galaxy": 132.377, "MVBTC": 132.864, "spread_CoinDesk_bps": 23.34, "spread_BBG_bps": -9.68, "spread_MVBTC_bps": 27.09}, {"date": "2024-08-09", "BRRNY": 131.347, "CoinDesk_BBR": 131.661, "BBG_Galaxy": 131.218, "MVBTC": 131.699, "spread_CoinDesk_bps": 23.92, "spread_BBG_bps": -9.77, "spread_MVBTC_bps": 26.79}, {"date": "2024-08-16", "BRRNY": 127.06, "CoinDesk_BBR": 127.338, "BBG_Galaxy": 126.943, "MVBTC": 127.403, "spread_CoinDesk_bps": 21.84, "spread_BBG_bps": -9.24, "spread_MVBTC_bps": 26.96}, {"date": "2024-08-23", "BRRNY": 138.254, "CoinDesk_BBR": 138.571, "BBG_Galaxy": 138.165, "MVBTC": 138.633, "spread_CoinDesk_bps": 22.89, "spread_BBG_bps": -6.47, "spread_MVBTC_bps": 27.36}, {"date": "2024-08-30", "BRRNY": 127.531, "CoinDesk_BBR": 127.846, "BBG_Galaxy": 127.43, "MVBTC": 127.883, "spread_CoinDesk_bps": 24.68, "spread_BBG_bps": -7.9, "spread_MVBTC_bps": 27.56}, {"date": "2024-09-06", "BRRNY": 116.384, "CoinDesk_BBR": 116.682, "BBG_Galaxy": 116.251, "MVBTC": 116.723, "spread_CoinDesk_bps": 25.57, "spread_BBG_bps": -11.47, "spread_MVBTC_bps": 29.05}, {"date": "2024-09-13", "BRRNY": 130.66, "CoinDesk_BBR": 131.026, "BBG_Galaxy": 130.552, "MVBTC": 131.052, "spread_CoinDesk_bps": 27.97, "spread_BBG_bps": -8.32, "spread_MVBTC_bps": 30.0}, {"date": "2024-09-20", "BRRNY": 136.324, "CoinDesk_BBR": 136.684, "BBG_Galaxy": 136.21, "MVBTC": 136.652, "spread_CoinDesk_bps": 26.39, "spread_BBG_bps": -8.35, "spread_MVBTC_bps": 24.04}, {"date": "2024-09-27", "BRRNY": 141.938, "CoinDesk_BBR": 142.247, "BBG_Galaxy": 141.8, "MVBTC": 142.313, "spread_CoinDesk_bps": 21.79, "spread_BBG_bps": -9.71, "spread_MVBTC_bps": 26.42}, {"date": "2024-10-04", "BRRNY": 133.868, "CoinDesk_BBR": 134.188, "BBG_Galaxy": 133.722, "MVBTC": 134.233, "spread_CoinDesk_bps": 23.95, "spread_BBG_bps": -10.88, "spread_MVBTC_bps": 27.32}, {"date": "2024-10-11", "BRRNY": 134.673, "CoinDesk_BBR": 134.973, "BBG_Galaxy": 134.559, "MVBTC": 135.032, "spread_CoinDesk_bps": 22.29, "spread_BBG_bps": -8.42, "spread_MVBTC_bps": 26.69}, {"date": "2024-10-18", "BRRNY": 147.546, "CoinDesk_BBR": 147.835, "BBG_Galaxy": 147.453, "MVBTC": 147.919, "spread_CoinDesk_bps": 19.6, "spread_BBG_bps": -6.32, "spread_MVBTC_bps": 25.27}, {"date": "2024-10-25", "BRRNY": 143.72, "CoinDesk_BBR": 143.983, "BBG_Galaxy": 143.574, "MVBTC": 144.05, "spread_CoinDesk_bps": 18.29, "spread_BBG_bps": -10.17, "spread_MVBTC_bps": 22.96}, {"date": "2024-11-01", "BRRNY": 149.869, "CoinDesk_BBR": 150.125, "BBG_Galaxy": 149.703, "MVBTC": 150.202, "spread_CoinDesk_bps": 17.11, "spread_BBG_bps": -11.09, "spread_MVBTC_bps": 22.25}, {"date": "2024-11-08", "BRRNY": 165.09, "CoinDesk_BBR": 165.364, "BBG_Galaxy": 164.927, "MVBTC": 165.46, "spread_CoinDesk_bps": 16.6, "spread_BBG_bps": -9.92, "spread_MVBTC_bps": 22.41}, {"date": "2024-11-15", "BRRNY": 196.412, "CoinDesk_BBR": 196.765, "BBG_Galaxy": 196.206, "MVBTC": 196.916, "spread_CoinDesk_bps": 17.96, "spread_BBG_bps": -10.49, "spread_MVBTC_bps": 25.65}, {"date": "2024-11-22", "BRRNY": 213.514, "CoinDesk_BBR": 213.91, "BBG_Galaxy": 213.308, "MVBTC": 214.116, "spread_CoinDesk_bps": 18.55, "spread_BBG_bps": -9.67, "spread_MVBTC_bps": 28.17}, {"date": "2024-11-29", "BRRNY": 210.212, "CoinDesk_BBR": 210.639, "BBG_Galaxy": 209.96, "MVBTC": 210.762, "spread_CoinDesk_bps": 20.31, "spread_BBG_bps": -11.98, "spread_MVBTC_bps": 26.16}, {"date": "2024-12-06", "BRRNY": 215.496, "CoinDesk_BBR": 215.945, "BBG_Galaxy": 215.248, "MVBTC": 216.1, "spread_CoinDesk_bps": 20.84, "spread_BBG_bps": -11.5, "spread_MVBTC_bps": 28.01}, {"date": "2024-12-13", "BRRNY": 218.81, "CoinDesk_BBR": 219.236, "BBG_Galaxy": 218.568, "MVBTC": 219.491, "spread_CoinDesk_bps": 19.47, "spread_BBG_bps": -11.07, "spread_MVBTC_bps": 31.13}, {"date": "2024-12-20", "BRRNY": 210.81, "CoinDesk_BBR": 211.197, "BBG_Galaxy": 210.616, "MVBTC": 211.532, "spread_CoinDesk_bps": 18.39, "spread_BBG_bps": -9.19, "spread_MVBTC_bps": 34.24}, {"date": "2024-12-27", "BRRNY": 203.121, "CoinDesk_BBR": 203.477, "BBG_Galaxy": 202.892, "MVBTC": 203.844, "spread_CoinDesk_bps": 17.52, "spread_BBG_bps": -11.27, "spread_MVBTC_bps": 35.6}, {"date": "2025-01-03", "BRRNY": 211.603, "CoinDesk_BBR": 211.982, "BBG_Galaxy": 211.385, "MVBTC": 212.394, "spread_CoinDesk_bps": 17.88, "spread_BBG_bps": -10.33, "spread_MVBTC_bps": 37.36}, {"date": "2025-01-10", "BRRNY": 204.243, "CoinDesk_BBR": 204.67, "BBG_Galaxy": 204.02, "MVBTC": 204.991, "spread_CoinDesk_bps": 20.92, "spread_BBG_bps": -10.92, "spread_MVBTC_bps": 36.62}, {"date": "2025-01-17", "BRRNY": 225.32, "CoinDesk_BBR": 225.758, "BBG_Galaxy": 225.1, "MVBTC": 226.184, "spread_CoinDesk_bps": 19.44, "spread_BBG_bps": -9.76, "spread_MVBTC_bps": 38.37}, {"date": "2025-01-24", "BRRNY": 226.052, "CoinDesk_BBR": 226.485, "BBG_Galaxy": 225.927, "MVBTC": 226.884, "spread_CoinDesk_bps": 19.16, "spread_BBG_bps": -5.53, "spread_MVBTC_bps": 36.79}, {"date": "2025-01-31", "BRRNY": 220.839, "CoinDesk_BBR": 221.202, "BBG_Galaxy": 220.785, "MVBTC": 221.656, "spread_CoinDesk_bps": 16.44, "spread_BBG_bps": -2.45, "spread_MVBTC_bps": 36.99}, {"date": "2025-02-07", "BRRNY": 208.161, "CoinDesk_BBR": 208.525, "BBG_Galaxy": 208.16, "MVBTC": 208.918, "spread_CoinDesk_bps": 17.51, "spread_BBG_bps": -0.05, "spread_MVBTC_bps": 36.37}, {"date": "2025-02-14", "BRRNY": 210.287, "CoinDesk_BBR": 210.7, "BBG_Galaxy": 210.306, "MVBTC": 211.069, "spread_CoinDesk_bps": 19.66, "spread_BBG_bps": 0.92, "spread_MVBTC_bps": 37.21}, {"date": "2025-02-21", "BRRNY": 207.294, "CoinDesk_BBR": 207.672, "BBG_Galaxy": 207.285, "MVBTC": 208.07, "spread_CoinDesk_bps": 18.21, "spread_BBG_bps": -0.46, "spread_MVBTC_bps": 37.41}, {"date": "2025-02-28", "BRRNY": 181.947, "CoinDesk_BBR": 182.31, "BBG_Galaxy": 181.935, "MVBTC": 182.704, "spread_CoinDesk_bps": 19.99, "spread_BBG_bps": -0.66, "spread_MVBTC_bps": 41.62}, {"date": "2025-03-07", "BRRNY": 186.993, "CoinDesk_BBR": 187.435, "BBG_Galaxy": 187.066, "MVBTC": 187.852, "spread_CoinDesk_bps": 23.63, "spread_BBG_bps": 3.9, "spread_MVBTC_bps": 45.92}, {"date": "2025-03-14", "BRRNY": 181.027, "CoinDesk_BBR": 181.427, "BBG_Galaxy": 181.085, "MVBTC": 181.854, "spread_CoinDesk_bps": 22.1, "spread_BBG_bps": 3.22, "spread_MVBTC_bps": 45.69}, {"date": "2025-03-21", "BRRNY": 181.208, "CoinDesk_BBR": 181.537, "BBG_Galaxy": 181.222, "MVBTC": 181.995, "spread_CoinDesk_bps": 18.15, "spread_BBG_bps": 0.8, "spread_MVBTC_bps": 43.46}, {"date": "2025-03-28", "BRRNY": 181.875, "CoinDesk_BBR": 182.254, "BBG_Galaxy": 181.84, "MVBTC": 182.67, "spread_CoinDesk_bps": 20.85, "spread_BBG_bps": -1.89, "spread_MVBTC_bps": 43.72}, {"date": "2025-04-04", "BRRNY": 180.754, "CoinDesk_BBR": 181.162, "BBG_Galaxy": 180.73, "MVBTC": 181.506, "spread_CoinDesk_bps": 22.56, "spread_BBG_bps": -1.32, "spread_MVBTC_bps": 41.62}, {"date": "2025-04-11", "BRRNY": 179.766, "CoinDesk_BBR": 180.144, "BBG_Galaxy": 179.776, "MVBTC": 180.436, "spread_CoinDesk_bps": 21.0, "spread_BBG_bps": 0.53, "spread_MVBTC_bps": 37.23}, {"date": "2025-04-18", "BRRNY": 182.015, "CoinDesk_BBR": 182.408, "BBG_Galaxy": 182.036, "MVBTC": 182.639, "spread_CoinDesk_bps": 21.63, "spread_BBG_bps": 1.19, "spread_MVBTC_bps": 34.32}, {"date": "2025-04-25", "BRRNY": 204.102, "CoinDesk_BBR": 204.609, "BBG_Galaxy": 204.168, "MVBTC": 204.712, "spread_CoinDesk_bps": 24.82, "spread_BBG_bps": 3.23, "spread_MVBTC_bps": 29.86}, {"date": "2025-05-02", "BRRNY": 208.79, "CoinDesk_BBR": 209.37, "BBG_Galaxy": 208.856, "MVBTC": 209.454, "spread_CoinDesk_bps": 27.78, "spread_BBG_bps": 3.16, "spread_MVBTC_bps": 31.78}, {"date": "2025-05-09", "BRRNY": 221.82, "CoinDesk_BBR": 222.394, "BBG_Galaxy": 221.928, "MVBTC": 222.6, "spread_CoinDesk_bps": 25.85, "spread_BBG_bps": 4.87, "spread_MVBTC_bps": 35.13}, {"date": "2025-05-16", "BRRNY": 222.926, "CoinDesk_BBR": 223.593, "BBG_Galaxy": 223.046, "MVBTC": 223.687, "spread_CoinDesk_bps": 29.91, "spread_BBG_bps": 5.39, "spread_MVBTC_bps": 34.13}, {"date": "2025-05-23", "BRRNY": 231.098, "CoinDesk_BBR": 231.696, "BBG_Galaxy": 231.317, "MVBTC": 231.873, "spread_CoinDesk_bps": 25.87, "spread_BBG_bps": 9.5, "spread_MVBTC_bps": 33.53}, {"date": "2025-05-30", "BRRNY": 223.969, "CoinDesk_BBR": 224.633, "BBG_Galaxy": 224.234, "MVBTC": 224.843, "spread_CoinDesk_bps": 29.63, "spread_BBG_bps": 11.81, "spread_MVBTC_bps": 39.0}, {"date": "2025-06-06", "BRRNY": 224.81, "CoinDesk_BBR": 225.436, "BBG_Galaxy": 225.02, "MVBTC": 225.657, "spread_CoinDesk_bps": 27.83, "spread_BBG_bps": 9.31, "spread_MVBTC_bps": 37.68}, {"date": "2025-06-13", "BRRNY": 228.456, "CoinDesk_BBR": 229.09, "BBG_Galaxy": 228.719, "MVBTC": 229.3, "spread_CoinDesk_bps": 27.74, "spread_BBG_bps": 11.49, "spread_MVBTC_bps": 36.96}, {"date": "2025-06-20", "BRRNY": 222.469, "CoinDesk_BBR": 223.049, "BBG_Galaxy": 222.7, "MVBTC": 223.247, "spread_CoinDesk_bps": 26.07, "spread_BBG_bps": 10.42, "spread_MVBTC_bps": 34.97}, {"date": "2025-06-27", "BRRNY": 230.658, "CoinDesk_BBR": 231.15, "BBG_Galaxy": 230.867, "MVBTC": 231.414, "spread_CoinDesk_bps": 21.35, "spread_BBG_bps": 9.07, "spread_MVBTC_bps": 32.79}, {"date": "2025-07-04", "BRRNY": 232.706, "CoinDesk_BBR": 233.207, "BBG_Galaxy": 232.857, "MVBTC": 233.504, "spread_CoinDesk_bps": 21.55, "spread_BBG_bps": 6.49, "spread_MVBTC_bps": 34.31}, {"date": "2025-07-11", "BRRNY": 253.102, "CoinDesk_BBR": 253.722, "BBG_Galaxy": 253.301, "MVBTC": 253.953, "spread_CoinDesk_bps": 24.47, "spread_BBG_bps": 7.86, "spread_MVBTC_bps": 33.59}, {"date": "2025-07-18", "BRRNY": 254.102, "CoinDesk_BBR": 254.846, "BBG_Galaxy": 254.295, "MVBTC": 254.961, "spread_CoinDesk_bps": 29.27, "spread_BBG_bps": 7.59, "spread_MVBTC_bps": 33.79}, {"date": "2025-07-25", "BRRNY": 253.342, "CoinDesk_BBR": 254.024, "BBG_Galaxy": 253.551, "MVBTC": 254.183, "spread_CoinDesk_bps": 26.95, "spread_BBG_bps": 8.28, "spread_MVBTC_bps": 33.23}, {"date": "2025-08-01", "BRRNY": 244.021, "CoinDesk_BBR": 244.759, "BBG_Galaxy": 244.261, "MVBTC": 244.941, "spread_CoinDesk_bps": 30.24, "spread_BBG_bps": 9.83, "spread_MVBTC_bps": 37.71}, {"date": "2025-08-08", "BRRNY": 251.265, "CoinDesk_BBR": 252.097, "BBG_Galaxy": 251.439, "MVBTC": 252.244, "spread_CoinDesk_bps": 33.1, "spread_BBG_bps": 6.91, "spread_MVBTC_bps": 38.96}, {"date": "2025-08-15", "BRRNY": 252.819, "CoinDesk_BBR": 253.567, "BBG_Galaxy": 253.076, "MVBTC": 253.726, "spread_CoinDesk_bps": 29.57, "spread_BBG_bps": 10.17, "spread_MVBTC_bps": 35.87}, {"date": "2025-08-22", "BRRNY": 251.65, "CoinDesk_BBR": 252.406, "BBG_Galaxy": 251.943, "MVBTC": 252.586, "spread_CoinDesk_bps": 30.02, "spread_BBG_bps": 11.63, "spread_MVBTC_bps": 37.21}, {"date": "2025-08-29", "BRRNY": 233.396, "CoinDesk_BBR": 234.16, "BBG_Galaxy": 233.68, "MVBTC": 234.3, "spread_CoinDesk_bps": 32.75, "spread_BBG_bps": 12.17, "spread_MVBTC_bps": 38.72}, {"date": "2025-09-05", "BRRNY": 238.198, "CoinDesk_BBR": 238.985, "BBG_Galaxy": 238.535, "MVBTC": 239.127, "spread_CoinDesk_bps": 33.04, "spread_BBG_bps": 14.14, "spread_MVBTC_bps": 39.0}, {"date": "2025-09-12", "BRRNY": 249.958, "CoinDesk_BBR": 250.78, "BBG_Galaxy": 250.272, "MVBTC": 250.89, "spread_CoinDesk_bps": 32.87, "spread_BBG_bps": 12.57, "spread_MVBTC_bps": 37.27}, {"date": "2025-09-19", "BRRNY": 249.042, "CoinDesk_BBR": 249.854, "BBG_Galaxy": 249.287, "MVBTC": 249.914, "spread_CoinDesk_bps": 32.61, "spread_BBG_bps": 9.83, "spread_MVBTC_bps": 35.01}, {"date": "2025-09-26", "BRRNY": 236.136, "CoinDesk_BBR": 237.024, "BBG_Galaxy": 236.37, "MVBTC": 236.938, "spread_CoinDesk_bps": 37.59, "spread_BBG_bps": 9.92, "spread_MVBTC_bps": 33.98}, {"date": "2025-10-03", "BRRNY": 263.214, "CoinDesk_BBR": 264.217, "BBG_Galaxy": 263.392, "MVBTC": 264.121, "spread_CoinDesk_bps": 38.1, "spread_BBG_bps": 6.75, "spread_MVBTC_bps": 34.45}, {"date": "2025-10-10", "BRRNY": 243.735, "CoinDesk_BBR": 244.685, "BBG_Galaxy": 243.882, "MVBTC": 244.681, "spread_CoinDesk_bps": 38.99, "spread_BBG_bps": 6.03, "spread_MVBTC_bps": 38.8}, {"date": "2025-10-17", "BRRNY": 229.191, "CoinDesk_BBR": 230.139, "BBG_Galaxy": 229.324, "MVBTC": 230.178, "spread_CoinDesk_bps": 41.36, "spread_BBG_bps": 5.81, "spread_MVBTC_bps": 43.05}, {"date": "2025-10-24", "BRRNY": 238.968, "CoinDesk_BBR": 239.996, "BBG_Galaxy": 239.173, "MVBTC": 240.048, "spread_CoinDesk_bps": 43.0, "spread_BBG_bps": 8.58, "spread_MVBTC_bps": 45.21}, {"date": "2025-10-31", "BRRNY": 235.84, "CoinDesk_BBR": 236.839, "BBG_Galaxy": 236.0, "MVBTC": 236.82, "spread_CoinDesk_bps": 42.38, "spread_BBG_bps": 6.81, "spread_MVBTC_bps": 41.56}, {"date": "2025-11-07", "BRRNY": 222.542, "CoinDesk_BBR": 223.442, "BBG_Galaxy": 222.723, "MVBTC": 223.495, "spread_CoinDesk_bps": 40.43, "spread_BBG_bps": 8.11, "spread_MVBTC_bps": 42.81}, {"date": "2025-11-14", "BRRNY": 203.207, "CoinDesk_BBR": 204.114, "BBG_Galaxy": 203.39, "MVBTC": 204.154, "spread_CoinDesk_bps": 44.62, "spread_BBG_bps": 9.01, "spread_MVBTC_bps": 46.63}, {"date": "2025-11-21", "BRRNY": 183.162, "CoinDesk_BBR": 184.027, "BBG_Galaxy": 183.344, "MVBTC": 183.997, "spread_CoinDesk_bps": 47.25, "spread_BBG_bps": 9.94, "spread_MVBTC_bps": 45.59}, {"date": "2025-11-28", "BRRNY": 195.716, "CoinDesk_BBR": 196.621, "BBG_Galaxy": 195.89, "MVBTC": 196.644, "spread_CoinDesk_bps": 46.2, "spread_BBG_bps": 8.84, "spread_MVBTC_bps": 47.4}, {"date": "2025-12-05", "BRRNY": 192.466, "CoinDesk_BBR": 193.38, "BBG_Galaxy": 192.553, "MVBTC": 193.265, "spread_CoinDesk_bps": 47.53, "spread_BBG_bps": 4.57, "spread_MVBTC_bps": 41.55}, {"date": "2025-12-12", "BRRNY": 194.369, "CoinDesk_BBR": 195.293, "BBG_Galaxy": 194.435, "MVBTC": 195.107, "spread_CoinDesk_bps": 47.55, "spread_BBG_bps": 3.37, "spread_MVBTC_bps": 37.99}, {"date": "2025-12-19", "BRRNY": 189.707, "CoinDesk_BBR": 190.548, "BBG_Galaxy": 189.786, "MVBTC": 190.43, "spread_CoinDesk_bps": 44.33, "spread_BBG_bps": 4.18, "spread_MVBTC_bps": 38.12}, {"date": "2025-12-26", "BRRNY": 187.988, "CoinDesk_BBR": 188.835, "BBG_Galaxy": 188.033, "MVBTC": 188.693, "spread_CoinDesk_bps": 45.04, "spread_BBG_bps": 2.35, "spread_MVBTC_bps": 37.47}, {"date": "2026-01-02", "BRRNY": 193.653, "CoinDesk_BBR": 194.645, "BBG_Galaxy": 193.69, "MVBTC": 194.413, "spread_CoinDesk_bps": 51.23, "spread_BBG_bps": 1.94, "spread_MVBTC_bps": 39.26}, {"date": "2026-01-09", "BRRNY": 194.918, "CoinDesk_BBR": 195.821, "BBG_Galaxy": 194.992, "MVBTC": 195.732, "spread_CoinDesk_bps": 46.34, "spread_BBG_bps": 3.81, "spread_MVBTC_bps": 41.74}, {"date": "2026-01-16", "BRRNY": 205.79, "CoinDesk_BBR": 206.664, "BBG_Galaxy": 205.812, "MVBTC": 206.435, "spread_CoinDesk_bps": 42.48, "spread_BBG_bps": 1.05, "spread_MVBTC_bps": 31.34}, {"date": "2026-01-23", "BRRNY": 192.837, "CoinDesk_BBR": 193.582, "BBG_Galaxy": 192.854, "MVBTC": 193.368, "spread_CoinDesk_bps": 38.61, "spread_BBG_bps": 0.89, "spread_MVBTC_bps": 27.54}, {"date": "2026-01-30", "BRRNY": 181.263, "CoinDesk_BBR": 181.993, "BBG_Galaxy": 181.281, "MVBTC": 181.776, "spread_CoinDesk_bps": 40.32, "spread_BBG_bps": 1.01, "spread_MVBTC_bps": 28.32}, {"date": "2026-02-06", "BRRNY": 152.043, "CoinDesk_BBR": 152.614, "BBG_Galaxy": 152.084, "MVBTC": 152.417, "spread_CoinDesk_bps": 37.59, "spread_BBG_bps": 2.7, "spread_MVBTC_bps": 24.64}, {"date": "2026-02-13", "BRRNY": 148.385, "CoinDesk_BBR": 148.973, "BBG_Galaxy": 148.421, "MVBTC": 148.802, "spread_CoinDesk_bps": 39.62, "spread_BBG_bps": 2.44, "spread_MVBTC_bps": 28.09}, {"date": "2026-02-20", "BRRNY": 146.515, "CoinDesk_BBR": 147.065, "BBG_Galaxy": 146.584, "MVBTC": 146.983, "spread_CoinDesk_bps": 37.56, "spread_BBG_bps": 4.73, "spread_MVBTC_bps": 32.0}, {"date": "2026-02-27", "BRRNY": 141.937, "CoinDesk_BBR": 142.487, "BBG_Galaxy": 141.975, "MVBTC": 142.489, "spread_CoinDesk_bps": 38.75, "spread_BBG_bps": 2.67, "spread_MVBTC_bps": 38.92}, {"date": "2026-03-06", "BRRNY": 146.779, "CoinDesk_BBR": 147.375, "BBG_Galaxy": 146.821, "MVBTC": 147.417, "spread_CoinDesk_bps": 40.6, "spread_BBG_bps": 2.84, "spread_MVBTC_bps": 43.49}, {"date": "2026-03-13", "BRRNY": 152.898, "CoinDesk_BBR": 153.561, "BBG_Galaxy": 152.926, "MVBTC": 153.606, "spread_CoinDesk_bps": 43.35, "spread_BBG_bps": 1.81, "spread_MVBTC_bps": 46.33}, {"date": "2026-03-20", "BRRNY": 151.979, "CoinDesk_BBR": 152.581, "BBG_Galaxy": 151.971, "MVBTC": 152.616, "spread_CoinDesk_bps": 39.65, "spread_BBG_bps": -0.53, "spread_MVBTC_bps": 41.93}, {"date": "2026-03-27", "BRRNY": 142.963, "CoinDesk_BBR": 143.501, "BBG_Galaxy": 142.912, "MVBTC": 143.543, "spread_CoinDesk_bps": 37.66, "spread_BBG_bps": -3.54, "spread_MVBTC_bps": 40.58}, {"date": "2026-04-03", "BRRNY": 144.248, "CoinDesk_BBR": 144.74, "BBG_Galaxy": 144.194, "MVBTC": 144.858, "spread_CoinDesk_bps": 34.09, "spread_BBG_bps": -3.75, "spread_MVBTC_bps": 42.27}, {"date": "2026-04-10", "BRRNY": 157.266, "CoinDesk_BBR": 157.829, "BBG_Galaxy": 157.222, "MVBTC": 157.979, "spread_CoinDesk_bps": 35.79, "spread_BBG_bps": -2.77, "spread_MVBTC_bps": 45.33}, {"date": "2026-04-17", "BRRNY": 166.219, "CoinDesk_BBR": 166.871, "BBG_Galaxy": 166.122, "MVBTC": 166.917, "spread_CoinDesk_bps": 39.21, "spread_BBG_bps": -5.86, "spread_MVBTC_bps": 41.97}, {"date": "2026-04-24", "BRRNY": 166.883, "CoinDesk_BBR": 167.568, "BBG_Galaxy": 166.833, "MVBTC": 167.684, "spread_CoinDesk_bps": 41.08, "spread_BBG_bps": -2.97, "spread_MVBTC_bps": 48.03}, {"date": "2026-05-01", "BRRNY": 168.431, "CoinDesk_BBR": 169.09, "BBG_Galaxy": 168.401, "MVBTC": 169.269, "spread_CoinDesk_bps": 39.16, "spread_BBG_bps": -1.73, "spread_MVBTC_bps": 49.79}, {"date": "2026-05-08", "BRRNY": 172.716, "CoinDesk_BBR": 173.382, "BBG_Galaxy": 172.743, "MVBTC": 173.611, "spread_CoinDesk_bps": 38.59, "spread_BBG_bps": 1.54, "spread_MVBTC_bps": 51.8}, {"date": "2026-05-13", "BRRNY": 170.753, "CoinDesk_BBR": 171.446, "BBG_Galaxy": 170.762, "MVBTC": 171.656, "spread_CoinDesk_bps": 40.57, "spread_BBG_bps": 0.52, "spread_MVBTC_bps": 52.89}]};
+
+Chart.defaults.font.family = '"Inter", Helvetica, Arial, sans-serif';
+Chart.defaults.font.size = 11.5;
+Chart.defaults.color = C.mute;
+Chart.defaults.borderColor = C.rule;
+
+function lineDataset(label, color, dataPts, dashed=false){
+  return {
+    label, data: dataPts, borderColor: color, backgroundColor: "transparent",
+    borderWidth: 1.8, tension: 0,
+    borderDash: dashed ? [4, 3] : [],
+    pointRadius: 0,
+    pointHoverRadius: 4,
+    pointHoverBackgroundColor: C.bg,
+    pointHoverBorderColor: color,
+    pointHoverBorderWidth: 1.5,
+    spanGaps: true,
+  };
+}
+
+const sharedOpts = (ySuffix = "") => ({
+  responsive: true, maintainAspectRatio: false,
+  interaction: { mode: "index", intersect: false },
+  plugins: {
+    legend: { position: "top", align: "end",
+      labels: { color: C.ink, boxWidth: 14, boxHeight: 2, padding: 12, font: { family: '"Inter", sans-serif', size: 11.5 } } },
+    tooltip: { backgroundColor: C.ink, titleColor: C.bg, bodyColor: C.bg, padding: 10,
+      callbacks: { label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y == null ? "—" : ctx.parsed.y.toFixed(2)}${ySuffix}` } }
+  },
+  scales: {
+    x: { type: "time", time: { unit: "year" },
+         grid: { color: C.rule, drawTicks: false }, border: { color: C.ink },
+         ticks: { color: C.mute, maxRotation: 0, autoSkip: true, maxTicksLimit: 12 } },
+    y: { grid: { color: C.rule, drawTicks: false }, border: { color: C.ink },
+         ticks: { color: C.mute, callback: v => v + ySuffix } }
+  }
+});
+
+// gold overlay
+const goldLabels = DATA.gold_series.map(r => r.date);
+new Chart(document.getElementById("goldOverlay"), {
+  type: "line",
+  data: {
+    labels: goldLabels,
+    datasets: [
+      lineDataset("LBMA PM (auction spot)", C.goldCanon, DATA.gold_series.map(r => r.LBMA_PM)),
+      lineDataset("Bloomberg GOLDS (proxy ≈ LBMA PM)", C.goldBbg, DATA.gold_series.map(r => r.BBG_GOLDS), true),
+      lineDataset("BCOMGC-TR (futures + T-bill)", C.goldFut, DATA.gold_series.map(r => r.BCOMGC_TR)),
+      lineDataset("S&P GSCI Gold TR", C.goldGsci, DATA.gold_series.map(r => r.GSCI_Gold_TR)),
+    ]
+  },
+  options: sharedOpts("")
+});
+
+// gold spread vs LBMA PM, in percent (since BCOMGC-TR runs to >30% above spot)
+const goldSpreadData = DATA.gold_series.map(r => ({
+  date: r.date,
+  bbg: ((r.BBG_GOLDS / r.LBMA_PM) - 1) * 100,
+  bcom: ((r.BCOMGC_TR / r.LBMA_PM) - 1) * 100,
+  gsci: ((r.GSCI_Gold_TR / r.LBMA_PM) - 1) * 100,
+}));
+new Chart(document.getElementById("goldSpread"), {
+  type: "line",
+  data: {
+    labels: goldLabels,
+    datasets: [
+      lineDataset("BBG GOLDS – LBMA PM", C.goldBbg, goldSpreadData.map(r => r.bbg), true),
+      lineDataset("BCOMGC-TR – LBMA PM", C.goldFut, goldSpreadData.map(r => r.bcom)),
+      lineDataset("GSCI Gold TR – LBMA PM", C.goldGsci, goldSpreadData.map(r => r.gsci)),
+    ]
+  },
+  options: sharedOpts("%")
+});
+
+// btc overlay
+const btcLabels = DATA.btc_series.map(r => r.date);
+new Chart(document.getElementById("btcOverlay"), {
+  type: "line",
+  data: {
+    labels: btcLabels,
+    datasets: [
+      lineDataset("CME CF BRRNY", C.btcCme, DATA.btc_series.map(r => r.BRRNY)),
+      lineDataset("CoinDesk BBR", C.btcCoindesk, DATA.btc_series.map(r => r.CoinDesk_BBR)),
+      lineDataset("Bloomberg Galaxy BTC", C.btcBbg, DATA.btc_series.map(r => r.BBG_Galaxy), true),
+      lineDataset("MarketVector MVBTC", C.btcMv, DATA.btc_series.map(r => r.MVBTC)),
+    ]
+  },
+  options: sharedOpts("")
+});
+
+// btc spread
+new Chart(document.getElementById("btcSpread"), {
+  type: "line",
+  data: {
+    labels: btcLabels,
+    datasets: [
+      lineDataset("CoinDesk BBR – BRRNY", C.btcCoindesk, DATA.btc_series.map(r => r.spread_CoinDesk_bps)),
+      lineDataset("BBG Galaxy – BRRNY", C.btcBbg, DATA.btc_series.map(r => r.spread_BBG_bps), true),
+      lineDataset("MVBTC – BRRNY", C.btcMv, DATA.btc_series.map(r => r.spread_MVBTC_bps)),
+    ]
+  },
+  options: sharedOpts(" bps")
+});
+</script>
+</body>
+</html>

@@ -138,6 +138,18 @@
   .mx-verdict-pos { border-top: 2px solid var(--good) !important; }
   .mx-verdict-neg { border-top: 2px solid var(--bad) !important; }
   .mx-verdict-neu { border-top: 2px solid var(--mute) !important; }
+
+  /* macro context */
+  .macro-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 8px 0 18px; }
+  .m-stat { padding: 12px 14px; border: 1px solid var(--rule); border-radius: 4px; background: var(--tint); }
+  .m-lbl { font-size: 11px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; font-weight: 600; }
+  .m-val { font-size: 20px; font-weight: 700; color: var(--ink); letter-spacing: -0.012em; }
+  .m-sub { font-size: 11.5px; color: var(--mute); margin-top: 4px; }
+  .range-toggle { display: inline-flex; gap: 2px; padding: 3px; background: var(--tint); border: 1px solid var(--rule); border-radius: 999px; margin-bottom: 14px; }
+  .range-btn { font-family: var(--sans); font-size: 12.5px; font-weight: 500; color: var(--mute); background: transparent; border: 0; cursor: pointer; padding: 6px 14px; border-radius: 999px; }
+  .range-btn.active { color: var(--ink); background: var(--bg); box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+  .range-btn:hover:not(.active) { color: var(--ink); }
+  @media (max-width: 720px) { .macro-stats { grid-template-columns: repeat(2, 1fr); } }
   body {
     font-family: var(--sans);
     font-size: 15.5px;
@@ -656,6 +668,7 @@
     <div class="topnav-tabs">
       <a class="topnav-tab active" href="../gold/">Gold</a>
       <a class="topnav-tab" href="../btc/">Bitcoin</a>
+      <a class="topnav-tab" href="../indices.html">Indices</a>
     </div>
   </div>
 </nav>
@@ -1245,6 +1258,49 @@
   </div>
 </section>
 
+<!-- ============== MACRO CONTEXT ============== -->
+<section id="macro">
+  <h2 class="sec-title">Macro context: gold's share of global wealth</h2>
+  <p class="sec-deck">Where the asset sits in the global financial-asset universe. Modern view uses the FSB Global Monitoring Report total (banks + insurance + pensions + OFIs + public FIs, ~$550T mid-2026); long-run view uses world GDP — the only continuous denominator back to 1900. <a href="./share.html">Deep-dive page →</a></p>
+
+  <div class="macro-stats">
+    <div class="m-stat">
+      <div class="m-lbl">Gold mcap · 2026-05-14</div>
+      <div class="m-val">$30.8T</div>
+      <div class="m-sub">221.5 kt × $4,325 spot</div>
+    </div>
+    <div class="m-stat">
+      <div class="m-lbl">% of total financial assets</div>
+      <div class="m-val">5.6%</div>
+      <div class="m-sub">vs $550T FSB GMR total</div>
+    </div>
+    <div class="m-stat">
+      <div class="m-lbl">% of global equities</div>
+      <div class="m-val">19.9%</div>
+      <div class="m-sub">vs $155T global equity mcap</div>
+    </div>
+    <div class="m-stat">
+      <div class="m-lbl">% of world GDP</div>
+      <div class="m-val">26.7%</div>
+      <div class="m-sub">vs $115T nominal world GDP</div>
+    </div>
+  </div>
+
+  <div class="range-toggle" role="tablist">
+    <button class="range-btn active" data-range="modern" type="button">Modern · 1990 →</button>
+    <button class="range-btn" data-range="longrun" type="button">Long-run · 1900 →</button>
+  </div>
+
+  <div class="chart-card">
+    <div class="chart-head">
+      <div class="chart-title" id="macroChartTitle">Gold mcap as % of total financial assets and of global equities · 1990–current</div>
+      <div class="chart-source"><code>data/scripts/gold_share.py</code></div>
+    </div>
+    <div class="chart-box"><canvas id="macroChart"></canvas></div>
+    <p class="fn" id="macroChartNote">Modern denominator: FSB Global Monitoring Report total global financial assets (banks + insurance + pensions + OFIs + public FIs). Gold mcap = WGC end-year above-ground stock × LBMA PM annual average; rightmost point uses 2026-05-14 spot $4,325 × ~221.5 kt stock.</p>
+  </div>
+</section>
+
 </main>
 
 <div class="wrap colophon">
@@ -1443,6 +1499,66 @@
       }
     }
   });
+
+  // ---- macro context: gold share of assets ----
+  const SHARE = {"definition": {"gold_mcap": "above-ground stock (tonnes) * 32150.7 oz/tonne * USD/oz price (official, market avg, or spot)", "world_gdp": "world GDP, nominal USD trillions; Maddison Project pre-1960 + World Bank WDI / IMF WEO 1960+", "total_financial_assets": "FSB Global Monitoring Report total global financial assets (banks + insurance + pensions + OFIs + public FIs); ~$487T end-2023; pre-2014 interpolated", "global_equities": "global equity market cap (WB CM.MKT.LCAP.CD; WFE 2024-2025)", "gold_pct_of_world_gdp": "gold mcap / world GDP, percent", "gold_pct_of_total": "gold mcap / FSB total financial assets, percent (1990+)", "gold_pct_of_equities": "gold mcap / global equity mcap, percent (1990+)"}, "sources": ["WGC above-ground stocks (annual estimates); USGS / Schmitz historical mine production for pre-1990", "Gold price: $20.67 (1900-1932 gold standard), $35 (Bretton Woods 1934-1968), LBMA market 1969+", "Maddison Project Database 2023 (Bolt & van Zanden) pre-1960 world GDP", "World Bank WDI / IMF WEO world GDP 1960+", "World Bank CM.MKT.LCAP.CD (equity mcap, world aggregate 1990-2023); WFE 2024-2025", "FSB Global Monitoring Report on Non-Bank Financial Intermediation (annual editions, latest publishes $487T end-2023)"], "asof": "2026-05-14", "series": [{"year": 1900, "gold_stocks_t": 13500, "gold_price_usd_oz": 20.67, "gold_mcap_t_usd": 0.009, "world_gdp_t_usd": 0.052, "gold_pct_of_world_gdp": 17.25}, {"year": 1910, "gold_stocks_t": 21000, "gold_price_usd_oz": 20.67, "gold_mcap_t_usd": 0.014, "world_gdp_t_usd": 0.075, "gold_pct_of_world_gdp": 18.61}, {"year": 1920, "gold_stocks_t": 27500, "gold_price_usd_oz": 20.67, "gold_mcap_t_usd": 0.018, "world_gdp_t_usd": 0.095, "gold_pct_of_world_gdp": 19.24}, {"year": 1930, "gold_stocks_t": 33000, "gold_price_usd_oz": 20.67, "gold_mcap_t_usd": 0.022, "world_gdp_t_usd": 0.107, "gold_pct_of_world_gdp": 20.5}, {"year": 1940, "gold_stocks_t": 38000, "gold_price_usd_oz": 33.85, "gold_mcap_t_usd": 0.041, "world_gdp_t_usd": 0.116, "gold_pct_of_world_gdp": 35.65}, {"year": 1950, "gold_stocks_t": 45000, "gold_price_usd_oz": 35.0, "gold_mcap_t_usd": 0.051, "world_gdp_t_usd": 0.31, "gold_pct_of_world_gdp": 16.33}, {"year": 1960, "gold_stocks_t": 60000, "gold_price_usd_oz": 35.27, "gold_mcap_t_usd": 0.068, "world_gdp_t_usd": 1.38, "gold_pct_of_world_gdp": 4.93}, {"year": 1970, "gold_stocks_t": 92000, "gold_price_usd_oz": 35.94, "gold_mcap_t_usd": 0.106, "world_gdp_t_usd": 2.965, "gold_pct_of_world_gdp": 3.59}, {"year": 1975, "gold_stocks_t": 98500, "gold_price_usd_oz": 160.86, "gold_mcap_t_usd": 0.509, "world_gdp_t_usd": 6.3, "gold_pct_of_world_gdp": 8.09}, {"year": 1980, "gold_stocks_t": 106000, "gold_price_usd_oz": 614.61, "gold_mcap_t_usd": 2.095, "world_gdp_t_usd": 11.15, "gold_pct_of_world_gdp": 18.79}, {"year": 1985, "gold_stocks_t": 114000, "gold_price_usd_oz": 317.26, "gold_mcap_t_usd": 1.163, "world_gdp_t_usd": 13.06, "gold_pct_of_world_gdp": 8.9}, {"year": 1990, "gold_stocks_t": 122500, "gold_price_usd_oz": 384, "gold_mcap_t_usd": 1.512, "world_gdp_t_usd": 23.5, "gold_pct_of_world_gdp": 6.44, "global_equity_mcap_t_usd": 9.4, "gold_pct_of_equities": 16.09, "global_total_fin_assets_t_usd": 80.0, "gold_pct_of_total": 1.89}, {"year": 1992, "gold_stocks_t": 125500, "gold_price_usd_oz": 344, "gold_mcap_t_usd": 1.388, "world_gdp_t_usd": 25.8, "gold_pct_of_world_gdp": 5.38, "global_equity_mcap_t_usd": 10.9, "gold_pct_of_equities": 12.73, "global_total_fin_assets_t_usd": 90.0, "gold_pct_of_total": 1.54}, {"year": 1994, "gold_stocks_t": 129000, "gold_price_usd_oz": 384, "gold_mcap_t_usd": 1.593, "world_gdp_t_usd": 28.0, "gold_pct_of_world_gdp": 5.69, "global_equity_mcap_t_usd": 15.1, "gold_pct_of_equities": 10.55, "global_total_fin_assets_t_usd": 102.0, "gold_pct_of_total": 1.56}, {"year": 1995, "gold_stocks_t": 130500, "gold_price_usd_oz": 384, "gold_mcap_t_usd": 1.611, "world_gdp_t_usd": 31.0, "gold_pct_of_world_gdp": 5.2, "global_equity_mcap_t_usd": 17.8, "gold_pct_of_equities": 9.05, "global_total_fin_assets_t_usd": 110.0, "gold_pct_of_total": 1.46}, {"year": 1996, "gold_stocks_t": 132500, "gold_price_usd_oz": 388, "gold_mcap_t_usd": 1.653, "world_gdp_t_usd": 32.0, "gold_pct_of_world_gdp": 5.17, "global_equity_mcap_t_usd": 20.2, "gold_pct_of_equities": 8.18, "global_total_fin_assets_t_usd": 120.0, "gold_pct_of_total": 1.38}, {"year": 1998, "gold_stocks_t": 135500, "gold_price_usd_oz": 294, "gold_mcap_t_usd": 1.281, "world_gdp_t_usd": 31.5, "gold_pct_of_world_gdp": 4.07, "global_equity_mcap_t_usd": 26.5, "gold_pct_of_equities": 4.83, "global_total_fin_assets_t_usd": 140.0, "gold_pct_of_total": 0.91}, {"year": 2000, "gold_stocks_t": 138500, "gold_price_usd_oz": 279, "gold_mcap_t_usd": 1.242, "world_gdp_t_usd": 33.6, "gold_pct_of_world_gdp": 3.7, "global_equity_mcap_t_usd": 31.9, "gold_pct_of_equities": 3.89, "global_total_fin_assets_t_usd": 155.0, "gold_pct_of_total": 0.8}, {"year": 2002, "gold_stocks_t": 142500, "gold_price_usd_oz": 310, "gold_mcap_t_usd": 1.42, "world_gdp_t_usd": 35.1, "gold_pct_of_world_gdp": 4.05, "global_equity_mcap_t_usd": 23.0, "gold_pct_of_equities": 6.18, "global_total_fin_assets_t_usd": 175.0, "gold_pct_of_total": 0.81}, {"year": 2004, "gold_stocks_t": 148500, "gold_price_usd_oz": 410, "gold_mcap_t_usd": 1.957, "world_gdp_t_usd": 44.1, "gold_pct_of_world_gdp": 4.44, "global_equity_mcap_t_usd": 37.2, "gold_pct_of_equities": 5.26, "global_total_fin_assets_t_usd": 205.0, "gold_pct_of_total": 0.95}, {"year": 2005, "gold_stocks_t": 151500, "gold_price_usd_oz": 445, "gold_mcap_t_usd": 2.168, "world_gdp_t_usd": 47.5, "gold_pct_of_world_gdp": 4.56, "global_equity_mcap_t_usd": 43.8, "gold_pct_of_equities": 4.95, "global_total_fin_assets_t_usd": 225.0, "gold_pct_of_total": 0.96}, {"year": 2006, "gold_stocks_t": 155000, "gold_price_usd_oz": 604, "gold_mcap_t_usd": 3.01, "world_gdp_t_usd": 52.0, "gold_pct_of_world_gdp": 5.79, "global_equity_mcap_t_usd": 50.8, "gold_pct_of_equities": 5.93, "global_total_fin_assets_t_usd": 250.0, "gold_pct_of_total": 1.2}, {"year": 2007, "gold_stocks_t": 158000, "gold_price_usd_oz": 695, "gold_mcap_t_usd": 3.53, "world_gdp_t_usd": 58.5, "gold_pct_of_world_gdp": 6.03, "global_equity_mcap_t_usd": 60.7, "gold_pct_of_equities": 5.82, "global_total_fin_assets_t_usd": 280.0, "gold_pct_of_total": 1.26}, {"year": 2008, "gold_stocks_t": 160500, "gold_price_usd_oz": 872, "gold_mcap_t_usd": 4.5, "world_gdp_t_usd": 64.0, "gold_pct_of_world_gdp": 7.03, "global_equity_mcap_t_usd": 32.6, "gold_pct_of_equities": 13.8, "global_total_fin_assets_t_usd": 275.0, "gold_pct_of_total": 1.64}, {"year": 2009, "gold_stocks_t": 163000, "gold_price_usd_oz": 972, "gold_mcap_t_usd": 5.094, "world_gdp_t_usd": 60.6, "gold_pct_of_world_gdp": 8.41, "global_equity_mcap_t_usd": 47.4, "gold_pct_of_equities": 10.75, "global_total_fin_assets_t_usd": 295.0, "gold_pct_of_total": 1.73}, {"year": 2010, "gold_stocks_t": 166000, "gold_price_usd_oz": 1225, "gold_mcap_t_usd": 6.538, "world_gdp_t_usd": 66.6, "gold_pct_of_world_gdp": 9.82, "global_equity_mcap_t_usd": 54.7, "gold_pct_of_equities": 11.95, "global_total_fin_assets_t_usd": 315.0, "gold_pct_of_total": 2.08}, {"year": 2011, "gold_stocks_t": 169000, "gold_price_usd_oz": 1572, "gold_mcap_t_usd": 8.541, "world_gdp_t_usd": 73.9, "gold_pct_of_world_gdp": 11.56, "global_equity_mcap_t_usd": 47.1, "gold_pct_of_equities": 18.13, "global_total_fin_assets_t_usd": 330.0, "gold_pct_of_total": 2.59}, {"year": 2012, "gold_stocks_t": 172000, "gold_price_usd_oz": 1669, "gold_mcap_t_usd": 9.229, "world_gdp_t_usd": 75.7, "gold_pct_of_world_gdp": 12.19, "global_equity_mcap_t_usd": 53.0, "gold_pct_of_equities": 17.41, "global_total_fin_assets_t_usd": 340.0, "gold_pct_of_total": 2.71}, {"year": 2013, "gold_stocks_t": 175000, "gold_price_usd_oz": 1411, "gold_mcap_t_usd": 7.939, "world_gdp_t_usd": 77.6, "gold_pct_of_world_gdp": 10.23, "global_equity_mcap_t_usd": 64.7, "gold_pct_of_equities": 12.27, "global_total_fin_assets_t_usd": 355.0, "gold_pct_of_total": 2.24}, {"year": 2014, "gold_stocks_t": 178000, "gold_price_usd_oz": 1266, "gold_mcap_t_usd": 7.245, "world_gdp_t_usd": 80.0, "gold_pct_of_world_gdp": 9.06, "global_equity_mcap_t_usd": 66.4, "gold_pct_of_equities": 10.91, "global_total_fin_assets_t_usd": 370.0, "gold_pct_of_total": 1.96}, {"year": 2015, "gold_stocks_t": 181000, "gold_price_usd_oz": 1160, "gold_mcap_t_usd": 6.75, "world_gdp_t_usd": 75.2, "gold_pct_of_world_gdp": 8.98, "global_equity_mcap_t_usd": 61.7, "gold_pct_of_equities": 10.94, "global_total_fin_assets_t_usd": 380.0, "gold_pct_of_total": 1.78}, {"year": 2016, "gold_stocks_t": 184500, "gold_price_usd_oz": 1251, "gold_mcap_t_usd": 7.421, "world_gdp_t_usd": 76.0, "gold_pct_of_world_gdp": 9.76, "global_equity_mcap_t_usd": 64.7, "gold_pct_of_equities": 11.47, "global_total_fin_assets_t_usd": 395.0, "gold_pct_of_total": 1.88}, {"year": 2017, "gold_stocks_t": 188000, "gold_price_usd_oz": 1257, "gold_mcap_t_usd": 7.598, "world_gdp_t_usd": 81.4, "gold_pct_of_world_gdp": 9.33, "global_equity_mcap_t_usd": 79.2, "gold_pct_of_equities": 9.59, "global_total_fin_assets_t_usd": 420.0, "gold_pct_of_total": 1.81}, {"year": 2018, "gold_stocks_t": 191500, "gold_price_usd_oz": 1268, "gold_mcap_t_usd": 7.807, "world_gdp_t_usd": 86.4, "gold_pct_of_world_gdp": 9.04, "global_equity_mcap_t_usd": 68.7, "gold_pct_of_equities": 11.36, "global_total_fin_assets_t_usd": 415.0, "gold_pct_of_total": 1.88}, {"year": 2019, "gold_stocks_t": 195000, "gold_price_usd_oz": 1393, "gold_mcap_t_usd": 8.733, "world_gdp_t_usd": 87.7, "gold_pct_of_world_gdp": 9.96, "global_equity_mcap_t_usd": 87.8, "gold_pct_of_equities": 9.95, "global_total_fin_assets_t_usd": 440.0, "gold_pct_of_total": 1.98}, {"year": 2020, "gold_stocks_t": 198500, "gold_price_usd_oz": 1770, "gold_mcap_t_usd": 11.296, "world_gdp_t_usd": 85.5, "gold_pct_of_world_gdp": 13.21, "global_equity_mcap_t_usd": 93.9, "gold_pct_of_equities": 12.03, "global_total_fin_assets_t_usd": 465.0, "gold_pct_of_total": 2.43}, {"year": 2021, "gold_stocks_t": 202000, "gold_price_usd_oz": 1799, "gold_mcap_t_usd": 11.684, "world_gdp_t_usd": 97.0, "gold_pct_of_world_gdp": 12.04, "global_equity_mcap_t_usd": 117.0, "gold_pct_of_equities": 9.99, "global_total_fin_assets_t_usd": 475.0, "gold_pct_of_total": 2.46}, {"year": 2022, "gold_stocks_t": 205500, "gold_price_usd_oz": 1800, "gold_mcap_t_usd": 11.893, "world_gdp_t_usd": 101.0, "gold_pct_of_world_gdp": 11.77, "global_equity_mcap_t_usd": 93.7, "gold_pct_of_equities": 12.69, "global_total_fin_assets_t_usd": 470.0, "gold_pct_of_total": 2.53}, {"year": 2023, "gold_stocks_t": 209000, "gold_price_usd_oz": 1940, "gold_mcap_t_usd": 13.036, "world_gdp_t_usd": 106.0, "gold_pct_of_world_gdp": 12.3, "global_equity_mcap_t_usd": 109.2, "gold_pct_of_equities": 11.94, "global_total_fin_assets_t_usd": 487.0, "gold_pct_of_total": 2.68}, {"year": 2024, "gold_stocks_t": 216265, "gold_price_usd_oz": 2388, "gold_mcap_t_usd": 16.604, "world_gdp_t_usd": 110.0, "gold_pct_of_world_gdp": 15.09, "global_equity_mcap_t_usd": 126.7, "gold_pct_of_equities": 13.1, "global_total_fin_assets_t_usd": 510.0, "gold_pct_of_total": 3.26}, {"year": 2025, "gold_stocks_t": 220000, "gold_price_usd_oz": 3215, "gold_mcap_t_usd": 22.74, "world_gdp_t_usd": 115.0, "gold_pct_of_world_gdp": 19.77, "global_equity_mcap_t_usd": 151.94, "gold_pct_of_equities": 14.97, "global_total_fin_assets_t_usd": 535.0, "gold_pct_of_total": 4.25}, {"year": 2026.4, "gold_stocks_t": 221500, "gold_price_usd_oz": 4325, "gold_mcap_t_usd": 30.8, "world_gdp_t_usd": 115.5, "gold_pct_of_world_gdp": 26.67, "global_equity_mcap_t_usd": 155.0, "gold_pct_of_equities": 19.87, "global_total_fin_assets_t_usd": 550.0, "gold_pct_of_total": 5.6, "label": "2026-05-14"}]};
+  let macroChart;
+  function renderMacro(range){
+    const rows = SHARE.series.filter(r => range === "longrun" ? true : r.year >= 1990);
+    const labels = rows.map(r => r.label ? r.label.replace(/^Current · /, "") : String(r.year).replace(/\..*/, ""));
+    const ds = [];
+    function line(label, color, data, dashed=false){
+      return { label, data, borderColor: color, backgroundColor: "transparent",
+               borderWidth: 1.8, tension: 0, borderDash: dashed?[4,3]:[],
+               pointRadius: 2.5, pointBackgroundColor: C.bg, pointBorderColor: color,
+               pointBorderWidth: 1.4, pointHoverRadius: 5, spanGaps: true };
+    }
+    if (range === "modern"){
+      ds.push(line("Gold % of equities",                "#1F4E5F", rows.map(r => r.gold_pct_of_equities ?? null)));
+      ds.push(line("Gold % of total financial assets",  C.accent,  rows.map(r => r.gold_pct_of_total ?? null)));
+    } else {
+      ds.push(line("Gold % of world GDP",               C.accent,  rows.map(r => r.gold_pct_of_world_gdp ?? null)));
+      ds.push(line("Gold % of equities (1990+)",        "#1F4E5F", rows.map(r => r.gold_pct_of_equities ?? null), true));
+    }
+    if (macroChart) macroChart.destroy();
+    macroChart = new Chart(document.getElementById("macroChart"), {
+      type: "line",
+      data: { labels, datasets: ds },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: {
+          legend: { position: "top", align: "end",
+            labels: { color: C.ink, boxWidth: 14, boxHeight: 2, padding: 12, font: { family: '"Inter", sans-serif', size: 11.5 } } },
+          tooltip: { backgroundColor: C.ink, titleColor: C.bg, bodyColor: C.bg, padding: 10,
+            callbacks: { label: ctx => ctx.parsed.y == null ? `${ctx.dataset.label}: n/a` : `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(2)}%` } }
+        },
+        scales: {
+          x: { grid: { color: C.rule, drawTicks: false }, border: { color: C.ink },
+               ticks: { color: C.mute, maxRotation: 0, autoSkip: true, maxTicksLimit: 14 } },
+          y: { grid: { color: C.rule, drawTicks: false }, border: { color: C.ink },
+               ticks: { color: C.mute, callback: v => v + "%" } }
+        }
+      }
+    });
+    const t = document.getElementById("macroChartTitle");
+    const n = document.getElementById("macroChartNote");
+    if (range === "modern"){
+      t.textContent = "Gold mcap as % of total financial assets and of global equities · 1990–current";
+      n.innerHTML = 'Modern denominator: FSB Global Monitoring Report total global financial assets (banks + insurance + pensions + OFIs + public FIs; ~$487T end-2023, ~$550T mid-2026). Equities line uses WB CM.MKT.LCAP.CD + WFE 2024-2025. Rightmost point: 2026-05-14 spot $4,325 × ~221.5 kt stock.';
+    } else {
+      t.textContent = "Gold mcap as % of world GDP · 1900–current";
+      n.innerHTML = 'Long-run denominator: world GDP nominal USD — the only series with continuous coverage back to 1900 (Maddison Project pre-1960; World Bank WDI / IMF WEO 1960+). Ratio traces the monetary-regime arc: gold-standard era ~17-20%; 1934 dollar devaluation peak ~36% by 1940; Bretton Woods compression to ~4% by 1970; 1971 unpegging back to ~19% by 1980; 1980-2000 bear to ~4%; current 27%.';
+    }
+  }
+  document.querySelectorAll("#macro .range-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.querySelectorAll("#macro .range-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      renderMacro(btn.dataset.range);
+    });
+  });
+  renderMacro("modern");
 </script>
 
 </body>
