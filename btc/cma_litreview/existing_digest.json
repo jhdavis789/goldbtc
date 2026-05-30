@@ -1,0 +1,1027 @@
+{
+ "approaches": [
+  {
+   "name": "Stock-to-Flow / S2FX Scarcity Power-Law",
+   "family": "scarcity-supply",
+   "source_type": "crypto_native",
+   "description": "S2F models Bitcoin's market value as a power-law function of its stock-to-flow ratio (existing supply / annual new issuance), the same monetary-scarcity metric used for gold and silver. PlanB's original fit was ln(market value) = 3.3·ln(SF) + 14.6, i.e. value ∝ SF^3.3, reportedly R²≈0.95; the later S2FX cross-asset version pools BTC/gold/silver and treats halvings as discrete \"phase transitions\" (clusters), reportedly R²≈0.997. A 10-15yr CMA falls out mechanically: because Bitcoin's issuance halves every ~4 years, SF roughly doubles each halving, so the power law projects ~10x market value per doubling. Chaining that across the ~2028, ~2032, ~2036 halvings yields the model's forward price path and hence an implied multi-year appreciation rate — purely supply-driven, with no role for demand, cashflow, volatility, or cross-asset correlation.",
+   "key_drivers": [
+    "Stock-to-flow ratio SF = circulating supply / annual new issuance (rises mechanically as block subsidy halves every ~210,000 blocks / ~4 years)",
+    "Power-law exponent (~3.3 in original S2F) linking ln(SF) to ln(market value)",
+    "Halving schedule — the deterministic, pre-programmed supply shock that doubles SF and drives ~10x value steps",
+    "Cross-asset anchoring: gold (SF~62) and silver (SF~22) market values used to pin the regression line and justify a 'monetary scarcity' premium for BTC as SF approaches/exceeds gold",
+    "Phase transitions / clusters (S2FX): treating each halving epoch as a regime with distinct properties, replacing time with SF as the independent variable",
+    "Absolute scarcity / 21M hard cap as the terminal narrative (SF → ∞ as issuance → 0)"
+   ],
+   "pros": [
+    "Fully deterministic supply input: the halving schedule and 21M cap are known in advance, so SF is the rare financial variable with zero forecast error — attractive for a long-horizon CMA skeleton",
+    "Parsimonious and falsifiable: a single regressor produces explicit, dated price targets that can be checked (and have been)",
+    "Captures a real economic intuition — that a credibly fixed, ungrowable supply supports a monetary 'hardness' premium (the same logic that makes gold a store of value); the Austrian/Mises critique even concedes SF can matter for a money's quality",
+    "Cross-asset framing (S2FX) at least disciplines the BTC fit against gold and silver rather than fitting BTC in isolation",
+    "Morillon & Chacon (2022), the first peer-reviewed treatment, find the in-sample fit is robust to early-assumption choices (not pure data-mining) and that dynamic out-of-sample accuracy improves over time"
+   ],
+   "cons": [
+    "Spurious regression / non-stationarity: both ln(price) and ln(SF) are non-stationary, trending series, so the high R² is the textbook artifact of regressing one trend on another. Without cointegration the coefficients and R² are statistically meaningless (Burger, Bitcoinwords/WORDS review; has been shown cointegration generally does not hold)",
+    "SF is a near-deterministic step function of time, so S2F is effectively price-regressed-on-time in disguise — it cannot distinguish scarcity from any other variable that trended up over 2010-2020",
+    "Demand-blind by construction: ignores adoption, liquidity, ETF flows, macro/real rates, regulation. Mises critique: scarcity (a subjective demand condition) is conflated with the mechanical SF ratio; price comes from marginal valuations, not a physical supply metric",
+    "Out-of-sample failure: PlanB's S2F/S2FX predicted >$100k for 2021-2022; BTC closed Nov-2021 ~$57k and bottomed <$16k in 2022. The model has traded materially below trend since 2021 (off by ~$130k at points). 'Floor model' walk-back further eroded credibility",
+    "Diminishing-returns problem: S2F implies a constant ~10x per halving forever (no decay), contradicting the clear empirical decay of BTC's growth rate (142%→65%→17%/yr) — the model is structurally too bullish at long horizons and its targets (e.g. $288k, $500k+, eventually multi-million) are unbounded",
+    "Even when the fit 'works', Morillon & Chacon show an S2F-timing strategy underperforms buy-and-hold — no economic value added",
+    "Says nothing about volatility or correlations — it is a price-level model only, so it cannot directly populate most CMA cells (vol, corr to equities/FI/TIPS/gold)",
+    "S2FX 'phase transitions' have only ~4-6 data clusters; fitting a power law through 4 points (plus gold/silver) is gross overfitting and 'has not been replicated or reviewed' per PlanB himself"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "Not published as an annualized rate; S2F/S2FX publishes price-level targets implying ~10x market value per halving (~78%/yr compounded). Specific targets: ~$55k (post-2020 halving, original S2F) and $288k (S2FX next cluster, 2020-2024); later PlanB commentary cites $500k+. None realized on schedule.",
+    "appreciation_real": "n/a (source silent — model is nominal-USD price only; no inflation adjustment)",
+    "volatility": "n/a (source silent — S2F/S2FX is a deterministic price-level model and makes no volatility statement)",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a as a correlation; but the S2FX thesis explicitly places BTC on the SAME scarcity regression line as gold (gold SF~62, silver SF~22), asserting a structural co-valuation rather than a measured correlation. (Morillon & Chacon report S2F R²≈0.95; S2FX R²≈0.997 — fit, not correlation to other assets.)"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~12-18%/yr (judgment, not a model output). S2F's own logic says ~10x/halving (~78%/yr) forever, but that is the model's central flaw; imposing the empirically-required appreciation decay (realized 142%→65%→17% over full/10y/5y windows) and the fact that BTC's SF will soon exceed gold's — removing the 'catch-up to gold' leg that powered past returns — collapses the forward rate to roughly a low-double-digit monetary-debasement-plus-marginal-adoption pace. I deliberately discount the model's literal targets ($288k-$500k+).",
+    "appreciation_real": "~9-15%/yr real (subtracting ~2.5-3% long-run CPI). Reflects BTC as a maturing scarce asset whose excess return compresses toward a gold-like-but-higher store-of-value premium.",
+    "volatility": "~55-60%/yr (judgment; S2F is silent, so anchored to realized trailing-5y/10y vol of 57%/69%). The floor sits AT realized ~57% — the sub-2yr ETF sample does not yet evidence compression below realized — with a defensible decade-average band of ~50-60%. Vol stays multiples of equities.",
+    "corr_growth_eq": "+0.45 to +0.60 (judgment; S2F is silent so anchored to realized trailing-5y corr of 0.56, which has risen as BTC institutionalized into risk-asset portfolios). Note this directly contradicts the model's 'pure scarcity, demand-independent' premise.",
+    "corr_value_eq": "+0.30 to +0.40 (judgment; realized trailing-5y 0.37)",
+    "corr_fi_nominal": "+0.15 to +0.25 (judgment; realized trailing-5y 0.19 — modestly positive via shared duration/liquidity sensitivity)",
+    "corr_tips": "+0.25 to +0.35 (judgment; realized trailing-5y 0.30; real-rate sensitivity shared with other long-duration stores of value)",
+    "corr_gold": "~0.0-0.10 (judgment). S2FX bills BTC as 'digital scarcity' that should co-move with gold, but realized correlation is essentially zero (-0.01 full / +0.03 10y / +0.045 5y). I keep it in the 0.0-0.10 band, NOT the higher 'digital-gold' linkage the model implies. Internal contradiction worth naming: a scarcity thesis that says BTC absorbs gold's monetary role REQUIRES co-movement to justify the share transfer, yet the data shows none — you cannot simultaneously claim 'BTC takes gold's monetary share' and treat the near-zero realized gold correlation as comfortable. The honest read is that S2F's gold linkage is asserted, not measured."
+   }
+  },
+  {
+   "name": "Metcalfe's Law Network-Value (NVM)",
+   "family": "network-value",
+   "source_type": "academia",
+   "description": "This approach treats Bitcoin as a payment/communication network whose fair value scales with a power of the number of active users (wallets/addresses), per Metcalfe's Law (V proportional to n^2) or its generalizations (n*log(n) Odlyzko; or an empirically estimated exponent near 1.7). Price = (network-value function of users) / (coin supply), where supply follows the known issuance schedule (Peterson fits a Gompertz curve). A 10-15yr CMA falls out indirectly: you forecast long-run S-curve user adoption (which decelerates as the network saturates), apply the chosen Metcalfe exponent to get terminal network value, divide by terminal supply, and annualize the implied price path. Because both user growth and the per-user value multiple compress as adoption matures, the model mechanically produces decaying — not constant — forward appreciation. The relative-valuation variants (Kalichkin NVM, Wheatley-Sornette MMV) are NOT return forecasters; they only flag over/undervaluation vs current network activity and are used to time bubbles, not to set a CMA.",
+   "key_drivers": [
+    "Number of active users / non-zero-balance addresses / wallets (the network size n)",
+    "Metcalfe exponent on n: classical n^2 vs Odlyzko n*log(n) vs empirically-fit ~1.7",
+    "Adoption S-curve / saturation: logistic or Gompertz user-growth path that decelerates over time (Sornette: ~35% -> 21% annual user growth over 5yr)",
+    "Coin supply schedule (Gompertz/known halving issuance) as the denominator turning network value into price",
+    "Velocity / transactional utility assumption embedded in the per-user value constant",
+    "Mean-reversion of the market-to-Metcalfe (MMV/NVM) ratio for relative timing, not level"
+   ],
+   "pros": [
+    "Grounds value in an observable, hard-to-fake fundamental (on-chain active users) rather than pure price extrapolation or sentiment",
+    "Parsimonious and falsifiable: a single network-size driver plus a known supply schedule; Peterson reports very high in-sample fit (R^2 ~0.93-0.95)",
+    "Naturally generates appreciation DECAY: as adoption saturates the S-curve, both user growth and value-per-user compress, so the model does not assume a constant high return forever",
+    "Relative-value variants (NVM, MMV) have demonstrated some ex-ante use flagging bubble peaks (Wheatley-Sornette identified 4 over-valuations; LPPLS bracketed crash timing)",
+    "Provides an economic mechanism (network effects) that is at least theoretically tied to utility, unlike scarcity-only models (S2F) that ignore demand entirely"
+   ],
+   "cons": [
+    "The headline statistical fit is largely SPURIOUS: price and active-users are both non-stationary trending series; high R^2 from log-log OLS does not survive proper time-series controls. Civitarese (2018) finds the series do NOT cointegrate and cannot reject reverse causality (price drives wallet creation, not vice versa); the Glasgow/Ledger critique shows the strong positive relationships vanish once autocorrelation and non-stationarity are handled.",
+    "Exponent is unidentified and chosen ad hoc: n^2 vs n*log(n) vs ~1.7 give wildly different terminal values, and Wheatley-Sornette show forcing the classic n^2 fits significantly WORSE than ~1.7 (p<1e-16). The CMA is highly sensitive to an arbitrary parameter.",
+    "User/address metrics are a crude, manipulable proxy: total addresses overcount (one user holds many; exchanges custody millions); active-address counts are gamed by consolidation, Lightning/L2 migration off-chain, and ETF/custodial adoption that creates ZERO new on-chain addresses — breaking the network-size signal post-2021/2024.",
+    "It is a relative/timing tool masquerading as a level forecast: Kalichkin himself states NVM forecasts CORRECTIONS not appreciation direction; using it to derive a 10-15yr return is a category error the marketing layer routinely commits.",
+    "Long-run extrapolation is explicitly unreliable — Wheatley-Sornette call long-term predictions 'effectively meaningless' because model uncertainty dominates. Practitioner forecasts ($1.5M/2035 etc.) launder a fragile in-sample fit into a precise CMA the underlying econometrics do not support.",
+    "Post-2021 structural break: institutional/ETF holdings, treasury companies and custodial concentration decouple price from on-chain active users, the model's sole driver."
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "~31%/yr implied by Peterson's practitioner Metcalfe forecast of $1.5M by 2035 off a ~$100K 2025 base (10yr CAGR); peer-reviewed papers publish NO point appreciation forecast",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a (source silent) — Wheatley-Sornette characterize BTC as radically non-stationary with recurrent bubbles/crashes but publish no annualized vol figure",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent) — Metcalfe literature models BTC purely from network size and is silent on cross-asset correlation"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~10-14%/yr (JUDGMENT, not a computed stat). Under Metcalfe logic the driver is active-user growth times a saturating per-user multiple. Realized BTC appreciation decayed 142%->65%->17% as it matured; an S-curve forces continued decay. Mid-single-digit-to-low-teens forward user CAGR, with the value-per-user multiple flat-to-compressing as on-chain activity migrates to L2/custodial/ETF, lands a 10-15yr nominal CMA near the low end of the realized-decay path (~10-14%), well below the practitioner ~31% which over-extrapolates an in-sample fit.",
+    "appreciation_real": "~7-11% real (subtracting ~2.5-3% long-run inflation). Judgment.",
+    "volatility": "~55-60%/yr, holding near realized ~57% across the horizon rather than declining to ~45%; far above equities/gold. Judgment, consistent with the model's emphasis on recurrent non-stationary bubbles, with the floor anchored at realized trailing-5y vol (no compression below realized yet evidenced).",
+    "corr_growth_eq": "~+0.30 to +0.45. Network adoption is a risk-on/liquidity-sensitive driver, so BTC behaves like a high-beta growth/tech proxy. Judgment.",
+    "corr_value_eq": "~0.0 to +0.15. Little fundamental link to value-equity cashflow factors. Judgment.",
+    "corr_fi_nominal": "~0.0 to -0.10. Weakly negative via the discount-rate/liquidity channel; not a duration asset. Judgment.",
+    "corr_tips": "~0.0 to +0.10. No real-yield mechanism in a network-size model; effectively orthogonal. Judgment.",
+    "corr_gold": "~0.0-0.10. The Metcalfe model implies no structural gold link at all; realized BTC-gold co-movement is ~0 (-0.01 full / +0.045 5y). I hold it at the bottom of the 0.0-0.15 band and explicitly reject the digital-gold reading — a network-value thesis gives no mechanism forcing gold co-movement, and the data supplies none."
+   }
+  },
+  {
+   "name": "Network Value-to-Transactions (NVT) Ratio",
+   "family": "network-value",
+   "source_type": "crypto_native",
+   "description": "NVT treats Bitcoin like an equity P/E: network value (market cap) in the numerator, daily USD on-chain transaction volume in the denominator as a proxy for the network's \"earnings\"/utility throughput. The thesis is that fair value is whatever multiple of settlement activity the market is willing to pay, and that extreme NVT readings mean-revert — high NVT flags overvaluation/tops, low NVT flags undervaluation/bottoms. It is a relative-value and timing/mean-reversion framework, not a discounted-cashflow or supply-scarcity model. A 10-15yr CMA does not fall cleanly out of NVT at all: NVT produces no native long-horizon expected return. To force one, you must assume NVT mean-reverts to some equilibrium band and that real on-chain settlement value (the denominator) compounds at some growth rate over the horizon; expected appreciation then ≈ growth in transaction value ± any drift in the equilibrium multiple. Because on-chain throughput is a maturing, decelerating series (and is increasingly leaking off-chain to L2/exchanges/ETF custody), the honest NVT-consistent CMA extrapolates BTC's appreciation decay downward, not its historical level.",
+   "key_drivers": [
+    "Daily on-chain USD transaction volume (the denominator / 'earnings' proxy) — its level and growth rate",
+    "Network value / market cap (numerator)",
+    "The equilibrium NVT band the market assigns and any secular drift in it",
+    "Quality of the transaction-volume measure: raw vs adjusted (stripping change outputs, self-spends, mixer/exchange-internal repetition — Coin Metrics finds raw overstates economic volume by ~3.3x)",
+    "Smoothing choice: NVT Signal (NVTS) uses a 90-day MA of volume to make the ratio a leading top/bottom indicator",
+    "Share of economic activity that stays on-chain vs migrating to Lightning/L2, centralized-exchange internal ledgers, and ETF custody (off-chain leakage degrades the denominator over time)",
+    "Velocity (NVT is effectively inverse monetary velocity), which reflects HODL vs spend behavior"
+   ],
+   "pros": [
+    "Intuitive analogue to a familiar equity multiple (P/E), making it communicable to traditional investors",
+    "Grounds valuation in an observable, auditable on-chain fundamental (settlement throughput) rather than pure price/sentiment",
+    "Has empirically bracketed several historical tops (high NVT) and bottoms (low NVT) ex-post, and NVT Signal added some lead time as a smoothed timing overlay",
+    "Cheap and transparent — computable from public blockchain data; Coin Metrics/Glassnode publish adjusted versions that materially clean the denominator",
+    "Conceptually forces a discipline that BTC's value should bear some relationship to its use as a settlement network, a useful counterweight to pure scarcity narratives"
+   ],
+   "cons": [
+    "Not a return model. NVT is a mean-reversion/timing ratio; it yields no native long-horizon expected appreciation, so any 10-15yr CMA is bolted-on assumption (denominator growth + multiple drift), not output of the framework.",
+    "Denominator is badly contaminated and structurally decaying. On-chain volume is inflated by change outputs/self-spends/mixers (raw overstates ~3.3x) AND increasingly understated as real activity moves to Lightning/L2, exchange-internal settlement, and ETF custody. Both errors are large and time-varying — the proxy for 'earnings' is breaking.",
+    "No stable equilibrium / non-comparable across regimes. Even the publishers (Glassnode) warn 2013 NVT is not one-to-one with 2021 NVT; the 'fair' band drifts, so absolute readings can't anchor valuation.",
+    "Documented in-sample failure post-2021. In 2025 NVT gave contradictory signals within one cycle (overvalued ~58 in April pre-rally; 'undervalued' near $120k in October). It is part of the broadly-failed 2024-26 cohort of on-chain top indicators (alongside MVRV Z, Pi Cycle, S2F).",
+    "Tiny sample / curve-fit risk. Calibrated on only 3-4 halving cycles; like S2F and naive Metcalfe, NVT-based valuation is fragile to regime change and lacks out-of-sample validation — academically these on-chain 'fundamentals' show weak, unstable predictive power for returns.",
+    "Circularity: market cap (numerator) is price; using a price-driven ratio to value price embeds reflexivity, especially when speculation inflates both price and on-chain churn simultaneously.",
+    "Institutionalization (ETFs) decouples price from on-chain activity entirely — the marginal buyer never touches the chain, severing the link NVT depends on."
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent) — NVT publishes no expected-return figure; it is a mean-reversion ratio, not a return model",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a (source silent) — NVT does not produce a volatility estimate",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent) — NVT literature makes no claim about BTC-vs-gold correlation; it is a standalone on-chain valuation tool, not a cross-asset/digital-gold framework"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~10-13%/yr (judgment, not a computed stat). Under NVT logic, long-run price growth should track real on-chain settlement-value growth; that throughput is maturing and leaking off-chain, so it should compound far slower than BTC's price did historically. Extrapolating the realized decay path (full-window 142% → 10y 65% → 5y 17%), I push the 10-15yr forward below the trailing-5y 17% toward roughly nominal-GDP-plus-a-modest-monetization-premium.",
+    "appreciation_real": "~7-10%/yr real (assuming ~3% inflation). Judgment; NVT offers no scarcity tailwind, so the real premium is whatever genuine settlement-network adoption growth remains after maturation.",
+    "volatility": "~55-60%/yr (judgment). Anchored to trailing-5y realized ~57% and 10y ~69%; floor held AT ~57% rather than stepped below it, because the sub-2yr ETF sample does not yet evidence compression below realized, and NVT's off-chain-leakage problem leaves fundamental value poorly pinned.",
+    "corr_growth_eq": "~0.45-0.55 (judgment). Trailing-5y realized is 0.56 and rising with ETF/institutional ownership; NVT gives no reason to expect this to fall — if anything the on-chain link weakens while the macro/risk-asset link strengthens.",
+    "corr_value_eq": "~0.30-0.35 (judgment). Below growth-equity correlation; tracks the trailing-5y 0.37 realized, BTC behaves like a long-duration risk asset, less tied to value factor.",
+    "corr_fi_nominal": "~0.15-0.25 (judgment). Low-positive, drifting up with rate-sensitivity of the marginal institutional holder (trailing-5y 0.19).",
+    "corr_tips": "~0.20-0.30 (judgment). Slightly above nominal FI; some real-rate/liquidity sensitivity, consistent with trailing-5y 0.30.",
+    "corr_gold": "~0.05-0.20 (judgment). NVT framework is silent on gold, so this is pure baseline extrapolation: realized BTC-gold correlation has been near-zero historically (full-window -0.01, 5y 0.045), drifting modestly positive as both increasingly trade as macro/debasement hedges — but NVT provides no mechanism forcing co-movement, so I keep it low."
+   }
+  },
+  {
+   "name": "Cost-of-Production / Mining-Cost Floor",
+   "family": "cost-of-production",
+   "source_type": "academia",
+   "description": "Models BTC as a \"virtual commodity\" whose value is anchored to the marginal cost of mining it. Hayes (2015, 2019) derives a break-even price P* = E_day / (BTC_mined_per_day), where daily energy cost E_day = (electricity $/kWh × 24h × ASIC efficiency in W/GH × hashrate) and BTC/day = θ·β·ρ/δ (block reward β, hashrate ρ, difficulty δ). In a competitive mining market, miners produce until marginal cost equals price, so the cost of production is theorized as a lower bound (floor) around which the market price \"gravitates.\" A 10-15yr CMA does NOT fall cleanly out of this: the model produces a current floor level, not an expected return. To get a forward appreciation number you must forecast the trajectory of the floor itself — i.e., project how the four block-reward halvings, secular ASIC-efficiency gains, and the electricity-price/hashrate path push the per-coin cost up over a decade — and then assume price tracks that floor. That forecast is highly indeterminate, which is the approach's core weakness as a CMA tool.",
+   "key_drivers": [
+    "Block reward β (halves every ~210k blocks / ~4yr: 6.25→3.125 BTC in Apr-2024, →1.5625 ~2028) — mechanically DOUBLES per-coin cost at each halving, the main upward driver",
+    "Mining difficulty δ / network hashrate ρ — self-adjusting every 2016 blocks to hold ~10-min block time; rises with miner entry, raising cost",
+    "ASIC energy efficiency (W/GH, J/TH) — secular technological improvement (500 W/GH in 2010-13 → <0.02 J/GH today) is the main DOWNWARD driver, partially offsetting halvings",
+    "Electricity price ($/kWh) — JPMorgan: a 1¢/kWh change moves the production-cost estimate by ~$4,300/BTC; sensitivity mechanically doubled post-2024 halving",
+    "Competitive-market marginal-cost-equals-price assumption — the load-bearing economic premise that turns a cost into a 'floor'",
+    "Difficulty-adjustment feedback loop — stabilizes cost (counteracts efficiency-driven decline) but also makes cost endogenous to price"
+   ],
+   "pros": [
+    "Grounds BTC in a measurable real-world input (energy), giving a concrete, refreshable dollar number rather than pure narrative — appealing to commodity-style investors",
+    "Hayes (2019) finds the marginal cost of production has statistically significant explanatory power for price; pre-2017 the market price visibly oscillated around the model price",
+    "The halving schedule is fully deterministic, so the UPWARD ratchet in per-coin cost is one of the few genuinely forecastable mechanisms in BTC valuation — gives a non-arbitrary reason to expect the floor (and thus a price tracking it) to rise over a decade",
+    "Widely used as a practitioner sentiment/valuation overlay (JPMorgan, Glassnode, MacroMicro publish a live production-cost series as an over/under-valuation gauge), so it has real desk adoption",
+    "Provides an intuitive miner-capitulation signal: when price < cash cost, weak miners shut down, difficulty falls, and the system mean-reverts — a real, observable dynamic"
+   ],
+   "cons": [
+    "CIRCULARITY (fatal): supply is price-INELASTIC (predetermined issuance schedule), so when price falls miners exit, difficulty drops, and cost falls to FOLLOW price. Causality runs price→cost, not cost→price. Bernstein (2026): 'the price of bitcoin is as flexible as a blob of silly putty.' This breaks the 'floor' logic that the whole CMA rests on.",
+    "The 'floor' is empirically breached in BOTH directions: price traded ~20-40% BELOW production cost for months in Oct-2022/FTX and again in Feb-2026 (price ~$70k vs cost ~$87k), while in bull runs price ran multiples ABOVE cost. So it is neither a floor nor a ceiling — at best a loose attractor.",
+    "Hayes HIMSELF cautions against imputing an intrinsic value from it: 'extreme volatility and frequent market price fluctuations… could make identifying such an intrinsic value meaningless in application.' The author disowns the strong CMA use.",
+    "Post-2017 structural break: the visible pre-2017 oscillation around the model price decoupled; with ETFs, treasury buyers, and financialization, price detached from cost. The naive model does not survive the modern regime.",
+    "Indeterminate as a return forecast: the cost floor's future level depends on the hashrate AND efficiency paths, which are themselves driven by price and AI/data-center competition for chips and power (JPMorgan notes miners now decoupling toward AI) — so the 'forecast' smuggles in a price assumption.",
+    "Tells you nothing about correlations, volatility, or risk premia — it is a level/anchor model, not a distributional CMA. All return-moment outputs must be borrowed from realized data or another framework.",
+    "Terminal contradiction: once issuance ends (~2140) there is NO marginal cost of production, yet BTC would presumably still have value — the framework cannot value the asset in the limit it is converging toward (Bernstein)."
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent — model outputs a current floor LEVEL, not an expected return). Implied trajectory only: JPMorgan-style production cost ~$18k (2023) → ~$36-40k post-2024 halving → ~$92-94k late-2025 → projected ~$180k post-2028 halving; halving mechanically doubles per-coin cost each ~4yr before efficiency offsets.",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a (source silent — Hayes notes 'extreme volatility' qualitatively but publishes no vol estimate)",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent — the cost-of-production literature frames BTC as a 'virtual commodity' by analogy to gold but publishes no BTC-gold correlation)"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~6-9%/yr nominal (JUDGMENT, not a computed stat). Logic: under a strict cost-floor read, decade-forward price growth ≈ growth in per-coin production cost. Two halvings in a 10-15yr window each ~double the cost (~+18%/yr gross), but secular ASIC-efficiency gains and cheaper marginal power historically claw back the majority, and the realized appreciation DECAY (142%→65%→17%/yr as BTC matured) implies the floor's growth rate compresses further. Net to a high-single-digit anchor — far below realized history, consistent with a maturing-commodity cost curve.",
+    "appreciation_real": "~3-6%/yr real (subtracting ~2.5-3% inflation). The cost floor is partly a real-energy quantity, so it should roughly preserve purchasing power plus a modest efficiency/scarcity premium.",
+    "volatility": "~55-65%/yr (JUDGMENT). The cost model implies a slow-moving floor, but price empirically detaches far above/below cost, so realized vol stays high; floor anchored at realized trailing-5y ~57% (no compression below realized yet evidenced), top of band reflecting historical ~70-80%.",
+    "corr_growth_eq": "~0.25-0.45 (JUDGMENT). Cost logic is correlation-agnostic, but mining capex/power demand and risk appetite tie BTC to growth/tech equities; rising as financialization deepens.",
+    "corr_value_eq": "~0.0-0.15 (JUDGMENT). Little economic linkage between an energy-cost floor and value-factor equities.",
+    "corr_fi_nominal": "~0.0-0.15 (JUDGMENT). Cost floor rises with energy/electricity, loosely with the price level, giving at most a weak positive tilt vs nominal bonds; effectively uncorrelated.",
+    "corr_tips": "~0.05-0.20 (JUDGMENT). The real-energy-input framing gives a mild positive lean to real-yield/inflation-protected assets, but weak and unstable.",
+    "corr_gold": "~0.0-0.10 (JUDGMENT). The literature analogizes BTC to gold as a mined 'virtual commodity,' which superficially argues for a higher number, but realized BTC-gold correlation is ~0. The commodity analogy is the contradiction: if BTC truly shared gold's commodity-monetary demand it would co-move with gold, yet it does not — so the cost-floor framing cannot lean on a gold linkage. I hold it at the bottom of the 0.0-0.15 band."
+   }
+  },
+  {
+   "name": "Power-Law Time Regression (Santostasi / Burger Corridor)",
+   "family": "power-law",
+   "source_type": "crypto_native",
+   "description": "Models BTC price as a deterministic power law of time since genesis: P(t) = A·t^n, fit by OLS of log(price) on log(days-since-2009). The canonical fit (Santostasi/Burger) gives n≈5.6 and R²≈0.96 on a log-log chart, with parallel upper/lower \"corridor\" lines defining a fair-value band rather than a point estimate. A 10-15yr CMA falls out mechanically: because annualized appreciation under P~t^n equals n/age, the model itself FORECASTS decay — ~33%/yr at today's ~17yr age, sliding to ~18%/yr by 2040 — yielding ~27% nominal CAGR over a 2026-2041 window off the central line. The corridor width (roughly -50%/+200% around fair value) supplies the dispersion/volatility view. Crucially the model is silent on volatility-as-a-stat and on cross-asset correlations; those must be imported from realized data.",
+   "key_drivers": [
+    "Time since genesis (t in days) — the sole regressor",
+    "Fitted power-law exponent n≈5.6 and intercept A",
+    "Asserted network/Metcalfe feedback loop linking addresses, price, and hash-rate as mutual power laws of time",
+    "1/t appreciation decay built into the functional form",
+    "Corridor band multiples defining the fair-value dispersion",
+    "Time-origin and fit-window choices (to which the exponent is highly sensitive)"
+   ],
+   "pros": [
+    "Internally encodes appreciation DECAY — unlike naive 'BTC compounds at 100%+' extrapolations, the power law mechanically slows returns as the asset ages (n/age), which is the right qualitative shape for a maturing CMA",
+    "Empirically tight in-sample: R²≈0.96 over ~12 orders of magnitude and ~15 years; visually compelling on log-log",
+    "Recent peer-reviewed work (arXiv 2605.21316) finds that DESPITE weak statistical structure, the power law out-of-forecasts ARIMA, exponential smoothing and random-walk-with-drift at 12-24 month horizons (p<0.05) — so it has genuine, if modest, predictive content",
+    "Parameter-light and falsifiable: a single exponent and intercept; deviations from the corridor are observable",
+    "Gives an explicit fair-value band (not just a point), which maps naturally onto a CMA central case plus dispersion",
+    "Author imposes a self-discipline ('do not use past ~2040'), acknowledging the model is an interpolation of an adoption S-curve, not eternal physics"
+   ],
+   "cons": [
+    "The headline structural claim is statistically weak: 8 of 11 Clauset-Shalizi-Newman tests REJECT the power law (lognormal preferred), and the fitted exponent varies by ~3x (α̂≈5.65 to 16.5) across reasonable shifts of the time origin — violating shift-invariance and revealing the fit is not a robust law",
+    "A 3-component sigmoid (multi-wave adoption) beats the power law in-sample on AIC/BIC — i.e., the power law is not even the best-fitting curve, it just generalizes better out-of-sample by being simpler",
+    "Any monotonically rising series looks linear on a log-log plot; log-log axes massively compress error and flatter curve-fits — the 'tight fit' is partly an axis artifact (the core critique of the Burger corridor as retrofitting, not prediction)",
+    "No economic anchor: t (calendar time) is not a value driver. The asserted Metcalfe causal loop (addresses~t^3, price~addresses^2) is the same family the academic literature largely rejects in naive form (spurious cointegration, non-stationarity), and Wheatley-Sornette's own generalized Metcalfe (exponent 1.69) is used to flag BTC as repeatedly OVER fundamental value, not to bless the trend",
+    "Survivorship / single-path: the law is fit to the one realized BTC history; it cannot price catastrophic-failure tail mass, so it overstates expected return by ignoring the left tail",
+    "Post-2021 regime risk: ETF era, institutionalization and the maturity break mean the historical exponent may not persist; the corridor has already been quietly re-parameterized downward as upper bands over-predicted",
+    "Says nothing about volatility-as-risk or correlations — useless for the portfolio-construction half of a CMA without external inputs",
+    "Crypto-native marketing has weaponized it ('$1M floor by 2037') in ways the more careful authors did not intend; provenance must be separated from hype"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "~24-31% nominal CAGR over the 2025-2040 window read off the central fit (model prices ~$378K by 2030, ~$1.26M by 2035, ~$3.37M by 2040 under P=10^-1.8478*(days/365.25)^5.616); ~$400K by 2030 / ~$4M by 2040 per Santostasi. Burger: $1M 'floor' no later than 2037. (Figures are deterministic price paths, not stated as CMA returns.)",
+    "appreciation_real": "n/a (source silent — power-law literature quotes nominal USD price paths only, no inflation adjustment)",
+    "volatility": "n/a (source silent — the model has no volatility parameter; only a corridor band, ~ -50%/+200% around fair value, implying ~0.6 log-sd cross-sectional dispersion, which is NOT an annualized return vol)",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent — note Wheatley-Sornette's generalized Metcalfe exponent is 1.69, used to flag bubbles vs a gold-like fundamental, but no BTC-gold correlation is published)"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~22-27%/yr nominal (judgment). Read the central power-law line forward 10-15yr: n/age decay takes instantaneous appreciation from ~33%/yr (age 17) to ~18%/yr (age 31), and the 2026-2041 corridor CAGR computes to ~27%. I haircut to ~22-25% for left-tail/failure mass the single-path fit ignores. This is well below BTC's realized 142%→65%→17% decaying history and is deliberately the DECAY extrapolation, not the level.",
+    "appreciation_real": "~18-21%/yr real (subtracting ~3-3.5% long-run US inflation). Judgment, not a model output.",
+    "volatility": "~55-60%/yr annualized (judgment). The model is silent; realized vol (~57% trailing-5y) is the floor, with the band ~50-60% over 10-15yr. I do NOT credit compression to ~40% — the sub-2yr ETF sample does not yet evidence a floor below realized — but vol still runs ~3x equities.",
+    "corr_growth_eq": "+0.45 to +0.65 (judgment). Power law says nothing; realized post-ETF BTC-NASDAQ is 0.76-0.92 and BTC-S&P 0.5-0.88. I assume partial mean-reversion of the ETF-era spike, leaving BTC moderately-to-strongly tied to growth/tech equities over the horizon.",
+    "corr_value_eq": "+0.20 to +0.35 (judgment). Lower than growth equities; BTC behaves as a long-duration risk asset, loosely linked to value.",
+    "corr_fi_nominal": "-0.05 to +0.15 (judgment). Near-zero; episodic positive co-movement during liquidity-driven risk-on/off, no structural link.",
+    "corr_tips": "0.00 to +0.15 (judgment). Weak; BTC is liquidity/real-rate sensitive but not a reliable real-rate hedge.",
+    "corr_gold": "~0.0-0.10 (judgment). The 'digital gold' reading is not supported: BTC-gold co-moved 2022-2024 but broke down in 2025, and BTC remains far more equity-correlated than gold. The power-law itself implies no gold mechanism. Internal-contradiction note: a corridor thesis that frames BTC as gold's successor needs co-movement to justify the share transfer, yet realized co-movement is ~0 — so BTC is NOT a gold substitute over the horizon."
+   }
+  },
+  {
+   "name": "Store-of-Value / Gold-Parity TAM Substitution",
+   "family": "store-of-value-TAM",
+   "source_type": "asset_manager",
+   "description": "Bitcoin is modeled not via discounted cashflows (it has none) but as an emergent monetary/store-of-value (SoV) asset competing for a slice of an existing addressable market — primarily investable gold, sometimes the broader \"global market portfolio\" or all SoV wealth (gold + offshore deposits + bond/sovereign-wealth hedges). The CMA is built bottom-up: (1) size the target TAM (e.g., ~$6.2T private investable gold per JPMorgan, or ~$18T total gold per ARK), (2) project that TAM's growth, (3) assume a terminal share Bitcoin captures by the horizon year (often probability-weighted across bear/base/bull adoption scenarios), (4) divide implied market cap by Bitcoin's near-fixed/asymptotic supply to get a price target, and (5) annualize price-target-over-spot into an expected CAGR. JPMorgan adds a volatility/risk-capital adjustment (Bitcoin consumes ~1.8x the risk capital of gold, so parity is on a vol-scaled, not dollar-for-dollar, basis). A 10-15yr CMA falls out directly as the annualized return from today's spot to the horizon-year probability-weighted market cap, with volatility assumed to decay toward gold-like levels and correlation to gold assumed low-to-modest (the \"digital gold\" thesis paradoxically does NOT require high gold correlation — it requires gold-like demand drivers).",
+   "key_drivers": [
+    "Target TAM size: private investable gold (~$6.2T, JPM) vs total gold (~$18T, ARK) vs broad SoV/global-market-portfolio (~$200T, ARK)",
+    "Terminal capture share Bitcoin reaches by horizon (e.g., CF Benchmarks base 33% of gold mktcap; ARK base 2.5% / bull 6.5% of global portfolio; JPM parity = 100% of vol-adjusted private gold)",
+    "TAM growth rate (gold mktcap compounding ~3-5%/yr on CB buying + inflation)",
+    "Bitcoin's near-fixed, asymptotic supply (~21M cap, ~19.9M mined) — converts mktcap to price with minimal dilution",
+    "Volatility/risk-capital ratio vs gold (JPM: BTC ~1.8x gold's risk capital; converges as institutionalization grows)",
+    "Probability weights across bear/base/bull adoption scenarios (CF Benchmarks: 60/20/10 + 10% gold-parity)",
+    "Adoption S-curve maturity / institutional flows (ETFs, sovereign reserves, corporate treasuries) as the share-gain mechanism"
+   ],
+   "pros": [
+    "Theoretically coherent for a no-cashflow asset: anchors value to a measurable comparable market (gold) and a supply schedule, rather than to price-history extrapolation",
+    "Transparent and decomposable — you can stress each lever (TAM, share, weight) and the math is auditable; CF Benchmarks and ARK publish full scenario tables",
+    "Naturally produces a DECAYING expected return: as BTC's share of gold rises toward parity, marginal upside shrinks, which is the correct shape for a maturing asset's forward CMA",
+    "JPMorgan's volatility-adjustment is a genuine methodological improvement — comparing risk-capital rather than raw dollars avoids the naive 'BTC = gold mktcap' overstatement",
+    "Probability-weighting (CF Benchmarks) makes the framework usable as an actual CMA input rather than a single hype target",
+    "Supply-side is the most defensible part of the chain: Bitcoin's issuance schedule is genuinely near-deterministic"
+   ],
+   "cons": [
+    "The terminal capture share is an assumption, not a derivation — it is where all the optimism hides; ARK's 6.5% bull share and CF Benchmarks' 33% of gold are asserted, not estimated from any structural model",
+    "Marketing, not peer-reviewed: ARK and CF Benchmarks pieces are sell-the-asset documents from firms long Bitcoin (ARK runs ARKB; CF Benchmarks is the index provider for spot BTC ETFs) — conflict of interest is severe",
+    "The 'digital gold' premise is empirically shaky: realized BTC-gold correlation is near zero (~0.06, CF Benchmarks' own number) and BTC behaves as a high-beta risk asset, not a safe haven — it sold off WITH equities in 2022 and decoupled UPWARD from gold in 2025, contradicting the substitution thesis",
+    "JPMorgan's $170k is explicitly a 6-12 MONTH fair value, not a 10-15yr structural CMA — repurposing it as a long-horizon anchor is a category error",
+    "Gold's own market cap is not a fixed pie BTC drains from — gold demand (CB buying) and BTC demand have been positively correlated at times, so 'substitution' may be double-counting a shared macro driver (debasement/real-rate regime)",
+    "Adjacent SoV-narrative models (Stock-to-Flow, Metcalfe) that the same firms cite are largely REJECTED in the academic literature: S2F regressions are spurious — non-stationary series, serially correlated residuals, failed Engle-Granger/Johansen assumptions (Marcel Burger; ScienceDirect 2024), and S2F broke catastrophically post-2021 (predicted $100k+ during the 2022 crash to ~$16k); Metcalfe fits are over-fit and unstable out-of-sample",
+    "Path/timing risk is ignored: a probability-weighted terminal mktcap says nothing about a 70-80% drawdown en route, which a 10-15yr holder must survive",
+    "No mean-reversion anchor: if BTC overshoots gold parity, the model has no force pulling it back, unlike a DCF or yield-based valuation"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "ARK 2030: base ~53%/yr (to $1.2M), bear ~32%/yr (to $500k), bull ~72%/yr (to $2.4M); CF Benchmarks base 30.1%/yr to 2035; JPMorgan implied +67% to $170k but over 6-12mo only (not a 10-15yr figure)",
+    "appreciation_real": "n/a (source silent — all figures nominal)",
+    "volatility": "CF Benchmarks: projects vol falling toward 28% over the next decade (from elevated current levels); ARK cites declining volatility as the institutionalization thesis",
+    "corr_growth_eq": "CF Benchmarks: equities 0.52 current -> 0.15 projected (10yr)",
+    "corr_value_eq": "n/a (source silent — not split growth vs value)",
+    "corr_fi_nominal": "CF Benchmarks: bonds 0.14 current -> 0.22 projected (10yr)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "CF Benchmarks: gold ~0.06, remains near zero (notably LOW despite the digital-gold thesis); commodities 0.04 -> -0.12"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~10-15%/yr (judgment, not a computed stat). Reasoning: the SoV/gold-parity terminal-share anchor brackets a 12.5yr CAGR at ~14.5% (BTC reaches ~1x private-gold base), ~19% (base, ~1.6x), ~25% (bull, ~3x) assuming gold mktcap compounds ~5%/yr; but BTC's realized appreciation decay (142%->65%->17%/yr) argues the forward rate should sit BELOW the recent 17% and toward the conservative end of the SoV anchor. I weight toward ~12%, reflecting that most of the gold-substitution upside is already priced (BTC is already ~34% of JPM's private-gold base / ~12% of total gold).",
+    "appreciation_real": "~8-11%/yr (subtract ~2.5-3% expected long-run US inflation)",
+    "volatility": "~55-60%/yr (judgment). Above CF Benchmarks' optimistic ~28% terminal — a 10-15yr window still contains 60-80% drawdowns. Floor anchored at realized trailing-5y ~57% (no full convergence to gold-like ~15% vol within the horizon); decade-average band ~50-60%.",
+    "corr_growth_eq": "~0.45 (judgment). BTC trades as high-beta growth/risk; I discount CF Benchmarks' 0.15 projection as aspirational — partial decay from ~0.5 but staying meaningfully positive.",
+    "corr_value_eq": "~0.25 (judgment). Lower than vs growth equities; value/BTC share less of the duration/liquidity beta.",
+    "corr_fi_nominal": "~0.10 (judgment). Slightly positive via shared sensitivity to liquidity/real rates; near zero on average.",
+    "corr_tips": "~0.15 (judgment). Modestly positive through the real-rate/debasement channel that also drives gold, but noisy and regime-dependent.",
+    "corr_gold": "~0.0-0.10 (judgment). This is the model's central internal contradiction made explicit: the thesis VALUES BTC by the monetary-gold TAM it supposedly penetrates, which mechanically REQUIRES BTC to co-move with gold (to absorb gold's share, demand must substitute across the two), yet realized BTC-gold correlation is ~0 (full -0.01, 5y +0.045). You cannot claim both 'BTC takes gold's monetary share' (needs co-movement) and 'BTC diversifies against gold' (needs independence). The honest number sits at the bottom of the 0.0-0.15 band; the gold-parity TAM is a sizing narrative, not an empirically supported correlation."
+   }
+  },
+  {
+   "name": "Monetary-Substitution / M2 Elasticity & Debasement Hedge",
+   "family": "monetary-substitution",
+   "source_type": "academia",
+   "description": "This approach models Bitcoin not as a cashflow asset but as a high-beta claim on the growth of fiat money supply. The core empirical object is a cointegrating (long-run equilibrium) relationship between log BTC price and log broad money — typically US M2 or a synthetic \"global M2\" (sum of major-central-bank M2 converted at FX). BTC is treated as integrated of order one, I(1), and cointegrated with money: estimated long-run elasticities run ~2.0–2.65 (a 1% rise in M2 maps to a >2% rise in BTC), with a VECM error-correction term (~-0.12/month, ~5-6 month half-life) pulling price back to the money-implied \"fair value.\" A 10-15yr CMA falls out mechanically: forecast trend money growth, multiply by the (decaying) elasticity beta, and that is BTC's expected nominal appreciation; the debasement thesis adds that fiat dilution is the structural tailwind and BTC's fixed 21M supply (predictable issuance, ~450/day to the 2028 halving) is the differentiator vs gold.",
+   "key_drivers": [
+    "Broad-money / liquidity growth (US M2 ~6%, global M2 ~7-8%) as the exogenous trend driver",
+    "BTC money-elasticity beta (~2.0-2.65 historical, must be decayed toward 1.0-1.5 forward)",
+    "Error-correction speed to money-implied fair value (~-0.12/mo, ~5-6mo half-life)",
+    "Fiscal dominance / sovereign debt growth driving fiat depreciation (the debasement premise)",
+    "Fixed transparent supply (21M cap, halvings, ~450/day issuance) as the scarcity differentiator vs both fiat and gold",
+    "Liquidity-leads-BTC lag (months); global liquidity Granger-causes BTC, raw world-M2 levels do not"
+   ],
+   "pros": [
+    "Grounds an otherwise cashflow-less asset in a real, testable macro variable (money supply) rather than pure sentiment or stock-to-flow numerology",
+    "Empirically the directional relationship is genuinely strong: BTC moves with global liquidity ~83% of 12-month windows (Alden/Callahan), higher than any other major asset class — a real signal, not nothing",
+    "Provides an explicit, falsifiable fair-value model (e.g. CF Benchmarks' M2 fair value) you can mark price against and that has historically mean-reverted",
+    "Conceptually clean CMA derivation: expected return = trend money growth x elasticity, which naturally forces appreciation DECAY as the elasticity compresses toward gold's",
+    "Ties BTC to the same debasement logic underwriting gold (Grayscale), making it portfolio-coherent with a real-asset / inflation-hedge sleeve"
+   ],
+   "cons": [
+    "The headline elasticity (2.65) and 0.94 levels-correlation are almost certainly SPURIOUS in the econometric sense: both log-BTC and log-M2 are non-stationary trending I(1) series, and naive level correlation/regression on two trends is the textbook spurious-regression trap",
+    "On contemporaneous CHANGES (the regression you should run), the M2-BTC relationship 'nearly vanishes' — correlation collapses toward ~0; the relationship lives almost entirely in shared trend, not in month-to-month co-movement",
+    "Cointegration is NOT stable: the peer-reviewed TVC-VECM literature (Park/Lee JDQS 2022) formally rejects constant coefficients (p=0.0015) in favor of smoothly time-varying ones — so a single fixed elasticity for a 10-15yr CMA is not supported by the data",
+    "Clear post-2021/2025 structural break: CF Benchmarks reports R-squared collapsing from 0.71-0.90 to ~0.59 and a ~46% fair-value gap; gold's liquidity Z-score climbed to 2.82 while BTC's fell to -1.31, i.e. the liquidity bid rotated AWAY from BTC",
+    "'Global M2' is a data-quality artifact: it is built by multiplying heterogeneous national M2 by spot FX, mixing fast- and slow-reporting regimes, and is routinely curve-fit/lag-shifted ('data torture', 'overfitting') to match BTC — quants flatly say it 'can't predict' BTC",
+    "No anchor for the elasticity going forward: there's no theory pinning beta at 2.65 vs 1.5 vs 1.0, so the CMA's central number is a judgment call dressed as an estimate; the model also says nothing about volatility or correlations directly",
+    "Source quality is mixed and tilts promotional: the strongest numeric claims come from a non-peer-reviewed preprint and from sell-side/asset-manager research (Grayscale, CF Benchmarks) with a long book, not from replicated academic work"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent — no source publishes a 10-15yr appreciation CMA; implied only via elasticity ~2.0-2.65 x money growth, and a current ~46% upside-to-fair-value gap per CF Benchmarks)",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a (source silent — this literature models the price LEVEL/elasticity, not return volatility)",
+    "corr_growth_eq": "Grayscale: BTC returns 'positively correlated to stocks' (no number). Alden/Callahan: on YoY % change, equity indices correlate to liquidity slightly MORE than BTC. (no precise BTC-vs-growth-equity coefficient published)",
+    "corr_value_eq": "n/a (source silent — sources do not split equities into growth vs value)",
+    "corr_fi_nominal": "n/a (qualitative only: bonds rank LOWEST in liquidity correlation per Alden/Callahan; no BTC-vs-nominal-FI coefficient)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "Qualitative: Grayscale — BTC returns 'positively correlated to gold'; both are 'debasement trade' assets but BTC 'less tightly correlated with month-to-month Dollar weakness' and higher downside-capture. Alden/Callahan rank gold just below BTC in liquidity correlation. As of early 2026 the two DIVERGED (gold liquidity Z-score +2.82 vs BTC -1.31). No single published BTC-gold coefficient."
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~10-12%/yr (judgment, not a computed stat). Derived from this approach's own logic: trend global broad-money growth ~7-8%/yr times a BTC money-elasticity that DECAYS from ~2.0 today toward ~1.1-1.2 (gold-like) over the window, averaging ~11-12% in early years and falling to high-single digits late. This is consistent with extrapolating realized appreciation decay (142%->65%->17%) rather than the realized 10yr ~73% CAGR baseline, which this model treats as a one-time hyper-adoption elasticity that cannot repeat.",
+    "appreciation_real": "~7-9%/yr real (subtracting ~2.5-3% trend CPI). Note the internal tension: if the debasement thesis is right and money growth runs hot, nominal rises but the real premium over money growth is just the residual elasticity (beta-1)x money growth, which compresses toward ~0 as beta->1.",
+    "volatility": "~55-60%/yr annualized (judgment; the model is silent on vol). Anchored to realized BTC vol with the floor at trailing-5y ~57% rather than below it — still far above gold's ~15% — with a decade-average band of ~50-60%.",
+    "corr_growth_eq": "~0.35-0.45 (judgment). Both are liquidity/risk-appetite betas; on a changes basis BTC behaves like a high-beta growth-equity proxy, so correlation is moderate-positive and rising with institutionalization.",
+    "corr_value_eq": "~0.10-0.20 (judgment). Value equities are less liquidity/duration-sensitive; BTC's monetary beta gives it only weak co-movement.",
+    "corr_fi_nominal": "~0.05-0.15 (judgment). Near-zero to slightly positive — both benefit from easy money, but nominal FI is a rate/duration instrument, not a liquidity-beta; bonds rank lowest in this literature's liquidity correlation.",
+    "corr_tips": "~0.10-0.20 (judgment). The debasement logic SHOULD link BTC to real-yield/inflation-protected assets, but empirically the link is weak and unstable; modestly positive at best.",
+    "corr_gold": "~0.0-0.10 (judgment). Both are framed as debasement/scarcity assets, but realized BTC-gold co-movement is ~0 and regime-dependent — the early-2026 divergence (gold +2.82 vs BTC -1.31 liquidity Z-score) shows BTC's risk-asset character repeatedly decouples it from gold's safe-haven character. Internal contradiction: a substitution thesis needs the two to co-move for BTC to inherit gold's monetary demand, yet they do not. I hold the load-bearing number at the bottom of the 0.0-0.15 band, not the high/stable 'digital gold' co-movement the narrative implies."
+   }
+  },
+  {
+   "name": "Quantity Theory of Money / Velocity Equation of Exchange (MV=PT)",
+   "family": "monetary-substitution",
+   "source_type": "academia",
+   "description": "Treats Bitcoin as a medium of exchange and values it by inverting the equation of exchange, MV=PT: the aggregate dollar value of the Bitcoin float equals the annual real transaction volume it intermediates (T) divided by its velocity (V), so price per coin = T/(V·M) with M = circulating supply. The applied strand (Burniske, Bank of England's John Lewis) plugs in a target transaction-volume scenario (illicit flows, Visa-scale retail, all electronic payments, or world-GDP) and a velocity assumption to get a \"current utility value,\" then discounts a future utility value back at a high (30-50%) rate to a present price. A 10-15yr CMA falls out as the expected appreciation toward that discounted future-utility value as the probability of the larger transaction-share scenario rises. The academic GE strand (Schilling & Uhlig 2018/2019, JME) instead derives a fundamental pricing equation implying the BTC/USD price is a MARTINGALE once it is an established currency: expected risk-adjusted real return equals the dollar's, i.e. roughly zero real drift, with all the volatility coming from shifting beliefs about future adoption. So under this family a mature-BTC CMA converges to near-fiat real return, and any positive expected appreciation is a one-time, decaying re-rating as adoption probability climbs toward a ceiling, not a perpetual growth rate.",
+   "key_drivers": [
+    "Annual real transaction volume Bitcoin captures (T) — the addressable payments/remittance/illicit-flow base it actually settles, NOT speculative exchange churn (30%+ of on-chain volume is exchange shuttling, not GDP)",
+    "Velocity (V) — turnover of the monetary base; assumption is the single most sensitive input. Ranges cited 1 (held as broad money/SoV) to 6.5-14 (Bitcoin means-of-exchange) to 24 (payment-card-like)",
+    "Money supply (M) — fixed/known issuance schedule capped at 21M; the only clean, exogenous variable in the identity",
+    "Probability-weighted adoption scenario — which transaction-share state the market believes Bitcoin will occupy (illicit-only, Visa-scale, all-electronic, world-currency); price re-rates as this belief shifts",
+    "Discount rate (Burniske 30-50%, 3-5x equity) applied to a future utility value to get present rational price",
+    "Hodling / dormant-coin fraction — coins held off-market lower effective M and effective V, raising implied price (the SoV-vs-MoE tension inside the same identity)",
+    "In the GE model: dollar inflation target / monetary policy and agents' relative impatience, which pin down the martingale and rule out speculative drift"
+   ],
+   "pros": [
+    "Grounded in a genuine, century-old macro identity (Fisher MV=PT) rather than a fitted curve — it is an accounting identity, so it cannot be 'spuriously cointegrated' the way S2F/Metcalfe are; the critique is about input choice, not the equation",
+    "Forces an explicit, falsifiable use-case: you must name the transaction volume and velocity, which exposes that current on-chain economic volume is far too small to justify price — a useful reality check against hype",
+    "Velocity is uniquely MEASURABLE on a public blockchain (every transfer is recorded), unlike in fiat economies where V is a residual — lets the model be empirically disciplined rather than assumed",
+    "The Schilling-Uhlig martingale result is a rigorous, peer-reviewed (Journal of Monetary Economics) general-equilibrium foundation that correctly predicts LOW long-run real drift and high belief-driven volatility — a sober antidote to perpetual-exponential models",
+    "Naturally generates a wide scenario fan (Lewis: ~$19k illicit-only to >$5M world-currency), making the binary, fat-tailed payoff structure explicit rather than hiding it in a point estimate",
+    "Internally consistent with a 10-15yr CMA framing: appreciation is a probability-weighted re-rating that must decay as adoption saturates, matching BTC's observed return decay"
+   ],
+   "cons": [
+    "Velocity is the dominant input and is both unstable and poorly defined — on-chain measures (coin-days-destroyed, NVT) disagree wildly and are contaminated by exchange transfers, mixers, and change outputs; Pernice et al. show common velocity proxies are inferior and not robust. Garbage V → garbage valuation",
+    "The identity values Bitcoin ONLY as a medium of exchange and is blind to a pure store-of-value / monetary-premium demand — yet that is empirically the dominant driver of price; coins are increasingly hodled (V collapsing), which the MoE framing reads as bullish but the GE framing reads as Bitcoin failing as money. The model can't cleanly hold both",
+    "Adoption as a payment rail has FLATLINED since the late 2010s (Lewis): Lightning never scaled, and stablecoins/instant-payment rails dominate the medium-of-exchange niche without the volatility — so the transaction-volume input is arguably shrinking, not growing",
+    "Self-referential / circular: to use Bitcoin for payments you must hold it, but its value comes from transaction demand — high volatility deters payment use, suppressing the very T the valuation needs (the 'endogenous velocity constraint', Soleimani 2025: network architecture structurally caps V)",
+    "The discount-back-to-present step (Burniske) smuggles in an arbitrary 30-50% rate and a future-utility scenario that does all the work — the output is whatever T, V, and the scenario probability you assume; even Burniske refuses to use it as a price target",
+    "Schilling-Uhlig's martingale conclusion implies ~0% expected REAL appreciation for a mature currency-Bitcoin — directly contradicting the digital-gold appreciation thesis; the family's honest read is that long-run expected real return is near fiat, not exponential",
+    "Says almost nothing usable about correlations or volatility magnitude — the GE model gives qualitative 'high belief-driven vol,' the applied model gives a scenario fan, but neither produces a calibrated covariance with equities, gold, or rates"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent) — the family produces level price scenarios, not an annualized CMA. Lewis (2026) implied price levels: ~$19k (illicit-only, V=5), ~$34k (Visa-scale, V=24), ~$619k (all electronic payments, V=2), >£5M (world currency, V=1). Burniske (2017) discounts a future utility value at 30-50% but explicitly refuses to publish a price target; his earlier 2015 ARK work gave ~$2,000/BTC which he later disavowed as methodologically flawed.",
+    "appreciation_real": "n/a (source silent) on a number; Schilling-Uhlig (2019) imply ~0 expected real drift for a mature currency-Bitcoin (BTC/USD a martingale; risk-adjusted real return = dollar's).",
+    "volatility": "n/a (source silent on a number). Qualitative: Schilling-Uhlig and Lewis both stress HIGH, belief-driven volatility — 'even small changes in the perceived probability of a future scenario can generate sizeable swings in prices.'",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent) — the MoE framing is explicitly an alternative to, not a version of, the digital-gold/SoV thesis."
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~6-10%/yr (judgment, not a computed stat). Under QTM logic, appreciation is a decaying, probability-weighted re-rating as Bitcoin's believed transaction-share rises toward a ceiling, NOT a perpetual growth rate. Extrapolating the realized decay (142%→65%→17% nominal as it matured) and bounding it by the GE martingale (which pulls mature expected return toward fiat/inflation), a 10-15yr horizon should sit modestly above nominal cash: low-double-digits early, fading toward ~inflation as adoption saturates. Center ~8%.",
+    "appreciation_real": "~3-7% (center ~5%). The martingale result caps long-run real drift near zero for a fully-mature currency-Bitcoin; the positive wedge is the still-incomplete one-time adoption re-rating over the next 10-15yr, not a sustainable real growth rate.",
+    "volatility": "~55-60% annualized (center ~57%). QTM/GE logic says vol is dominated by jumps in adoption-scenario probability; it compresses somewhat as the belief distribution narrows but the floor is held AT realized trailing-5y ~57% rather than below it, because the sub-2yr ETF sample does not yet evidence compression below realized. Stays multiples of equity vol given the fat-tailed payoff.",
+    "corr_growth_eq": "~0.40 (rising). As a belief-/liquidity-driven risk asset, re-ratings cluster with risk-on regimes; trailing-5y realized is 0.56 and the structural trend is upward, so a forward QTM-consistent estimate sits ~0.35-0.45.",
+    "corr_value_eq": "~0.30. Lower than growth — value equities are less liquidity/risk-appetite sensitive; realized trailing-5y 0.37.",
+    "corr_fi_nominal": "~0.15. Weakly positive via the shared risk-appetite/liquidity channel; near realized 0.16-0.19.",
+    "corr_tips": "~0.20. Slightly above nominal FI given a faint monetary-debasement overlap, but the MoE framing carries no explicit inflation hedge, so modest; realized trailing-5y 0.30.",
+    "corr_gold": "~0.05 (near zero). The QTM/MoE framing treats Bitcoin as a payment rail, NOT digital gold, so it predicts no structural gold link — consistent with realized ~0.03-0.05. This is the family's key tell: it does NOT support a high BTC-gold correlation."
+   }
+  },
+  {
+   "name": "On-Chain Cost-Basis Valuation (Realized Cap / MVRV / SOPR / Thermocap / HODL Waves)",
+   "family": "on-chain",
+   "source_type": "practitioner",
+   "description": "This family values Bitcoin off its aggregate on-chain cost basis rather than any cashflow or supply-scarcity narrative. Realized Cap \"pricestamps\" every UTXO at the price it last moved and sums them, producing the network's invested-capital base; Realized Price is that per-coin. Market value is then read RELATIVE to this cost basis: MVRV (= MarketCap/RealizedCap) and SOPR measure aggregate unrealized/realized profit, Thermocap measures cumulative miner security spend, and Realized-Cap HODL Waves decompose the cost basis by coin age. Critically, none of these are absolute valuation models — they are mean-reversion OSCILLATORS calibrated to historical cycle extremes (MVRV ~0.8 at bottoms, >3.2 at tops). A 10-15yr CMA does not fall out cleanly: the only structural forward signal is that Realized Cap acts as a slowly-rising floor (it draws down only -14% to -23% when spot falls -75% to -92%), so a CMA must be built by projecting the growth rate of invested capital (net capital inflow) and assuming MVRV mean-reverts toward ~1.5-2x over a full cycle rather than by reading any point figure off the chart.",
+   "key_drivers": [
+    "Realized Cap = cumulative realized profit minus realized loss = net USD capital ever locked into the network (the invested-capital base / on-chain cost basis)",
+    "Realized Price = Realized Cap / circulating supply (aggregate holder cost basis per coin); functions as a soft floor",
+    "MVRV ratio = Market Cap / Realized Cap = aggregate unrealized-profit multiple; mean-reverting oscillator (bottoms ~0.8, tops ~3.2-3.7)",
+    "MVRV Z-Score = (MarketCap - RealizedCap)/stdev(MarketCap); normalizes extremes for cross-cycle comparison",
+    "SOPR (Spent Output Profit Ratio) = realized price of spent coins / price paid; >1 = supply in profit being sold, <1 = capitulation",
+    "Thermocap = cumulative USD value of all block rewards + fees ever paid to miners (aggregate security spend); Market-Cap/Thermocap is an on-chain 'P/E'-style ratio",
+    "Realized-Cap HODL Waves = age-banded decomposition of Realized Cap (who holds cost basis, long-term vs short-term holders)",
+    "Net capital inflow / 'realized cap growth rate' — the only variable that drives a long-horizon trajectory rather than a cyclical signal"
+   ],
+   "pros": [
+    "Grounded in observable on-chain ledger data (UTXO move-prices), not a narrative or fitted regression — Realized Cap is an accounting identity, not a model assumption",
+    "Realized Cap / Realized Price empirically behaves as a rising floor: it has fallen only ~-14% to -23% in bear markets vs spot's -75% to -92%, giving a genuine downside-anchor concept useful for tail/loss-given-bear estimation",
+    "MVRV/SOPR oscillators have real ex-post discriminating power at extremes — readings have repeatedly bracketed cycle tops and bottoms (MVRV<1 ≈ ~15% of days marked capitulation, MVRV>3.2 ≈ cycle peaks)",
+    "Cost-basis framing maps cleanly to investor behavior (mean reversion toward what holders paid), so it is a behaviorally-honest middleware even if not a CMA",
+    "Thermocap ties valuation to a real economic floor (energy/security spend), giving an independent cross-check on the cost-basis story",
+    "Unlike Stock-to-Flow and Metcalfe, this family does NOT publish a single point-forecast, so it is harder to weaponize into a spurious 10yr target — its honesty is a feature"
+   ],
+   "cons": [
+    "Fundamentally an OSCILLATOR, not a valuation model: it tells you where price sits relative to cost basis, never where cost basis (or price) should be in 10-15 years. There is no native long-horizon expected-return output — any CMA is grafted on by the analyst.",
+    "Reflexive/circular: Realized Cap is a transformation of past PRICE (each coin stamped at its move-time price). High prices raise realized cap which raises the 'floor' — so the floor is endogenous to the bubble, not an independent fundamental. A permanent 70% drawdown would drag realized price down with it over time.",
+    "Thresholds are data-mined on a tiny sample (2-3 full cycles): MVRV>3.7 'overvalued', Z>6.5 'top', M/T~0.000004 'top' are curve-fits with severe lookahead bias and small-n overfitting. Each cycle has hit LOWER MVRV peaks (2013 ~5.7 → later cycles <3) — the calibration visibly decays, mirroring the S2F/Metcalfe post-2021 break critique. Naive use is unsafe.",
+    "Predictive performance degrades post-2017/post-futures as markets became more efficient (academic backtests of cost-basis oscillators show Sharpe collapse after 2017); ETF/institutional custody also breaks the on-chain signal because coins move off-chain into wrappers and stop pricestamping.",
+    "Supply-side metric noise: lost coins, exchange/wrapper consolidation, and ETF custody distort UTXO age and cost-basis attribution, biasing realized cap and HODL waves.",
+    "No correlation, volatility, or cross-asset structure is produced at all — the framework is silent on every CMA covariance input. It cannot, by itself, populate a correlation matrix vs equities/gold/TIPS."
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent) — the literature publishes no long-horizon expected return; it is an oscillator/cost-basis framework, not a CMA",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a (source silent on a forward vol estimate; note realized-cap itself draws down only ~-14% to -23% in bears vs spot -75% to -92%, an asymmetric-downside observation, not a vol figure)",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent) — on-chain cost-basis framework produces no cross-asset correlation"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~10-13%/yr (judgment, not a computed stat). Logic: this framework has no native return output, so I project the growth of the invested-capital base (Realized Cap) and assume MVRV mean-reverts to ~1.5-2x. Realized Cap has historically compounded slower than spot and is decelerating as net inflows mature; extrapolating the anchor decay (142%→65%→17%/yr) one step further past the trailing-5y 17%, a 10-15yr cost-basis-anchored path lands in low-double-digits as marginal new capital shrinks relative to a larger base. I deliberately sit below scarcity/Metcalfe bulls because the cost-basis floor is reflexive (endogenous to past price) and cannot manufacture its own appreciation.",
+    "appreciation_real": "~7-10%/yr (nominal less ~3% CPI)",
+    "volatility": "~55-60%/yr (judgment). The cost-basis floor compresses left-tail severity over time, but the floor is held AT realized trailing-5y ~57% rather than trimmed below it — the sub-2yr ETF sample does not yet evidence a sustained floor under realized. Stays well above any equity/gold level.",
+    "corr_growth_eq": "~0.40-0.55 (judgment; framework silent, so I inherit the rising trailing-window equity beta — 5y growth-eq corr 0.56 — and hold it elevated since institutional/ETF flows that drive realized-cap growth are the same risk-on flows that drive growth equities)",
+    "corr_value_eq": "~0.30-0.40 (judgment; below growth-eq, tracking the anchor's value-eq corr ~0.37 at 5y)",
+    "corr_fi_nominal": "~0.15-0.25 (judgment; modestly positive via shared liquidity/rate-cycle sensitivity)",
+    "corr_tips": "~0.20-0.30 (judgment; slightly above nominal FI, real-rate sensitivity of a long-duration risk asset)",
+    "corr_gold": "~0.05-0.20 (judgment; framework is silent and historical BTC-gold corr is ~0. I nudge slightly positive over 10-15yr as a maturing 'digital gold' cohort and shared debasement-hedge demand raise co-movement, but the cost-basis lens gives no mechanism forcing it up — so low, not the 0.5+ a digital-gold thesis would assert)"
+   }
+  },
+  {
+   "name": "Cross-Sectional Factor & Macro-Liquidity Regression",
+   "family": "factor-regression",
+   "source_type": "academia",
+   "description": "This family treats BTC as a risk asset whose returns are decomposed by regression onto priced factors rather than valued from cashflows or scarcity. Two strands: (1) the cross-sectional/asset-pricing strand (Liu-Tsyvinski-Wu) builds crypto-native factors — a crypto market factor (CMKT), size (CSIZE) and momentum (CMOM), plus network-adoption and investor-attention proxies — and shows a 3-factor model spans the cross-section of coin returns; (2) the macro-liquidity strand (Onramp, post-ETF studies) regresses BTC on global M2, the dollar (DXY) and real rates. A 10-15yr CMA does NOT fall out of these models directly: they are descriptive/explanatory (what moves BTC, and how much variance loads on each factor) rather than predictive of a long-run level. To get a CMA you must feed the regression long-run factor-premium and factor-path assumptions (an equity-risk-premium-style estimate for the crypto market factor, plus a view on the secular liquidity/adoption path) and let the betas translate them — which is why the expected-return output is inherited from the analyst's factor views, not produced by the model.",
+   "key_drivers": [
+    "Crypto market factor (CMKT) — the dominant systematic driver; coin betas to the aggregate crypto market explain most cross-sectional variation",
+    "Size factor (CSIZE) — small-cap coins earn a premium; BTC as the largest coin loads negatively, implying lower expected excess return than the alt-coin universe",
+    "Momentum factor (CMOM) — strong time-series and cross-sectional momentum; 1-4 week momentum predicts returns (a behavioral/attention driver, not a fundamental one)",
+    "Investor-attention / sentiment proxies (Google/social search, flows) — Liu-Tsyvinski find attention strongly forecasts short-horizon returns",
+    "Network-adoption factors (active addresses, users) — priced; production-cost factors (hashrate/mining) are NOT priced",
+    "Macro-liquidity trio: global M2 (liquidity impulse), USD/DXY, and real yields (discount rate) — weak monthly link, materially stronger at 6-24m horizons",
+    "Post-ETF institutionalization — rising loading on the equity/growth (Nasdaq) factor as ETF/corporate flows tie BTC to quarterly equity rebalancing"
+   ],
+   "pros": [
+    "Empirically grounded and falsifiable — uses standard asset-pricing machinery (Fama-MacBeth, GRS tests, rolling betas) rather than curve-fitting a price level",
+    "Correctly characterizes BTC's risk profile: high idiosyncratic/crypto-specific variance, low historical loading on traditional macro factors — directly informative for the correlation cells of a CMA",
+    "Captures regime change: the macro-liquidity and post-ETF strands document BTC's rising equity beta and near-zero gold correlation, which a static historical correlation would miss",
+    "Honest about predictability: the academic strand attributes short-horizon predictability to attention/momentum (behavioral), not to a fundamental anchor — avoids over-claiming",
+    "Separates systematic from idiosyncratic — useful for portfolio construction (how much BTC risk is diversifiable vs priced)"
+   ],
+   "cons": [
+    "Does NOT produce a long-run expected return on its own — it is descriptive; the CMA appreciation number is smuggled in via an assumed crypto-market-factor premium, so the model launders the analyst's prior rather than generating a forecast",
+    "Short, regime-shifting sample: factor premia (esp. CMKT and CMOM) are estimated on ~2014-2022 data dominated by a secular bull market; out-of-sample momentum/size premia in equities have decayed, and there is no reason crypto premia are stable over 10-15yr",
+    "Betas are unstable: the very post-ETF literature it relies on shows BTC's equity beta jumping from ~0 to 0.5-0.9, so any CMA built on a point-estimate beta is fragile",
+    "The macro-liquidity link is weak month-to-month and the firm-published (Onramp) version is marketing-adjacent — it reports regime medians, not betas, and avoids point forecasts",
+    "Naive scarcity/network cousins (Stock-to-Flow, naive Metcalfe) are statistically REJECTED — S2F is spurious regression on two non-stationary, non-cointegrated series with autocorrelated residuals; Metcalfe transaction-count effects are insignificant/negative once autocorrelation and endogeneity are corrected, and both break post-2021. A factor-regression CMA must not borrow their implied appreciation paths",
+    "High multicollinearity / small-N: with only BTC (not a panel) the macro regressions have few independent observations at the 6-24m horizons where the signal allegedly lives, inviting overfitting"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent) — the asset-pricing strand reports factor premia/Sharpe, not a 10-15yr level forecast. Cited adjacent figures: top-quintile coin strategy ~11.2%/week, BTC one-month risk premium ~66%/yr (Risk Premia, arXiv 2410.15195), but these are short-horizon premia, not a CMA",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a as a forward number; literature describes BTC as having 'significantly greater volatility than traditional assets'; Risk Premia (arXiv) reports BTC annualized Sharpe ~0.8 vs S&P 0.5 and variance risk premium ~14% vs 2%",
+    "corr_growth_eq": "Rising post-ETF: rolling BTC-S&P500 correlation moved from near-zero to ~0.5 sustained, peaking ~0.87 in 2024 (arXiv 2501.09911 / 2512.12815); 'high-growth technology proxy' framing",
+    "corr_value_eq": "n/a (source silent) — literature uses broad equity / Nasdaq, not a value cut",
+    "corr_fi_nominal": "~0.10 static vs Bloomberg US Agg (cited in 2024-25 correlation studies)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "Near zero and did NOT rise post-ETF — both arXiv 2501.09911 and 2512.12815 explicitly reject the 'digital gold' co-movement narrative; Liu-Tsyvinski: crypto has no exposure to commodity returns"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~9-12%/yr (judgment, not a model output). Logic: under factor-regression discipline BTC's long-run return = its crypto-market-factor beta times an assumed crypto-market premium. Extrapolating the realized decay (full 142% -> 10y 65% -> 5y 17%), the marginal/forward window is already near a maturing-asset risk premium. I take BTC as a high-beta (~1.5-2x) equity-like risk asset over 10-15yr and add a thinning but non-zero adoption/liquidity tailwind, landing ~10% — well below the 17% trailing-5y and far below the 65% 10y, because betas and premia mean-revert as the asset institutionalizes",
+    "appreciation_real": "~6-9%/yr (deflating ~10% nominal by ~3% CPI). Genuinely wide error bars; could be negative in a liquidity-contraction decade given the macro-liquidity strand's downside regime",
+    "volatility": "~55-60%/yr. Decaying from realized 103% (full), 69% (10y) toward the realized trailing-5y ~57% as float deepens and ETF/institutional ownership dampens swings, but the floor is held AT ~57% — I do not assume convergence below realized within the horizon, since the sub-2yr ETF sample does not yet evidence it. Structurally far above equities.",
+    "corr_growth_eq": "~0.45-0.60. The dominant and rising correlation; institutionalization ties BTC to quarterly equity rebalancing. Use ~0.55, above the realized 5y 0.56, treating the post-ETF regime as the forward base case rather than the 0.26 full-sample figure",
+    "corr_value_eq": "~0.30-0.40. Lower than growth (BTC is a long-duration, sentiment-sensitive asset); anchor ~0.35, modestly above realized 5y 0.37",
+    "corr_fi_nominal": "~0.15-0.25. Low but positive and drifting up as BTC trades on the same liquidity/real-rate impulse as duration; ~0.20",
+    "corr_tips": "~0.25-0.35. Slightly higher than nominal FI via the shared real-rate/liquidity channel emphasized by the macro strand; ~0.30",
+    "corr_gold": "~0.05-0.15. The thesis-critical cell: despite the 'digital gold' narrative, BOTH realized data (5y 0.045) and the post-ETF literature show near-zero, non-rising co-movement. I hold it low (~0.10) and explicitly reject treating BTC as a gold substitute for diversification math"
+   }
+  },
+  {
+   "name": "Options-Implied Risk-Neutral Forward & Vol Surface (Deribit DVOL / RND)",
+   "family": "options-implied",
+   "source_type": "practitioner",
+   "description": "This approach extracts what the listed BTC options market prices: a risk-neutral (Q-measure) forward and a full implied-volatility surface (Deribit DVOL is the VIX-style 30-day variance-swap distillation of that surface). From the cross-section of strikes one recovers a risk-neutral density (RND) of the terminal price; from the term structure one reads the market's annualized vol expectation by tenor. Crucially, the risk-neutral forward equals spot times cost-of-carry (futures basis / funding) — under Q the drift is the financing rate, NOT a real-world expected return — so the options surface delivers volatility and a no-arbitrage forward but says nothing directly about 10-15yr appreciation. A CMA only \"falls out\" if you (a) extrapolate the (downward-sloping, short-dated) vol term structure to a 10-15yr horizon, and (b) graft on a real-world risk premium from a separate P-density estimate (e.g. Martin/Chabi-Yo lower bounds), since the options alone are silent on drift.",
+   "key_drivers": [
+    "Implied volatility surface (level, skew, term structure) across Deribit/CME strikes and expiries",
+    "Risk-neutral forward = spot x cost-of-carry (futures basis / perpetual funding rate); the Q-drift is the risk-free/financing rate, not expected return",
+    "Risk-neutral density (RND) shape from the second derivative of call prices vs strike (Breeden-Litzenberger) — fat right tail, lognormal-plus-jump",
+    "Variance risk premium: gap between implied (Q) and realized (P) variance, the wedge that must be modeled to get from price to physical return",
+    "Pricing kernel / risk-aversion needed to convert Q-density to P-density and thus recover an expected return (Almeida-Grith-Miftachov; Martin lower bound)",
+    "Option liquidity and longest-available tenor — caps the horizon at which the surface is observable (months, not years)"
+   ],
+   "pros": [
+    "Purely market-implied and forward-looking: aggregates the positioning of sophisticated option traders in real time, no backward-looking sample dependence",
+    "Best-in-class for the VOLATILITY input of a CMA — DVOL and the term structure give a clean, daily, tradeable estimate of expected vol, far better grounded than a historical stdev",
+    "No-arbitrage discipline: the forward and RND are internally consistent and replicable, immune to the spurious-regression problems that plague S2F/Metcalfe",
+    "Captures the full distribution (skew, kurtosis, crash risk), not just a point — useful for tail-aware / left-tail CMA scenario work",
+    "The RND-vs-realized comparison yields a defensible variance risk premium and, with a pricing-kernel assumption, an option-implied expected-return lower bound (Almeida et al. ~66%/yr at 1mo; Martin bound 65.6%) — a genuinely market-anchored premium number",
+    "Galaxy and desks use it precisely as a 'maturing into a macro asset' read: the surface's flattening/declining vol IS the decay signal a forward CMA needs"
+   ],
+   "cons": [
+    "Fundamentally cannot produce an expected appreciation. The risk-neutral forward drifts at the risk-free/funding rate by construction; equating that to a CMA return implies ~0% real appreciation, which is economically wrong for the asset. Any appreciation figure must be imported from a separate model — the options surface is silent on drift. This is the central, disqualifying limitation for a return CMA.",
+    "Horizon mismatch is severe: liquid BTC options extend ~6 months (Deribit) to ~12-13 months (CME, through next December); there is NO 10-15yr option. Extrapolating a 30-day DVOL or a 6-month surface to a 10-15yr CMA is a heroic, unvalidated stretch — the term structure is estimated, not observed, at the relevant horizon.",
+    "The P-density / pricing-kernel step that rescues an expected return is fragile: estimates swing from ~44% to ~102%/yr across vol regimes (Almeida-Grith-Miftachov), are only 27-day horizon, and assume the short-dated risk premium persists — exactly the assumption a maturing-asset CMA should reject.",
+    "Variance risk premium is large and time-varying (1mo VRP collapsed from ~15% to ~2.5% around the 2024 halving), so even the vol read is regime-dependent and can overstate forward vol.",
+    "Risk-neutral != physical: short-dated RNDs are dominated by hedging/skew demand and crash insurance, not long-run fundamentals — using them as a 10yr distribution conflates options demand with macro expectation.",
+    "Liquidity/venue concentration (Deribit dominant, now Coinbase-owned) and thin deep-OTM long-dated strikes make the long end of any extrapolated surface noisy and manipulable.",
+    "Marketing risk: 'options imply $250k' headlines (Galaxy 2026) are wide risk-neutral ranges, NOT directional forecasts; the same surface assigns near-equal odds to $50k and $250k by end-2026. Treating the high tail as an expected value launders a vol read into a return claim."
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent) — the risk-neutral forward drifts at the financing/risk-free rate, not an expected return; Almeida-Grith-Miftachov (2024) report an option-implied Bitcoin physical premium of ~66%/yr (Martin lower bound 65.6%, Chabi-Yo 84.8%) but ONLY at a 27-day horizon, not 10-15yr",
+    "appreciation_real": "n/a (source silent) — no options-based source publishes a real long-horizon appreciation; the Q-forward implies ~0% real drift by construction",
+    "volatility": "DVOL (30-day, annualized) typically ~50-90%, illustrative example DVOL=90 => 4.5% daily move; squared BVIX risk-neutral annual variance ~0.72 (=> ~85% vol) vs realized ~0.58 (=> ~76% vol) in Almeida et al.",
+    "corr_growth_eq": "n/a (source silent) — options surface is single-asset; no cross-asset correlation published",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent) — central digital-gold correlation is not an output of this approach; options give no cross-asset moments"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~8-12%/yr (JUDGMENT, not an options output). The options approach itself yields only the risk-free-rate forward (~3-4% nominal => effectively 0% real excess). To make it a usable CMA I take the ONLY return signal the family legitimately produces — the option-implied physical risk premium (Almeida et al. ~66%/yr at 1mo) — and decay it hard for horizon and maturation, consistent with the empirical-anchor decay (142% full -> 65% 10y -> 17% 5y trailing). Extrapolating that decay forward another 10-15yr lands a single-digit-to-low-double-digit nominal CMA; I center ~10%, well below the 17% trailing-5y realized because the VRP and premium themselves shrink as the asset macro-matures.",
+    "appreciation_real": "~5-9%/yr (center ~7%), i.e. nominal less ~3% assumed CPI. Strictly a judgment overlay; the pure risk-neutral forward implies ~0% real.",
+    "volatility": "~55-60%/yr (center ~57%). DVOL (~50-90% spot) and a flattening term structure point toward lower forward vol as the asset matures, BUT the floor is held AT realized trailing-5y ~57% rather than the ~50% the forward curve alone would imply — the sub-2yr ETF sample does not yet confirm a realized floor below 57%. Forward-implied supports the low end of a ~50-60% band; realized floors it.",
+    "corr_growth_eq": "~0.45 (judgment; options give no correlation, anchored to trailing-5y realized 0.56 with mild mean-reversion as macro-asset behavior persists)",
+    "corr_value_eq": "~0.30 (judgment; anchored to trailing-5y 0.37)",
+    "corr_fi_nominal": "~0.15 (judgment; trailing-5y 0.19, fades toward ~0.1 long-run)",
+    "corr_tips": "~0.20 (judgment; trailing-5y 0.30, real-rate sensitivity partially persists)",
+    "corr_gold": "~0.10 (judgment; realized has been ~0.03-0.05, near-zero; I nudge slightly positive on a maturing digital-store-of-value thesis but the digital-gold co-movement remains weak — the options approach itself says nothing here)"
+   }
+  },
+  {
+   "name": "Equilibrium / Game-Theoretic Security-Utility Pricing",
+   "family": "dcf-moneyness",
+   "source_type": "academia",
+   "description": "This family treats Bitcoin not as a cash-flow asset but as a token whose fundamental value is the present value of a stream of net transactional benefits (Biais et al., JoF 2023) and/or the equilibrium price that simultaneously clears asset demand and induces enough mining hashrate to keep the chain secure against attack (Chen 2024 security-utility Nash equilibrium; Houy 2014; Alden's fee-based security model). Value is endogenous: today's price depends on expected future prices (because transactional usefulness and security both scale with price), which yields a self-referential fixed point. A 10-15yr CMA does NOT fall out cleanly — these models are explicitly positive (explaining price formation and volatility) rather than normative forecasts. The one robust quantitative takeaway is decompositional: in calibration, only a minority of Bitcoin return variance maps to changes in net transactional benefits; the majority is \"extrinsic\" / sunspot volatility, so any point forecast inherits enormous uncertainty and the models predict perpetual high vol and multiple equilibria rather than a single expected return.",
+   "key_drivers": [
+    "Net transactional benefits: the flow utility of holding/using BTC for transactions and store-of-value, indexed empirically (Biais et al.)",
+    "Self-referential fixed point: fundamental value depends on future prices, generating multiple equilibria and sunspot (extrinsic) volatility even with constant fundamentals",
+    "Security budget = block subsidy + transaction fees; must remain large enough that cost-to-attack > attack payoff (Chen, Houy, Alden)",
+    "Endogenous hashrate via free-entry zero-profit miner condition: F^-1(H) = P*(B+Phi)/H",
+    "Halving dynamics: as block subsidy B -> 0, security must be carried by fees Phi; viability of the fee market is the central open question",
+    "Attack-cost / security-utility coupling: higher price -> larger security budget -> more attack resistance -> supports demand (reflexive loop)",
+    "Fixed supply Q clears against speculative + transactional demand D(P, security)"
+   ],
+   "pros": [
+    "Genuinely peer-reviewed (Journal of Finance) and microfounded; derives value from first principles rather than curve-fitting, unlike S2F/Metcalfe",
+    "Honestly explains why BTC is so volatile: multiple equilibria + sunspots are a feature of the model, not noise to be assumed away",
+    "Provides a falsifiable lower-bound discipline — the chain is only worth holding if the fee-funded security budget can deter attack as subsidy decays, tying long-run value to real adoption/fee demand",
+    "Avoids the 'no cashflow so unvaluable' dead-end by identifying transactional-benefit and security streams as the economic substitute for cashflow",
+    "Comparative statics (halving lowers P and H together; fee market must develop) give a coherent narrative for the appreciation-decay path"
+   ],
+   "cons": [
+    "Produces essentially NO usable point CMA: no closed-form steady-state price, no expected-return number, no volatility forecast, no correlation outputs — the papers explicitly decline to forecast",
+    "Multiple-equilibria / sunspot result means the model is consistent with almost any price path, which is intellectually honest but useless for a single 10-15yr expected return",
+    "The fee-based-security terminal state is unsolved: Chen, Houy and Alden all flag 'whether fee demand can fund security' as an OPEN question — the long-run equilibrium may not exist or may be fragile (tragedy-of-the-commons free-riding on security)",
+    "Net-transactional-benefit indices are noisy proxies; calibration shows fundamentals explain only a minority of return variance, so the 'fundamental' anchor is weak",
+    "Reflexivity (price -> security -> value) makes the model prone to self-fulfilling collapse as well as boom; it does not pin down which equilibrium prevails",
+    "These academic models are frequently conflated in marketing with S2F/Metcalfe, which the literature largely REJECTS as spurious: S2F is a regression of two non-stationary series (spurious cointegration, serially correlated residuals) that broke decisively post-2021 (predicted ~$100k+ in 2022, BTC crashed); naive Metcalfe network-value fits are likewise overfit and non-robust. Do not let the rigorous equilibrium work launder the discredited scarcity/network curves."
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent — models are positive, not forecasts; no expected-return figure published)",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a (no point figure; Biais et al. show a MAJORITY of BTC return variance is 'extrinsic'/sunspot volatility unrelated to fundamentals — qualitative, not a number)",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent — these models do not produce cross-asset correlations)"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~8-10%/yr (judgment, not a model output). Under this approach's own logic, BTC is maturing toward a security/transactional-utility equilibrium where the reflexive price-security loop weakens as a percentage of value; extrapolating the realized appreciation decay (142%->65%->17%/yr) one more regime forward plus a mature-risk-asset floor gives a decaying path averaging ~9% over 10-15yr, terminal rate ~7%.",
+    "appreciation_real": "~6-7%/yr (nominal less ~2.5% inflation)",
+    "volatility": "~55-70%/yr (judgment). The equilibrium models predict PERSISTENT extrinsic/sunspot volatility and multiple equilibria, so vol decays only modestly from the realized ~70-80% toward a still-elevated 55-65% as the asset matures — structurally far above equities.",
+    "corr_growth_eq": "+0.3 to +0.5 (judgment). Demand is dominated by speculative/risk-on flows in these models, so BTC behaves like a high-beta growth/liquidity asset.",
+    "corr_value_eq": "+0.1 to +0.2 (judgment). Weak positive via general risk-on beta; no value-factor linkage in the mechanism.",
+    "corr_fi_nominal": "-0.1 to +0.1 (judgment). Near-zero; intermittently negative in risk-off, positive via liquidity/duration sensitivity — no stable sign.",
+    "corr_tips": "0.0 to +0.2 (judgment). Mild positive through the real-rate/liquidity channel; not an inflation hedge in these models since value is transactional-benefit + security, not a CPI claim.",
+    "corr_gold": "~0.0-0.10 (judgment). The security-utility/store-of-value framing is often read as a 'digital gold' co-movement, but realized BTC-gold correlation is ~0 and these reflexive, sunspot-driven models give no stable gold link. BTC's speculative demand makes it far more risk-on than gold; I hold it at the bottom of the 0.0-0.15 band."
+   }
+  },
+  {
+   "name": "Discounted-Utility / Monetary-Premium DCF (Moneyness Analogue)",
+   "family": "dcf-moneyness",
+   "source_type": "academia",
+   "description": "This family forces Bitcoin into a DCF-style frame even though it has no cashflow, by treating its \"moneyness\" — the utility flow from serving store-of-value / medium-of-exchange / unit-of-account functions — as an implicit dividend, then discounting a terminal monetary-premium value. Two academic sub-strands exist. (1) A market-to-fundamental ratio strand (Liu & Zhang's Price-to-Utility / PU ratio) proxies the store-of-value \"utility\" via on-chain UTXO staking ratios and asks whether price is rich or cheap to that utility, predicting LONG-horizon (not short) returns via mean-reversion of the ratio. (2) A unified-discounting strand (Papadogiannis; \"Valuing Scarcity\") models scarcity as a latent state variable whose \"monetization function\" maps into pseudo-cashflows or a terminal resale value, discounted at an effective rate c_eff = f(benchmark cost of capital c, belief-distortion ratio K). A 10–15yr CMA does not fall out cleanly: the model yields a fair-value LEVEL (or a rich/cheap signal), and an expected return only emerges by assuming the price-to-utility ratio mean-reverts AND the underlying utility/TAM grows along an adoption S-curve — i.e., the CMA is really a TAM-penetration forecast wearing DCF clothing.",
+   "key_drivers": [
+    "Utility/moneyness proxy growth — on-chain activity, active addresses, transaction value, and UTXO staking ratio (Liu-Zhang use staking ratio as the store-of-value proxy)",
+    "Total addressable market (TAM) of the monetary functions BTC competes for — gold, offshore/store-of-value wealth, FX/settlement, central-bank reserves — and BTC's penetration share of each",
+    "Effective discount rate c_eff = benchmark opportunity cost c times belief-distortion ratio K (Papadogiannis); a very high required return reflecting adoption/survival risk",
+    "Probability of monetary adoption / survival — implicit Pr(BTC becomes a durable global store of value) that scales the terminal value",
+    "Mean-reversion speed of the market-to-fundamental (PU) ratio — converts a level signal into an expected return",
+    "Terminal resale / monetary-premium value at horizon end (no perpetuity of cashflows; value is entirely the terminal moneyness stock)",
+    "Macro/liquidity regime — real rates and money-supply growth shift the convenience yield on a non-yielding monetary asset"
+   ],
+   "pros": [
+    "Honest about the absence of cashflow — instead of faking a dividend it explicitly models a utility/monetary-premium flow or a terminal scarcity value, which is the economically correct object for a non-productive asset",
+    "Provides a falsifiable rich/cheap signal: the PU ratio is empirically shown to predict LONG-horizon BTC returns out-of-sample and to beat buy-and-hold and naive market-timing in backtests (Liu & Zhang)",
+    "Grounds the proxy in classic monetary theory (medium-of-exchange / store-of-value / unit-of-account) and unique blockchain accounting (UTXO), rather than ad hoc curve-fitting",
+    "The unified-discounting variant (Papadogiannis) restores algebraic comparability with equities/gold under one DCF identity, which is exactly what a CMA committee needs to slot BTC next to other building blocks",
+    "Naturally accommodates appreciation DECAY: as the TAM penetration S-curve flattens and the PU ratio normalizes, implied forward returns fall toward a gold-like drift — the right shape for a 10–15yr CMA"
+   ],
+   "cons": [
+    "Garbage-in: the 'utility' proxy is a choice, not a fact. UTXO staking ratios, active addresses, and on-chain volume are gameable, regime-dependent, and only loosely tied to monetary value; the PU ratio's predictive edge is in-sample/backtest and over a short, bull-dominated history (2011–2020).",
+    "It is TAM-penetration forecasting in DCF costume. The number that drives everything — Pr(adoption) and terminal share of gold/FX/reserves — is an unfalsifiable prior. Marketing 'academic' DCFs (ARK $1.2–2.4M by 2030; VanEck $2.9M by 2050 ~15% CAGR) are sensitive almost entirely to the penetration assumption, not the discounting math.",
+    "Sibling naive models are REJECTED by the peer-reviewed econometrics. Stock-to-Flow regressions are spurious: S2F and price are both non-stationary (I(1)/trending), Engle–Granger cointegration fails its own preconditions, residuals are serially correlated, and the model broke post-2021 (predicted ~$100k in 2022; BTC crashed). Metcalfe/PM ratios likewise have little short-run predictive power and treat all users identically. The PU-ratio paper itself concedes traditional fundamental-to-market ratios fail short-term.",
+    "The effective discount rate c_eff and belief-distortion K (Papadogiannis) are not independently observable — they are calibrated to fit observed price, so the framework can rationalize almost any valuation ex post (low falsifiability).",
+    "No native volatility or correlation output. The family produces a fair-value level / expected return; vol and the correlation vector must be imported from realized data or asserted — so it contributes nothing to the risk side of a CMA on its own.",
+    "Survivorship and reflexivity: 'utility' rises with price (more holders/activity when number-go-up), so utility-as-fundamental and price are mutually endogenous — undercutting the claim that one anchors the other."
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (academic PU/scarcity papers publish fair-value/relative-value signals, not a 10-15yr annualized CMA). Marketing cousins in the same family that DO publish a number: VanEck ~15%/yr nominal to 2050 (base $2.9M); ARK ~53%/yr base / 32% bear / 72% bull CAGR to 2030.",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a (source silent — PU/DCF papers output value, not a forward vol; Liu-Zhang only plot realized BTC return distributions)",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent — gold appears only as a TAM benchmark for penetration share, not as a published correlation)"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~10-13%/yr (judgment, not a computed stat). Under this approach's own logic the PU ratio mean-reverts and the monetary-premium TAM follows a decaying adoption S-curve, so forward return must extrapolate BTC's appreciation DECAY (142->65->17%/yr as it matured), not its level. I blend a front-loaded ~25-30% early window decaying toward a terminal gold-plus drift, giving ~10-13% annualized over a 10-15yr horizon — close to VanEck's 15% base but haircut for adoption/survival risk and ratio normalization.",
+    "appreciation_real": "~7-10%/yr (nominal less ~3% long-run inflation); explicitly a judgment under the model's terminal store-of-value premise, with wide error bars.",
+    "volatility": "~55-60%/yr annualized. The DCF/moneyness frame implies vol compresses as the monetary premium matures, but the floor is held AT realized trailing-5y ~57% — the sub-2yr ETF sample does not yet evidence compression below realized — still multiples of equity vol over 10-15yr.",
+    "corr_growth_eq": "+0.30 to +0.45 (judgment). As a high-beta, liquidity-sensitive monetary call option, BTC's monetary premium expands in risk-on/easy-money regimes, co-moving with long-duration growth equities; I expect this to persist but soften as adoption broadens.",
+    "corr_value_eq": "+0.10 to +0.20 (judgment). Weaker macro/liquidity linkage to value equities than to growth.",
+    "corr_fi_nominal": "-0.10 to +0.10 (judgment, near zero). The convenience-yield-on-money channel makes BTC react to real rates and money growth, not coupon duration; sign flips by regime (debasement-hedge vs risk-asset).",
+    "corr_tips": "-0.20 to +0.10 (judgment). To the extent the thesis is a real store of value, BTC should lean negatively to real yields (like gold) — rising real rates raise the opportunity cost of a non-yielding monetary asset and compress its premium.",
+    "corr_gold": "~0.0-0.10 (judgment). The model treats gold as the primary TAM BTC penetrates, so by construction it needs BTC and gold to share a debasement/real-rate factor — yet realized co-movement is only intermittently and mildly positive, averaging ~0. This is the load-bearing contradiction: you cannot value BTC off gold's TAM (which assumes substitution / co-movement) while observing near-zero realized gold correlation. I keep it at the bottom of the 0.0-0.15 band, not the high correlation the moneyness narrative implies."
+   }
+  },
+  {
+   "name": "Adoption S-Curve / Logistic Demand Growth",
+   "family": "adoption-scurve",
+   "source_type": "asset_manager",
+   "description": "This approach models Bitcoin not as a discounted-cashflow asset (it has none) but as a network good whose value is a function of adoption. Demand is assumed to diffuse along a logistic S-curve borrowed from prior technology-diffusion analogs (internet, mobile phones, automobiles, social media), and network size is mapped to value via a Metcalfe-type link (value scales roughly with users^~1.5-2) and/or a fixed total-addressable-market the asset is converging on (a share of monetary gold's ~$15-22T cap, or a fraction of global savings/M2). A 10-15yr CMA falls out mechanically: you posit a terminal adoption level and date (e.g. Blockware's 10% of population by 2030 off a 60% net-entity CAGR; Timmer's ~25% of monetary gold), draw the logistic path to it, convert end-state network size or TAM share into a terminal price, and annualize from spot. Crucially the same logic that produces large near-term multiples also forces appreciation to DECELERATE as you climb the curve toward the inflection and saturation, so the forward 10-15yr CAGR is far below realized history.",
+   "key_drivers": [
+    "Terminal addressable market (TAM): share of monetary gold (~$6T at 25% per Timmer), or share of global M2 / savings / sovereign reserves",
+    "Adoption ceiling and timing: terminal user/entity penetration (e.g. 10% of population by 2030) and the date of the logistic inflection point",
+    "Net-entity / user growth rate (Blockware: ~60% trailing-10yr CAGR of cumulative net entity growth), which is itself decaying",
+    "Metcalfe exponent linking users to value (theoretical 2; empirically estimated ~1.5-1.69, and contested)",
+    "Diffusion analog chosen (internet/mobile = gentler slope; social media/smartphones = steeper) — the analog choice dominates the answer",
+    "Real interest rates and monetary inflation as a demand multiplier on the adoption curve (Timmer overlays -2% to +2.5% real-rate regimes)",
+    "Supply scarcity / issuance decay (halvings) and ETF-driven float reduction as a demand-side amplifier (Standard Chartered, Grayscale)",
+    "Per-coin price derived from terminal market cap / circulating (effectively fixed ~21M) supply"
+   ],
+   "pros": [
+    "Honest about the asset's nature: it values a no-cashflow network on adoption + monetary demand rather than forcing a DCF that cannot exist",
+    "Mechanically transparent and decomposable — terminal TAM, adoption ceiling, timing, and Metcalfe exponent are each separately debatable and stress-testable",
+    "Naturally produces appreciation DECAY: as penetration rises toward the inflection/saturation, marginal new adoption falls and CAGR compresses, which matches realized history (142%->65%->17%) and is the correct shape for a 10-15yr forward CMA",
+    "TAM-share framing (e.g. fraction of monetary gold or global savings) gives a defensible, bounded ceiling rather than open-ended extrapolation",
+    "Used by serious institutions (Fidelity/Timmer, Grayscale, Standard Chartered) with explicit macro overlays (real rates, money supply), not just price extrapolation",
+    "Internally consistent with a 'digital gold' thesis: ties terminal value to a recognizable store-of-value benchmark"
+   ],
+   "cons": [
+    "The Metcalfe link to value is largely REJECTED by peer-reviewed work: regressions of price on users are spurious (both series non-stationary/trending; significance vanishes under time fixed-effects; IV studies find the transaction-count effect insignificant or negative across PoW coins) — naive Metcalfe valuation launders autocorrelation as causation",
+    "The companion S2F supply model is similarly discredited: halvings act as structural breaks, the fit collapses out-of-sample (Plan-B paths missed badly post-2021), and the apparent fit largely reflects correlation with log-time-since-genesis (~80% Pearson)",
+    "Answer is dominated by unfalsifiable analog choice and terminal-date assumptions — choosing 'social media' vs 'landline' adoption slopes swings the price target by an order of magnitude with no objective tie-breaker",
+    "Survivorship/selection bias in analogs: only technologies that DID saturate are used; the curve assumes success rather than testing it",
+    "No native volatility or correlation output — the framework is a point/path price target, so vol and all cross-asset correlations must be imported from realized data or judgment",
+    "Practitioner targets are promotional and serially revised (Standard Chartered cut 2026 target $300K->$150K->$100K within months), so 'cited' numbers are unstable and not CMA-grade",
+    "Confuses a long-run equilibrium ceiling with a forward expected return: even if the $1M+ TAM is right, the probability-weighted and time-discounted CMA is much lower, and the models rarely present a true expectation (Timmer himself calls them 'not predictions')",
+    "Adoption can stall or reverse (regulation, a superior protocol, loss of the store-of-value narrative); logistic curves have no mechanism for de-adoption"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "No clean CMA figure; sources publish terminal price PATHS not annualized expectations. Implied: Timmer ~$1.2M/coin by 2030 (~1,970% upside from ~$60K base => ~80-90%/yr over that window, explicitly 'not a prediction'); Standard Chartered $500K by 2030 (~5yr path from ~$100K, ~38%/yr); Blockware: 10% adoption by 2030, no per-coin CMA. All sub-decade horizons, not 10-15yr.",
+    "appreciation_real": "n/a (source silent) — targets are nominal; none deflate to a real CMA",
+    "volatility": "n/a (source silent) — adoption/Metcalfe/TAM frameworks output price paths, not a vol estimate",
+    "corr_growth_eq": "n/a (source silent) — not produced by the model",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent) as a statistic, though the framework conceptually anchors BTC's TAM to a SHARE of monetary gold (Timmer ~25%); implies a long-run economic linkage to gold demand, not a measured return correlation"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~12-15%/yr (judgment, not a computed stat). Logic: the S-curve says forward appreciation must extrapolate the observed DECAY (142->65->17% as BTC matured), not the level. By 2026 BTC is plausibly past the steepest part of the diffusion curve and into the inflection region; a 10-15yr forward sits on the decelerating upper shoulder. A bounded-TAM anchor (~25% of a ~$20T monetary-gold market = ~$5T cap, ~3-4x current ~$1.3-2T) spread over 12-15yr is ~9-12%/yr; allowing modest TAM growth and a still-rising adoption tail pushes the central estimate to ~12-15%, with a wide cone (bear ~3-5% if adoption stalls, bull ~20-25% if it captures a gold-scale store-of-value role early).",
+    "appreciation_real": "~9-12%/yr (subtract ~2.5-3% long-run inflation). Real return is where most of the equity-risk-premium-like compensation sits under this view; the bear tail goes near zero real if adoption saturates without TAM expansion.",
+    "volatility": "~55-60%/yr (judgment). Realized vol decayed 103% -> 69% -> 57%; maturation and ETF/institutional ownership argue for continued compression, but the floor is held AT realized trailing-5y ~57% (sub-2yr ETF sample does not yet evidence a floor below realized). Still ~3x equities, never bond-like.",
+    "corr_growth_eq": "~0.45-0.55. Realized rose 0.26->0.36->0.56 as BTC became an institutionally-held risk asset; the adoption/institutional-era thesis (Grayscale, StanChart ETF framing) implies this stays moderately positive and risk-on.",
+    "corr_value_eq": "~0.30-0.40. Tracks growth-equity correlation at a lower beta; realized 0.24->0.29->0.37.",
+    "corr_fi_nominal": "~0.15-0.25. Low-positive via shared duration/liquidity sensitivity to real rates (Timmer's real-rate overlay); realized 0.10->0.16->0.19.",
+    "corr_tips": "~0.25-0.35. Slightly higher than nominal FI given the store-of-value/inflation-hedge narrative and explicit real-rate channel; realized 0.15->0.25->0.30.",
+    "corr_gold": "~0.0-0.10. Realized is ~0 (-0.01 -> +0.045). The adoption thesis's own 'share-of-monetary-gold' logic ASSERTS the correlation should rise toward gold, but that is precisely the unsupported claim: for BTC to take gold's store-of-value share the two must co-move, yet realized co-movement is ~0 and not trending up. I hold the central estimate at the bottom of the 0.0-0.15 band and treat the 'rising toward gold' story as narrative, not data."
+   }
+  },
+  {
+   "name": "Portfolio Sizing / Risk-Budget Allocation",
+   "family": "portfolio-sizing",
+   "source_type": "asset_manager",
+   "description": "This approach does NOT produce a standalone expected-return CMA for Bitcoin. Instead it treats BTC as a small \"satellite\" sleeve and sizes it by its marginal contribution to total portfolio risk (volatility × correlation × weight), not by a return forecast. The canonical output is an allocation band (BlackRock: 1-2%; CoinShares: ~3.6% per +100bps of added risk budget; Grayscale: a conservative single-digit satellite) chosen so BTC's share of portfolio risk stays comparable to a known reference exposure (e.g. a single Magnificent-7 stock contributing ~4% of risk in a 60/40). A 10-15yr CMA falls out only implicitly: the sizing exercise assumes BTC's long-run volatility declines as it matures and that its correlation to equities/bonds is low-and-unstable, but it is explicitly return-agnostic — the allocation is \"right-sized\" so that even a total loss is a survivable 1-2% drag, while the upside is left as an unmodeled convex option. Expected return is an INPUT the practitioner must supply elsewhere; this family's contribution is the risk-budget envelope, not the alpha.",
+   "key_drivers": [
+    "BTC standalone annualized volatility (and its assumed decay path as the asset matures) — the dominant input",
+    "BTC's correlation to the existing 60/40 (low but rising and unstable, especially post-2021/post-ETF)",
+    "The allocation weight itself, solved so BTC's marginal risk contribution hits a target (e.g. 2-5% of total portfolio risk)",
+    "A reference risk anchor — BlackRock benchmarks to a single Magnificent-7 stock (~4% of portfolio risk)",
+    "Investor's chosen incremental risk budget (CoinShares: +100bps annualized risk => ~3.6% weight)",
+    "Rebalancing rule (CoinShares: quarterly, funded equally from stocks and bonds)",
+    "Survivability / max-drawdown tolerance — the allocation is sized so a -100% BTC outcome is bearable",
+    "Expected return is deliberately NOT a driver — the method is return-agnostic by construction"
+   ],
+   "pros": [
+    "Honest about what is knowable: BTC's risk (vol, correlation) is far more estimable than its 10-15yr return, so sizing on risk rather than a fabricated return forecast is methodologically cleaner than S2F/Metcalfe/DCF-style models",
+    "Naturally caps tail damage — a 1-2% sleeve makes even a total loss a survivable drag, which suits an asset with genuine ruin risk",
+    "Empirically grounded and reproducible: risk contributions are computed from a covariance matrix on real return data, satisfying the scripted-analysis discipline",
+    "Asset-manager versions (BlackRock, CoinShares, Grayscale) are institutionally vetted and widely adopted as the de facto framing for advisor allocations",
+    "Framework-agnostic to the bull/bear return debate — usable by skeptics and believers alike since it doesn't require endorsing a price target",
+    "Directly answers the practical question an allocator actually asks ('how much?') rather than the unanswerable one ('what's fair value?')"
+   ],
+   "cons": [
+    "It is NOT a return model — it cannot, by itself, produce the expected-appreciation figure a CMA requires; you must bolt on a return assumption from another family, so as a standalone CMA approach it is incomplete",
+    "Garbage-in on volatility and correlation: estimates are dominated by a short, regime-unstable sample (BTC ETPs only since ~2015), and the assumed vol-decay path is an unverifiable assumption that drives the whole answer",
+    "Correlation is the load-bearing input and it is non-stationary: BTC-S&P rolling correlation jumped from ~0 to ~0.5-0.7 post-2021/post-ETF, eroding the diversification premise the sizing relies on — the 'low correlation' that justifies a 2% slot may not persist",
+    "Risk-budgeting tacitly assumes a positive (or at least non-negative) Sharpe; if BTC's forward return is poor, an 'optimally risk-sized' allocation still loses money — right-sizing the risk does not make the bet good",
+    "Mean-variance / risk-parity optimizers are notoriously sensitive to input error and routinely corner-solution into BTC when fed high historical returns, so backtested 'optimal' weights overstate the case (in-sample overfitting)",
+    "Asset-manager sources have a conflict of interest (BlackRock IBIT, Grayscale, CoinShares all sell BTC products) — the 1-2% 'reasonable' framing is marketing-adjacent, not peer-reviewed",
+    "Says little about gold specifically: treats BTC's near-zero gold correlation as a feature without resolving whether BTC competes with or complements a gold sleeve in the same risk budget"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent) — risk-budget/sizing literature is deliberately return-agnostic; BlackRock, CoinShares and Grayscale publish NO expected-return figure, sizing BTC purely on risk contribution",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "Not given as a single number, but the framing implies very high vol (BlackRock cites BTC swings $67k->$17k and $43k->$103k; ~70-80%+ annualized is the implicit working assumption, expected to DECLINE as it matures)",
+    "corr_growth_eq": "n/a as a published CMA number; empirically BTC-S&P500 rolling correlation rose from ~0 pre-2021 to ~0.5 post-ETF and as high as ~0.74-0.94 in stress regimes (Phemex/Nasdaq trackers); BlackRock characterizes it as 'low but unstable'",
+    "corr_value_eq": "n/a (source silent) — none of these sources break out value vs growth equities",
+    "corr_fi_nominal": "n/a (source silent); generally treated as low/near-zero but turned positive in the 2022 joint stock-bond selloff",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "Near zero / 'stabilized near zero' (Bitcoin-ETF-impact studies); SAGE 2025 finds gold a strong safe haven while BTC is only a weak safe haven / diversifier, implying BTC and gold are largely uncorrelated rather than substitutes"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~8-12%/yr (JUDGMENT, not a model output). The risk-budget family gives no return, so I impose one consistent with its own logic: a 1-2% sleeve is rational only if forward Sharpe is at least decent. Extrapolating the realized appreciation-decay path (142% -> 65% -> 17%/yr as BTC matured) one more leg over 10-15yr lands in the high-single to low-double digits nominal — above equities but a fraction of the historical level, converging toward a maturing-risk-asset return",
+    "appreciation_real": "~5-9%/yr (subtract ~3% long-run inflation)",
+    "volatility": "~55-60%/yr (JUDGMENT). Continues the maturation/vol-decay the sources assume — down from the historical 70-90% — but the floor is held AT realized trailing-5y ~57% rather than below it, since the sub-2yr ETF sample does not yet evidence compression under realized. High enough that the 1-2% risk-budget cap remains the binding constraint.",
+    "corr_growth_eq": "~0.45 (JUDGMENT). Anchored to the post-ETF ~0.5 regime; I do NOT use the near-zero pre-2021 figure because institutionalization has structurally raised it; spikes toward 0.7+ in liquidity stress",
+    "corr_value_eq": "~0.30 (JUDGMENT). Lower than growth — BTC behaves like a long-duration/growth risk asset, so it co-moves less with value/cyclical equity factors",
+    "corr_fi_nominal": "~0.15 (JUDGMENT). Low on average but unreliable; goes positive in joint stock-bond drawdowns (2022), so it is NOT a dependable bond hedge",
+    "corr_tips": "~0.20 (JUDGMENT). Modestly positive via the shared real-rate/liquidity channel that drives long-duration risk assets; weak as a stated inflation hedge",
+    "corr_gold": "~0.10 (JUDGMENT). Essentially uncorrelated — consistent with the 'stabilized near zero' empirical finding; BTC and gold are complementary diversifiers, not substitutes, within a shared risk budget"
+   }
+  },
+  {
+   "name": "Institutional Long-Term Capital Market Assumptions (LTCMA) for Bitcoin",
+   "family": "asset-manager-LTCMA",
+   "source_type": "asset_manager",
+   "description": "This approach imports the institutional LTCMA framework — the same multi-year, mean-reverting, equilibrium-anchored apparatus asset managers use for stocks/bonds/private markets — and forces a cashflow-free asset into it by replacing the discounted-cashflow building block with a terminal-adoption scenario. The modeller posits a 2035 or 2050 total-addressable-market (TAM) endpoint (a share of gold's market cap, of global trade settlement, of central-bank reserves, or of M2), then back-solves the annualized CAGR from today's price to that endpoint to get expected appreciation. Volatility and correlations are not forecast from the price target; they are assumed to compress mechanically over the horizon as liquidity deepens, derivatives mature, and the holder base institutionalizes. The 10-15yr CMA therefore falls out as: (terminal market-cap scenario / current cap)^(1/N) − 1 for return, plus a judgmental glide-path for vol (~60-70% today toward ~28-33%) and for correlations (equity beta decaying toward ~0.15). Crucially the \"big four\" generalist houses (JPM AM, BlackRock) decline to publish a numeric BTC line at all and treat it qualitatively, so the quantitative LTCMA genre is dominated by crypto-adjacent issuers (Bitwise, VanEck, CF Benchmarks).",
+   "key_drivers": [
+    "Terminal TAM / market-share scenario: BTC capturing X% of gold's market cap (CF Benchmarks ~33%), 5-10% of global trade settlement and ~2.5% of central-bank reserves (VanEck), or a fixed store-of-value share (Bitwise)",
+    "Implied CAGR back-solved from current price to the 2035/2050 terminal cap — appreciation is an output of the scenario, not an estimate of drift",
+    "Volatility glide-path: assumed structural compression from ~60-70% toward ~28-33% as ETF/ETP flows, derivatives depth and institutional holders mature",
+    "Correlation glide-path: assumed decay of equity correlation (~0.52 -> ~0.15) and persistent low/negative USD correlation as drivers 'go global' (liquidity/M2) rather than risk-on",
+    "Global liquidity / M2 regression overlay as a 'fair-value' anchor and macro-cycle modulator",
+    "Halving-driven supply inelasticity (stock-to-flow) and Metcalfe network-value as supporting valuation rationale",
+    "Convexity / optionality framing: small (1-5%) allocation justified by right-skewed payoff and Sharpe-optimization, not by central expected return"
+   ],
+   "pros": [
+    "Produces a complete, portfolio-ready CMA tuple (return, vol, full correlation matrix) that slots directly into mean-variance / efficient-frontier optimizers alongside traditional building blocks — the only genre that does so for BTC",
+    "Forces explicit, debatable assumptions (gold-share, reserve-share, settlement-share) rather than a black-box drift, so the scenario can be stress-tested and bear/base/bull bracketed (VanEck $130k bear -> $2.9M base -> $53M bull)",
+    "Correctly embeds appreciation DECAY: every serious version assumes the CAGR is far below realized history (15-30% vs >100% early) and that vol/correlation compress as the asset matures — the right qualitative shape for a 10-15yr forward number",
+    "Bull/bear bracketing and convexity framing are honest about the fat right tail and the binary adoption risk",
+    "Generalist-house restraint (JPM AM, BlackRock publishing NO numeric BTC line) is itself a useful signal: the most disciplined LTCMA shops judge BTC un-forecastable within their equilibrium framework"
+   ],
+   "cons": [
+    "The headline return is reverse-engineered from a chosen terminal market cap — change 'BTC = 33% of gold' to '15%' and the CMA halves. This is scenario assertion dressed as a capital-market assumption; there is no equilibrium discipline forcing the terminal share",
+    "The valuation rationales borrowed as support — stock-to-flow and Metcalfe's Law — are largely REJECTED by peer-reviewed work in their naive form: S2F's fit is driven by both series trending with time (spurious; coefficient goes insignificant once time fixed-effects enter), both series are non-stationary so cointegration claims are fragile, and out-of-sample predictive power is near zero. The post-2021 regime break invalidated S2F's own forecasts. LTCMA decks cite these as scaffolding without the caveats",
+    "Issuer conflict: the only houses publishing quantitative BTC CMAs (Bitwise, VanEck, CF Benchmarks) sell BTC ETPs/indices. These are marketing-adjacent research, not peer-reviewed; the persistently bullish base cases reflect that incentive",
+    "Volatility and correlation 'compression' is asserted on a glide-path, not estimated — there is no model tying realized vol to the adoption variable, and BTC's correlation to equities has historically SPIKED (toward 0.5+) precisely in the liquidity-contraction crises when diversification is needed, contradicting the smooth-decay assumption",
+    "Single point estimates mask enormous parameter sensitivity and a genuinely bimodal outcome (hyperbitcoinization vs. obsolescence) that mean-variance inputs cannot represent — feeding a 15-30% CAGR with 30% vol into an optimizer materially overstates BTC's risk-adjusted attractiveness",
+    "No consensus, wide dispersion: 2035 base targets range from CF Benchmarks $1.42M (30.1%) to Bitwise $1.3M (28.3%) to VanEck's ~15% to-2050 — the 'assumption' is not a stable, replicable number"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "Dispersion across issuers: CF Benchmarks 30.1%/yr (base, to $1.42M by 2035); Bitwise 28.3% CAGR (to $1.3M by 2035); VanEck ~15%/yr (base, to $2.9M by 2050), with bear ~2%/yr ($130k) and bull ~29%/yr ($53.4M)",
+    "appreciation_real": "n/a (sources silent — figures are nominal price CAGRs; no explicit inflation-adjusted line published)",
+    "volatility": "CF Benchmarks: declining toward ~28% over the decade; VanEck: ~40-70% annualized range; Bitwise: 32.9%",
+    "corr_growth_eq": "n/a as a growth/value split. CF Benchmarks global-equities: 0.52 current -> 0.15 10yr target. Bitwise corr to US stocks 0.39. VanEck: 'low to moderate' qualitative",
+    "corr_value_eq": "n/a (source silent — no growth-vs-value equity decomposition published)",
+    "corr_fi_nominal": "CF Benchmarks global bonds: 0.14 current -> 0.22 10yr target. Others silent on a specific BTC-bond number",
+    "corr_tips": "n/a (source silent — no TIPS / real-rate-linked correlation published)",
+    "corr_gold": "CF Benchmarks gold: 0.06 current -> 0.06 10yr target (low, flat). VanEck: 'low to moderate over full cycles.' (CF also: commodities 0.04 -> -0.12)"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~9-13%/yr (judgment, ~11% central). Reasoning: realized BTC CAGR decayed 142% -> 65% -> 17% as the asset matured; extrapolating that decay 10-15yr forward — not the level — lands BELOW the issuer base cases (15-30%) because those embed aggressive gold-share/reserve-share scenarios. I haircut the gold-parity logic for adoption uncertainty and a larger base, giving a market-implied-plus-modest-premium return. This is a scenario judgment, not a computed drift",
+    "appreciation_real": "~6-10%/yr (central ~8%), assuming ~2.5% long-run inflation subtracted from nominal. Judgment",
+    "volatility": "~55-60%/yr (judgment). I accept directional compression from realized ~60-80% but reject the issuer glide to 28-33% as far too optimistic over 10-15yr; the floor is held AT realized trailing-5y ~57% because derivatives depth has not yet produced a realized floor below it. Tail/regime risk persists.",
+    "corr_growth_eq": "~0.40 (judgment). Higher than issuers' 0.15 target: BTC trades as a long-duration risk/liquidity asset and co-moves most with high-beta GROWTH equities, especially in drawdowns",
+    "corr_value_eq": "~0.20 (judgment). Lower than growth — value equities are less liquidity/duration-sensitive, so BTC's beta to them is weaker",
+    "corr_fi_nominal": "~0.10 (judgment). Near zero, mildly positive in risk-on liquidity regimes; not a reliable bond hedge",
+    "corr_tips": "~0.05 (judgment). Low; the debasement-hedge thesis implies a slight positive link to real-rate/inflation-protected exposure but it is weak and unstable",
+    "corr_gold": "~0.0-0.10 (judgment). The 'digital gold' thesis predicts convergence, but realized gold correlation has been ~0 and episodic. I hold it at the bottom of the 0.0-0.15 band and flag the contradiction issuers paper over: a CMA that sizes BTC partly off gold-share substitution needs co-movement, yet BTC's risk-asset beta keeps realized gold co-movement near zero — it is not a gold-parity diversification story."
+   }
+  },
+  {
+   "name": "Market-Implied Futures Forward Curve & Basis",
+   "family": "market-implied",
+   "source_type": "practitioner",
+   "description": "Reads the listed BTC futures term structure (CME monthly contracts out to ~13 months) and perpetual-swap funding (Deribit/Binance/OKX) as the market's own priced cost-of-carry signal, without any risk-neutral-to-physical density conversion (that is the options/RND row's job). The forward/spot basis and the funding rate are observed directly: annualized basis = (F/S - 1) x (365/days), and perpetual funding is the analogous continuous carry that pins the perp to spot. In a no-arbitrage cash-and-carry world this annualized basis equals the financing/risk-free rate plus a crypto-specific premium (leverage demand, sentiment, segmentation/convenience yield). The curve's slope - persistent contango of roughly 5-15% APR in normal markets, spiking 25-40% in euphoria, flipping to mild backwardation in stress - is the cleanest 'what does the market actually price' anchor for NEAR-DATED drift and carry. Its decisive limitation for a 10-15yr CMA: the listed curve is short-dated (CME tops out ~13 months; perps are zero-maturity), so it bounds the priced cost-of-carry over the next ~year but says essentially nothing about decade-horizon expected appreciation. Worse, the academic verdict (Schmeling-Schrimpf-Todorov, BIS/Management Science) is that crypto carry is predominantly a time-varying RISK PREMIUM / segmentation signal, not a forecast of the spot path - high carry does not reliably predict high future spot returns. So this approach contributes a carry/financing input and a sentiment regime gauge to a CMA, not a standalone decade drift.",
+   "key_drivers": [
+    "Risk-free / financing rate (SOFR): the no-arbitrage floor of the basis; cash-and-carry only lives when basis > financing + capital + counterparty costs",
+    "Leveraged long demand & sentiment/momentum: CF Benchmarks finds BTC basis correlates ~0.50-0.54 with MACD and 90-day return z-scores - basis is a momentum/greed gauge more than a fundamental carry",
+    "Spot-ETF arbitrage flows: 20-35% of 2024 ETF AUM was cash-and-carry basis capital chasing >20% annualized yields; its unwind in 2025-26 (basis compressed to ~5% vs ~4.5% risk-free) drained CME open interest",
+    "Market segmentation / limits to arbitrage: capital cannot move frictionlessly between spot, CME, and offshore perps, so carry persists as a premium rather than being arbitraged to the financing rate (BIS crypto-carry thesis)",
+    "Perpetual funding mechanism: 8-hourly funding payments tether perps to spot; positive funding = longs pay shorts = priced bullish leverage demand, the perp-market analogue of contango",
+    "Convenience yield / off-chain storage: academic perp models imply a positive convenience yield and negligible storage cost, unlike physical commodities",
+    "Listing structure ceiling: CME lists 6 consecutive months + 2 Decembers (~13-month max), so the observable curve is structurally short-dated"
+   ],
+   "pros": [
+    "Purely observable and model-light: reads off live, regulated screen prices - no Q-to-P transform, no vol-surface fitting, no distributional assumptions",
+    "Cleanest available 'market-priced' anchor for near-dated carry and for the financing cost embedded in any leveraged or futures-based BTC exposure",
+    "Excellent real-time regime/sentiment gauge: contango width and funding sign track greed/fear, and backwardation has historically flagged capitulation bottoms (Dec 2025 deepest backwardation since FTX)",
+    "Directly relevant to any CMA built around a futures-based or basis-harvested implementation (the carry IS the realized return of a delta-neutral sleeve)",
+    "Well-documented academically (BIS/Management Science crypto-carry) and by index providers (CF Benchmarks), so magnitudes are credible, not hand-waved",
+    "Internally consistent with the risk-free-rate building block already in a multi-asset CMA"
+   ],
+   "cons": [
+    "Fatal for the headline CMA question: the curve is short-dated (<=~13 months on CME, zero-maturity on perps) and literally cannot speak to 10-15yr expected appreciation - it bounds carry, not decade drift",
+    "Carry is a risk premium, NOT a spot forecast: Schmeling-Schrimpf-Todorov show crypto carry predicts carry-strategy returns, not the future spot path - extrapolating contango into expected price appreciation is a category error",
+    "Basis is dominated by momentum/sentiment (corr ~0.5 with momentum z-scores), so it is highly procyclical and mean-reverting - whatever you read today is regime-contingent and unstable",
+    "Compresses toward the risk-free rate as the market matures and ETF arbitrage saturates: 2024's 20-30% collapsed to ~5% by 2026, so historical carry massively overstates forward carry",
+    "No long-dated instruments means any decade-horizon use requires the same arbitrary extrapolation this approach was supposed to avoid - it smuggles judgment back in",
+    "Says nothing direct about volatility or cross-asset correlations (vs equities, gold, TIPS) - those must be imported from other rows",
+    "Offshore-perp funding data is venue-fragmented and can be distorted by exchange-specific leverage, wash volume, and counterparty risk"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent) — curve prices near-dated carry of ~5-15% APR contango (25-40% in euphoria, ~5% by 2026), not 10-15yr appreciation",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a (source silent) — basis/funding is a carry signal, not a vol estimate",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent) — only indirect: basis floors at the SOFR/risk-free rate (~4.5% in 2026)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent)"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~8-12% (JUDGMENT, weakly anchored): the curve can only credibly assert that forward carry ~ financing rate + a thin and shrinking crypto premium; mapped onto the program's decaying-appreciation path this implies a low-double-digit nominal CAGR by years 10-15, dominated by the risk-free rate (~4-5%) plus a few points of residual carry/convenience premium that compresses as the market matures — NOT a momentum-extrapolated 20-30%",
+    "appreciation_real": "~5-9% (JUDGMENT): nominal less ~3% inflation; the carry signal is fundamentally a financing-spread, so its real content is roughly the real risk-free rate plus a thin, decaying convenience premium",
+    "volatility": "~57-65% (JUDGMENT, imported floor): basis/funding does not measure vol directly; I carry the program's ~57% long-run vol floor, nudged up because realized basis volatility itself is high and procyclical, implying spot vol stays elevated even as drift decays",
+    "corr_growth_eq": "~0.3-0.5 (JUDGMENT): basis spikes coincide with risk-on/leverage-up regimes that also lift growth equities, so the implied carry signal is mildly positively co-moving with risk assets",
+    "corr_value_eq": "~0.1-0.25 (JUDGMENT): weaker, more diffuse link than to growth/risk-on equity",
+    "corr_fi_nominal": "~0.1-0.3 (JUDGMENT): mechanically positive — the basis floor IS the nominal financing/risk-free rate, so higher nominal rates raise the carry anchor",
+    "corr_tips": "~0.0-0.2 (JUDGMENT): little real-rate content; mild positive at most via the financing channel",
+    "corr_gold": "~0.0 (JUDGMENT): the curve carries no information tying BTC carry to gold; consistent with the program's ~0 BTC-gold correlation extrapolation"
+   }
+  },
+  {
+   "name": "Reflexive / Log-Periodic Bubble & Crash-Hazard (LPPLS / JLS)",
+   "family": "bubble-hazard",
+   "source_type": "academia",
+   "description": "A return-process framework rather than a single point forecast. Built on the Johansen-Ledoit-Sornette (JLS) rational-expectations bubble model and its Log-Periodic Power Law Singularity (LPPLS) calibration, it treats a crypto bull market as endogenous, faster-than-exponential (\"super-exponential\") growth driven by herding, imitation and positive feedback among noise traders. Price follows a power-law acceleration toward a finite-time critical time t_c, decorated by accelerating log-periodic oscillations (discrete scale invariance), while a time-varying crash hazard rate h(t) rises toward t_c. The crash itself is an endogenous instability whose precise timing/trigger is exogenous and unpredictable, so the model outputs a probabilistic crash bracket and a confidence/hazard indicator, not a date. Wheatley, Sornette et al. (Royal Society Open Science, 2019) applied it to Bitcoin, anchoring \"fundamental value\" with a generalized Metcalfe's law (market cap proportional to active-user count raised to ~1.69) and using the price-to-Metcalfe ratio to flag bubbles. A CMA falls out of this logic as a drawdown-hazard-weighted expected return: E[r] = (super-exponential drift) minus (crash hazard x expected crash size), so the distribution is heavily negatively skewed and fat-left-tailed. Over a 10-15yr horizon the meaningful object is not a point appreciation but the shape: trend appreciation that decays as the network matures and the generalized-Metcalfe support grows more slowly, a high volatility floor, and a recurring hazard of 50-80% endogenous drawdowns that mechanically caps the geometric (compounded) return well below the arithmetic drift.",
+   "key_drivers": [
+    "Positive-feedback / reflexive demand: herding, imitation and momentum buying that produce faster-than-exponential (super-exponential) price growth — the core JLS mechanism",
+    "Crash hazard rate h(t) rising toward a finite-time critical point t_c; expected return is drift net of hazard x expected jump size",
+    "Log-periodic oscillations (discrete scale invariance) — accelerating up/down swings interpreted as spirals of fear/greed, used as the bubble fingerprint",
+    "Generalized Metcalfe fundamental support: network value ~ active users^1.69, growing sub-quadratically; the price-to-Metcalfe (MMV) ratio gates overvaluation",
+    "Maturation / decay: as the user base and adoption S-curve flatten, the sustainable super-exponential drift decays and bubbles become smaller in relative magnitude",
+    "Endogenous instability state (monitorable) vs. exogenous trigger (unpredictable) — the model claims to time the *regime*, not the spark"
+   ],
+   "pros": [
+    "Produces a genuinely different CMA *shape* — a hazard-weighted, fat-left-tailed return distribution — instead of a single mean/vol, which is more faithful to BTC's actual crash-prone history (four >50% drawdowns documented 2012-2018)",
+    "Has a fundamental anchor (generalized Metcalfe, users^1.69, R^2~0.95) so overvaluation is measurable rather than asserted; ties price to an on-chain network observable",
+    "Ex-ante, real-time: the LPPLS confidence indicator flagged elevated instability before the 2013 and 2017 BTC peaks, giving probabilistic warning windows rather than post-hoc storytelling",
+    "Honestly separates what is forecastable (the bubble regime / hazard) from what is not (the exact crash date and trigger) — intellectually disciplined about its own limits",
+    "Captures reflexivity and momentum that mean-reverting or random-walk CMAs structurally miss; directly models the compounding penalty crashes impose on long-horizon geometric returns"
+   ],
+   "cons": [
+    "Severe overfitting risk: the LPPLS function has 7+ nonlinear parameters and fits accelerating/oscillating data almost regardless of whether a true bubble exists — high in-sample R^2 is nearly guaranteed and not evidence",
+    "Critical-time t_c is notoriously unstable: published replications show t_c jumping by weeks depending on the initial guess and the calibration window; point predictions are effectively meaningless (authors themselves call long-term single-model predictions 'misleading')",
+    "No native, validated CMA number: the framework yields hazard windows and bubble flags, not a 10-15yr expected-return/vol figure — every quantitative CMA under it is the analyst's reconstruction, not a published output",
+    "Tiny sample of genuine bubbles (4) makes false-positive vs. miss rates statistically ambiguous; out-of-sample, real-time crash 'predictions' have a poor and contested track record",
+    "Generalized Metcalfe support is itself fragile: the 1.69 exponent is fit to one asset's short history, user/active-address counts are noisy and gameable, and price feeds back into usage, contaminating the 'fundamental'",
+    "Says nothing useful about cross-asset correlations (gold, TIPS, equities, FI) — those rows are silent in the literature, so correlation inputs must come entirely from elsewhere",
+    "Explicitly blind to exogenous shocks ('massive exogenous shocks could occur at any time, and the LPPLS model can provide no warning there') — exactly the tail an investor most cares about"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent) — model outputs super-exponential drift toward t_c and a crash bracket, not a multi-year expected appreciation",
+    "appreciation_real": "n/a (source silent)",
+    "volatility": "n/a (source silent on a single sigma) — characterizes accelerating log-periodic volatility and documents four bubbles with 3.1x-103x runups followed by >50% drawdowns",
+    "corr_growth_eq": "n/a (source silent)",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent)"
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~12-16% nominal arithmetic trend, but ~4-9% geometric/compounded after the crash-hazard penalty (judgment): extrapolating BTC's appreciation decay — super-exponential drift fades as the users^1.69 network support flattens — and then subtracting a recurring 50-80% endogenous drawdown hazard. The hazard-weighted geometric figure is the decision-relevant one and sits well below the arithmetic drift; deeply right-skewed-then-truncated distribution",
+    "appreciation_real": "~2-7% real geometric (judgment): nominal geometric less ~3-4% long-run inflation; trend approaches a maturing-asset, low-single-digit real premium with most upside concentrated in surviving non-crash paths",
+    "volatility": "~60-70% annualized (judgment), with a vol *floor* near ~57% even as the asset matures; realized vol is non-constant and clusters/accelerates into log-periodic bursts near t_c, so the tail/hazard shape (50-80% peak-to-trough drawdowns recurring) matters more than the point sigma",
+    "corr_growth_eq": "~0.2-0.4 (judgment, imported — framework silent): bubble/risk-on phases co-move with growth equities; correlation spikes in joint deleveraging crashes",
+    "corr_value_eq": "~0.0-0.2 (judgment, imported): weak, lower than growth-equity linkage",
+    "corr_fi_nominal": "~0.0 to -0.1 (judgment, imported): low/slightly negative; reflexive demand is rate-sensitive only indirectly",
+    "corr_tips": "~0.0 to -0.1 (judgment, imported): weak negative via the real-rate channel on non-yielding stores of value",
+    "corr_gold": "~0 (judgment): anchor to ~0 long-run BTC-gold correlation; bubble dynamics are idiosyncratic/endogenous, not a shared safe-haven factor"
+   }
+  },
+  {
+   "name": "Regime-Switching / Jump-Diffusion & Heavy-Tail Return Process",
+   "family": "return-process",
+   "source_type": "academia",
+   "description": "A family of econometric models of the Bitcoin RETURN-GENERATING PROCESS itself, rather than of its fair price. Instead of a single decaying drift and one ~50-57% volatility scalar, these models specify the full conditional return distribution: (1) Markov-switching / MS-GARCH models that let returns flip between an unobserved 'calm' low-vol regime and a 'turbulent' high-vol regime, each with its own mean and variance and a transition matrix; (2) affine jump-diffusion / SVCJ (stochastic-volatility-with-correlated-jumps) models, where vol is itself a mean-reverting stochastic process with discrete jumps that are negatively correlated with simultaneous price jumps (a 'leverage' co-jump); (3) Hawkes self-exciting processes where each jump raises the short-run probability of the next, producing the observed clustering of crashes/squeezes; and (4) heavy-tail distributional models (alpha-stable, GARCH with skewed-t innovations, EVT/POT) that fit the power-law tail directly. The CMA value of this family is NOT a different appreciation number, it is the SHAPE: vol-of-vol, kurtosis/tail index, expected-shortfall and expected-max-drawdown, and regime persistence. These are the inputs portfolio-sizing (CVaR/ES budgeting) and options desks need, and that every point-vol approach silently omits.",
+   "key_drivers": [
+    "Regime state variable: an unobserved Markov chain (usually 2, sometimes 3 states) that switches the entire return distribution between calm/bull and turbulent/bear regimes, with its own mean, variance and transition probabilities (which the data also says are only weakly persistent for BTC vs equities)",
+    "Stochastic volatility: vol modeled as a mean-reverting latent process (kappa, theta, vol-of-vol sigma_v) rather than a constant, so the CMA sigma is a distribution, not a scalar",
+    "Jumps in returns AND in variance, with the two jumps correlated (SVCJ rho_J<0): a price crash and a vol spike arrive together, fattening the left tail beyond what diffusion plus return-jumps alone produce",
+    "Self-excitation (Hawkes): jump intensity is path-dependent — a jump today raises the conditional intensity of the next jump, generating empirically-observed crash/squeeze clustering and volatility persistence",
+    "Heavy-tail innovation law: power-law / alpha-stable / skewed-t tail with an estimated tail index alpha (BTC ~2.1-2.5, vs ~3 for equities) and large excess kurtosis, fit directly to extremes via EVT/peaks-over-threshold",
+    "Leverage / asymmetry: negative shocks raise future vol more than positive shocks of equal size (EGARCH/GJR asymmetry, and the negative return-vol jump correlation)"
+   ],
+   "pros": [
+    "Targets the right object for a CMA's RISK side: it produces vol-of-vol, kurtosis, tail index, expected shortfall and expected-max-drawdown — exactly the inputs CVaR-based sizing and option pricing need, which a single sigma cannot supply",
+    "Empirically dominant in-sample and out-of-sample: MS-GARCH and SVCJ specifications beat single-regime / pure-diffusion models on VaR backtests and option-pricing RMSE across multiple peer-reviewed studies — this is not a fringe view, it is the consensus econometric description",
+    "Captures documented BTC stylized facts other approaches deny: fat tails (tail index ~2.1-2.5), volatility clustering, vol-of-vol, leverage/asymmetry, and synchronized price-and-vol crashes (correlated co-jumps)",
+    "Honest about drawdown shape: the realized -77% to -93% cyclical drawdowns are tail events that a lognormal 57%-vol model assigns near-zero probability; this family reproduces them, making it the right lens for 'how bad is the bad case over 10-15yr'",
+    "Regime framing reconciles the empirical-anchor instability (142%->65%->17% appreciation, 103%->57% vol across windows): those are not parameter drift to be averaged away, they are regime realizations, which argues directly for a path/scenario CMA over a point CMA",
+    "Internally consistent with the options-implied row: the same SVCJ/jump structure that fits returns also fits the Deribit vol surface and DVOL, so the physical-measure CMA and the risk-neutral measure can be tied together"
+   ],
+   "cons": [
+    "Says almost nothing about the DRIFT: these are conditional-second-moment-and-tail models; the regime means are estimated noisily off a short, bull-dominated sample and have essentially no forward predictive content for 10-15yr appreciation. This family must borrow its appreciation number from elsewhere (decay/adoption/TAM rows)",
+    "Severe parameter instability on BTC's short history: ~13-16 years, one micro-cap era, ~4 cycles. Jump intensity, regime means and transition probabilities are estimated on a handful of regime realizations, so standard errors are large and estimates are highly sample/window-dependent — false precision risk is real",
+    "Horizon mismatch: most of these are fit on daily or high-frequency (5-min) data for VaR/option pricing at days-to-months horizons. Extrapolating a daily MS-GARCH/SVCJ to a 10-15yr unconditional distribution requires strong stationarity assumptions the data violates (the process is itself non-stationary and maturing)",
+    "Identification fragility: separating a 'jump' from a high-vol diffusion draw, or a regime switch from a vol cluster, is statistically delicate; different filters (MCMC vs sequential learning vs threshold) give materially different jump counts and tail indices",
+    "Weak BTC regime persistence specifically: studies note BTC's regimes are less persistent than equities', so the clean 'calm vs crisis' story is muddier — switching is frequent and noisy, weakening the regime-conditional CMA",
+    "Maturation breaks the fit forward: ETF/institutional access is plausibly compressing the tail and dampening the leverage-feedback crashes that produced past -80% drawdowns (K33's argument), so a model calibrated on 2011-2022 extremes likely OVERstates forward tail risk — yet there is too little post-institutional data to recalibrate",
+    "Not a standalone CMA: on its own it yields no appreciation and no cross-asset correlation forecast (most papers are univariate on BTC) — it is a risk-shape overlay, not a full row"
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent as a forward CMA). These are return-PROCESS models; regime means are estimated in-sample (e.g. a positive-drift 'calm/bull' regime vs a sharply negative-drift 'turbulent/bear' regime) but are not published as a 10-15yr appreciation forecast — the literature is explicit that the second-moment/tail dynamics, not the drift, are what these models pin down.",
+    "appreciation_real": "n/a (source silent — models are in nominal log-returns; no CPI adjustment and no long-horizon drift forecast)",
+    "volatility": "Not a single number by design. Vol is regime/state-dependent: studies report a low-vol regime and a high-vol regime (high-regime conditional vol often 2-4x the low regime), a mean-reverting SV process (kappa, long-run theta, vol-of-vol sigma_v), and strong volatility clustering/persistence. Jump-diffusion option studies estimate jump intensity lambda ~0.10-0.17/yr with sizeable jump volatility. The takeaway figure is vol-of-vol and regime-switching, not a scalar sigma.",
+    "corr_growth_eq": "n/a (source silent — the canonical papers are univariate on BTC and model the return process, not cross-asset correlations)",
+    "corr_value_eq": "n/a (source silent — univariate)",
+    "corr_fi_nominal": "n/a (source silent — univariate)",
+    "corr_tips": "n/a (source silent — univariate)",
+    "corr_gold": "n/a (source silent — univariate). The cross-asset extensions (Hidden Markov copula, multivariate Hawkes) model tail DEPENDENCE and jump CONTAGION across crypto/macro rather than a linear gold correlation; they find regime-dependent (state-conditional) dependence, not a single coefficient. Cited tail facts: BTC tail index alpha ~2.1-2.5 (heavier than equities' ~3); historical peak-to-trough drawdowns -93% (2011), -86% (2015), -84% (2018), -77% (2022); correlated price/vol co-jumps (negative rho_J)."
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~10-15%/yr (JUDGMENT, borrowed — not a process-model output). This family does not forecast drift; I import the appreciation-decay consensus (realized 142%->65%->17% over full/10y/5y windows) and read it through a regime lens: a forward 10-15yr CMA is best seen as a probability-weighted mix of a high-probability 'maturation' regime (low-double-digit debasement+marginal-adoption drift) and a fat left tail. The point estimate is roughly equity-plus, but the distribution around it is what this row contributes.",
+    "appreciation_real": "~7-12%/yr real (JUDGMENT; ~2.5-3% CPI subtracted from the borrowed nominal). Again a centering, not a model output — the value of this row is the tail/hazard shape around this center, not the center itself.",
+    "volatility": "~57-65%/yr unconditional, but explicitly as a MIXTURE, not a scalar (JUDGMENT). Anchored to realized trailing-5y/10y vol of 57%/69%, then expressed as ~40-50% in the calm regime and ~80-110%+ in the turbulent regime, with vol-of-vol high and persistent. Critically, the 10-15yr expected MAXIMUM DRAWDOWN is the headline risk number: I judge ~ -55% to -75% peak-to-trough over the horizon (below the -77%/-93% historical realizations, reflecting institutionalization compressing the leverage-feedback tail, but far deeper than a 57%-vol lognormal implies). Tail index ~2.2-2.5 (kurtosis stays large); expected shortfall well beyond Gaussian. This is the row that says: do not size BTC off sigma alone.",
+    "corr_growth_eq": "+0.40 to +0.60 in calm regimes, rising toward +0.7-0.8 in crisis regimes (JUDGMENT; realized trailing-5y 0.56). The defining synthesized claim here is REGIME-CONDITIONAL correlation: BTC's diversification largely vanishes in the turbulent regime, when co-jumps with risk assets cluster — the worst time for correlation to spike.",
+    "corr_value_eq": "+0.25 to +0.40 calm, higher in crises (JUDGMENT; realized trailing-5y 0.37)",
+    "corr_fi_nominal": "+0.10 to +0.25 normally, but flips sharply more positive in liquidity-crisis regimes when everything-sells-off co-jumps dominate (JUDGMENT; realized trailing-5y 0.19). The point is the state dependence, not the average.",
+    "corr_tips": "+0.20 to +0.35 (JUDGMENT; realized trailing-5y 0.30), similarly regime-sensitive via shared real-rate/liquidity exposure",
+    "corr_gold": "0 to +0.15 on average (JUDGMENT; realized -0.01 full / +0.045 5y), consistent with the forward CMA's ~0 gold-correlation anchor. The process-model nuance: even if the average is ~0, tail dependence can be regime-specific — in broad de-risking episodes BTC and gold can briefly co-move (both as debasement hedges) or decouple (BTC sells as a risk asset while gold bids). No stable linear gold link; treat gold correlation as ~0 with regime-dependent tails."
+   }
+  },
+  {
+   "name": "Survival / Ruin-Probability (Absorbing-Zero Hazard)",
+   "family": "survival-hazard",
+   "source_type": "academia",
+   "description": "Frames Bitcoin's CMA explicitly as a probability-weighted MIXTURE of two paths rather than a single point estimate: a 'survival' path on which BTC behaves like a maturing macro-asset, and an 'absorbing-zero' path on which the network is abandoned and the asset goes permanently to -100%. The expected 10-15yr return is E[R] = S(T)*R_survival + (1 - S(T))*(-100%), where S(T) = exp(-integral of the annual hazard h(t)) is the cumulative survival probability. This is the rigorous, parameterized form of the 'left-tail haircut' that other CMA rows apply by hand-waving. Three academic strands supply the theoretical backbone for WHY a non-trivial absorbing state exists: (1) Schilling-Uhlig (JME 2019) endowment-economy models where Bitcoin can rationally collapse to its 'fundamental' value of zero as a convergent supermartingale; (2) Biais et al. (J. Finance 2023) general-equilibrium models with multiple equilibria and sunspots, where coordination can shift agents off the positive-value equilibrium; and (3) Taleb (2021) absorbing-barrier argument that a non-dividend asset with any positive probability per period of hitting an irreversible zero has a present value pulled hard toward zero over an infinite horizon. Insurance/actuarial ruin theory and Cox proportional-hazard estimation (Balutel & Voia 2023) supply the estimation machinery. Critically, practitioners argue the hazard is DECLINING in age (Lindy effect, formalized by Ord 2023 as a mixture-of-exponentials over an unknown true hazard), so S(T) is materially higher than a constant-hazard model implies. Fidelity's risk team has published the cleanest single number: a ~0.71%/yr Bitcoin 'extinction' probability from a 27-variable Monte Carlo (vs Tesla 2.2%, Apple 0.06%). The whole point of the approach is that the SHAPE of the CMA — a bimodal payoff with a fat point-mass at -100% and a right-skewed survival distribution — matters far more than any single expected-return figure.",
+   "key_drivers": [
+    "Annual hazard rate h(t) of the absorbing-zero state — the probability per year that the network is permanently abandoned / loses monetary value irreversibly (Fidelity's published anchor: ~0.71%/yr; practitioner ranges 1-5%/yr early, lower later)",
+    "Hazard term-structure / Lindy decay: whether h(t) is constant, or declines with network age as security budget, liquidity, regulatory acceptance and adoption accrue (Ord 2023 mixture-of-exponentials => declining observed hazard => remaining-life ∝ current age)",
+    "Cumulative survival probability S(T) = exp(-∫h(t)dt) over the 10-15yr horizon — the weight on the survival path; with h≈1%/yr and 12yr, S≈0.89; with h≈3%/yr, S≈0.70",
+    "Survival-path conditional return R_survival — the appreciation BTC earns CONDITIONAL on not dying (drawn from whichever fundamental model you trust: adoption S-curve, store-of-value TAM, monetary substitution)",
+    "Recovery value on the death path (assumed -100%; some variants allow a small salvage/fork-residual, but the canonical absorbing state is zero and irreversible)",
+    "Theoretical existence of the zero equilibrium: Schilling-Uhlig collapse supermartingale + Biais sunspot/multiple-equilibria coordination failure (the 'why' behind a non-zero hazard, independent of any technical exploit)",
+    "Path-dependence / irreversibility (Taleb): once below a confidence/liquidity threshold the network's active-maintenance requirement makes zero an absorbing, non-recovering state — unlike gold whose value is not path-dependent"
+   ],
+   "pros": [
+    "Honest about the dominant feature of BTC's payoff that almost every other CMA approach buries: a genuine, non-negligible point-mass at -100%. It turns the vague 'left-tail haircut' into an explicit, auditable parameter (the hazard) instead of a fudge factor.",
+    "Decomposable and modular: lets you bolt ANY survival-path return model (adoption S-curve, TAM, options-implied) onto a transparent ruin overlay, so the death risk is priced once, consistently, rather than smuggled into a lower point estimate.",
+    "Grounded in real, peer-reviewed theory for the EXISTENCE of the absorbing state — Schilling-Uhlig collapse equilibria and Biais et al. sunspots show zero can be a rational equilibrium with no exploit required, which is a far stronger argument than 'it might get hacked.'",
+    "Naturally produces the bimodal / heavily-right-skewed return distribution that matches BTC's empirical behavior, and makes the mean a poor summary statistic — pushing users toward median, mode, and probability-of-ruin, which is the correct mental model for position sizing.",
+    "The declining-hazard (Lindy) refinement is empirically motivated and testable: 16+ years of survival, growing institutional/ETF ownership and security budget are direct evidence that S(T) should be revised UP over time — the framework cleanly absorbs that evidence.",
+    "Mirrors how insurers, credit desks and venture portfolios already think (default/ruin probability * loss-given-default), so it ports a mature, well-understood risk discipline onto a new asset."
+   ],
+   "cons": [
+    "The hazard rate is essentially UNFALSIFIABLE over the horizons that matter: a 1%/yr vs 3%/yr vs 5%/yr 'death probability' swings the CMA enormously, yet there is one observed history (n=1, still alive) so the parameter is almost pure prior. Fidelity's 0.71% is a model output dressed as a measurement.",
+    "It only relocates the hard problem — you STILL need a survival-path return model, so survival-hazard is a wrapper, not a standalone valuation. Garbage R_survival in, garbage CMA out; the overlay can lend false rigor to a weak core forecast.",
+    "Taleb's strong form (any positive absorbing probability over infinite horizon => present value zero) is mathematically clean but economically self-undermining: it would also zero out any fiat currency, any single company, arguably any asset, since all have some irreversible-ruin probability over infinite time. The result hinges on infinite-horizon and a non-dividend assumption that real 10-15yr CMAs don't use.",
+    "Declining-hazard (Lindy) and the absorbing-barrier camp reach OPPOSITE conclusions from the same survival data, and the framework can't adjudicate — it just exposes the prior. Lindy assumes heterogeneity in a fixed unknown hazard; if BTC's hazard is genuinely time-varying or regime-dependent, the Pareto/Lindy scaling is unjustified.",
+    "Empirically thin estimation: the one peer-reviewed hazard study (Balutel & Voia 2023, Cox PH) models price-SHOCK timing, not network EXTINCTION — there is no clean event-history dataset of comparable-asset 'deaths' to fit a real baseline hazard to. The actuarial machinery is borrowed without the actuarial data.",
+    "Says NOTHING about correlations, volatility term structure, or cross-asset moments — it is purely a mean/ruin-of-the-distribution tool. Every co-movement figure a CMA needs must come from elsewhere, so as a CMA row it is structurally incomplete.",
+    "Behavioral mis-anchoring risk: a single published 'extinction probability' invites spurious precision and false comfort (or false alarm); the true uncertainty is on the hazard ITSELF, a second-order parameter the headline number hides."
+   ],
+   "cited_outputs": {
+    "appreciation_nominal": "n/a (source silent) — the academic strands are positive/theoretical, not forecasts; they publish a hazard/collapse mechanism, not an expected return. Fidelity publishes only the ~0.71%/yr extinction probability (the (1-S) weight), not R_survival. The Bitcoin Magazine five-outcome model yields an expected VALUE (~$150k/BTC at time of writing) rather than an annualized appreciation rate.",
+    "appreciation_real": "n/a (source silent) — no survival-hazard source publishes a real long-horizon appreciation; the approach outputs a ruin-weighted mean, and the death-path is -100% in both nominal and real terms.",
+    "volatility": "n/a (no point figure) — the family implies extreme, bimodal payoff dispersion (Biais et al.: a MAJORITY of BTC return variance is 'extrinsic'/sunspot volatility unrelated to fundamentals) but publishes no annualized vol number; the absorbing-zero point-mass makes ordinary stdev a poor descriptor.",
+    "corr_growth_eq": "n/a (source silent) — survival/ruin models produce no cross-asset moments.",
+    "corr_value_eq": "n/a (source silent)",
+    "corr_fi_nominal": "n/a (source silent)",
+    "corr_tips": "n/a (source silent)",
+    "corr_gold": "n/a (source silent) — Taleb argues gold is NOT path-dependent/absorbing whereas BTC is, but this is a qualitative contrast, not a published correlation."
+   },
+   "synthesized_outputs": {
+    "appreciation_nominal": "~5-9%/yr expected (JUDGMENT, center ~7%), but the point estimate is the WRONG summary for this approach — the honest output is a distribution. Construction: take a survival-path conditional return R_survival ≈ ~10-12%/yr (itself the decayed extrapolation of the empirical-anchor appreciation collapse 142%→65%→17%, settling into a mature macro-asset rate), and apply a Lindy-style DECLINING hazard averaging ~1.5-2%/yr over the 12yr horizon (anchored above Fidelity's 0.71% to stay conservative on model risk, below the 3-5% early-stage practitioner range). With h̄≈1.75%/yr over 12yr, S(12)≈exp(-0.21)≈0.81. Then E[R_cum] = 0.81*(1.11^12) - 1 ≈ 0.81*3.5 - 1 ≈ +183% cumulative ≈ ~8.9%/yr; netting model/estimation haircut I center the annualized CMA at ~7%. The defining feature is BIMODAL: ~80% probability mass on a right-skewed survival path (median annualized likely low-double-digits) and ~19% mass at -100%. The mean understates the modal/median survival outcome and overstates the typical experience — by design.",
+    "appreciation_real": "~4-6%/yr (center ~4.5%), i.e. nominal less ~2.5% assumed CPI on the survival path; the death path is -100% real, so the ruin-weighting drags the real mean down symmetrically with the nominal.",
+    "volatility": "~60-75%/yr (center ~65%), structurally ABOVE the trailing-5y realized ~57% floor and above most other rows' forward estimates, because this approach explicitly retains the absorbing-zero point-mass and the Biais 'extrinsic/sunspot' variance that does NOT mean-revert away as the asset matures. Decomposition matters: conditional-on-survival vol decays toward ~50%, but the ~19% ruin mass at -100% FATTENS total dispersion, so the unconditional vol stays elevated. I extrapolate ~65% as a tail/hazard-aware figure rather than the ~50% a survival-only model would give.",
+    "corr_growth_eq": "~0.45 (judgment; the approach gives no correlation, anchored to trailing-5y realized 0.56 with mild mean-reversion — risk-on/liquidity beta persists, and a coordination-driven death event would itself likely cluster with risk-off equity drawdowns, nudging realized co-movement up in the left tail)",
+    "corr_value_eq": "~0.30 (judgment; anchored to trailing-5y 0.37)",
+    "corr_fi_nominal": "~0.10 (judgment; trailing-5y 0.19 fading toward ~0.1 long-run; near-zero with no stable sign)",
+    "corr_tips": "~0.15 (judgment; trailing-5y 0.30, real-rate/liquidity sensitivity partially persists; not an inflation claim in this framework)",
+    "corr_gold": "~0.05 (judgment; realized ~0.03-0.05, near-zero. Kept ~0 deliberately: Taleb's own argument SEVERS the digital-gold analogy by making BTC absorbing/path-dependent and gold not, so this approach gives no support for a tight gold correlation — extrapolate ~0)"
+   }
+  }
+ ]
+}
