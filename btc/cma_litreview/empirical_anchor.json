@@ -1,0 +1,172 @@
+{
+  "generated_utc": "2026-05-30T01:56:16Z",
+  "method": "month-end levels; monthly log returns; vol = stdev(monthly)\u00b7sqrt(12); appreciation = geometric annualized from month-end levels; real via CPIAUCSL.",
+  "note": "Empirical realized BTC baseline only \u2014 anchors the synthesized CMA column; not a forecast. BTC history is short and regime-shifting; the trailing-5y/10y windows matter more for a 10-15yr forward CMA than the full window (which is dominated by the 2010-2013 micro-cap era).",
+  "data_sources": {
+    "btc": "Coinmetrics community API PriceUSD (BRRNY calc-agent series)",
+    "gold": "LBMA Gold Price PM",
+    "equities_fi_tips": "Yahoo v8 adjusted close (IWF/IWD/AGG/TIP, total return)",
+    "usd_cpi": "FRED DTWEXBGS / CPIAUCSL"
+  },
+  "full_window": {
+    "n_months_btc": 190,
+    "btc_first_month": "2010-07",
+    "btc_last_month": "2026-05",
+    "btc_appreciation_nominal_annual": 1.422,
+    "btc_vol_annual": 1.0287,
+    "correlations": {
+      "growth_eq": {
+        "label": "Growth equities (IWF)",
+        "corr": 0.263,
+        "n_months": 190,
+        "asset_appreciation_annual": 0.1768,
+        "asset_vol_annual": 0.1594
+      },
+      "value_eq": {
+        "label": "Value equities (IWD)",
+        "corr": 0.241,
+        "n_months": 190,
+        "asset_appreciation_annual": 0.1217,
+        "asset_vol_annual": 0.1454
+      },
+      "fi_nom": {
+        "label": "Fixed income, nominal (AGG)",
+        "corr": 0.098,
+        "n_months": 190,
+        "asset_appreciation_annual": 0.0217,
+        "asset_vol_annual": 0.0444
+      },
+      "tips": {
+        "label": "Inflation-linked / TIPS (TIP)",
+        "corr": 0.152,
+        "n_months": 190,
+        "asset_appreciation_annual": 0.0271,
+        "asset_vol_annual": 0.0504
+      },
+      "gold": {
+        "label": "Gold (LBMA PM)",
+        "corr": -0.011,
+        "n_months": 190,
+        "asset_appreciation_annual": 0.0852,
+        "asset_vol_annual": 0.1644
+      },
+      "usd": {
+        "label": "Broad USD (DTWEXBGS) [context]",
+        "corr": -0.171,
+        "n_months": 190,
+        "asset_appreciation_annual": 0.0147,
+        "asset_vol_annual": 0.057
+      }
+    },
+    "btc_appreciation_real_annual": 1.3693,
+    "cpi_inflation_annual": 0.0274
+  },
+  "trailing_10y": {
+    "n_months_btc": 121,
+    "btc_first_month": "2016-05",
+    "btc_last_month": "2026-05",
+    "btc_appreciation_nominal_annual": 0.6547,
+    "btc_vol_annual": 0.6873,
+    "correlations": {
+      "growth_eq": {
+        "label": "Growth equities (IWF)",
+        "corr": 0.362,
+        "n_months": 121,
+        "asset_appreciation_annual": 0.1864,
+        "asset_vol_annual": 0.1752
+      },
+      "value_eq": {
+        "label": "Value equities (IWD)",
+        "corr": 0.292,
+        "n_months": 121,
+        "asset_appreciation_annual": 0.1118,
+        "asset_vol_annual": 0.1555
+      },
+      "fi_nom": {
+        "label": "Fixed income, nominal (AGG)",
+        "corr": 0.158,
+        "n_months": 121,
+        "asset_appreciation_annual": 0.0166,
+        "asset_vol_annual": 0.0515
+      },
+      "tips": {
+        "label": "Inflation-linked / TIPS (TIP)",
+        "corr": 0.248,
+        "n_months": 121,
+        "asset_appreciation_annual": 0.0267,
+        "asset_vol_annual": 0.0505
+      },
+      "gold": {
+        "label": "Gold (LBMA PM)",
+        "corr": 0.033,
+        "n_months": 121,
+        "asset_appreciation_annual": 0.1406,
+        "asset_vol_annual": 0.1463
+      },
+      "usd": {
+        "label": "Broad USD (DTWEXBGS) [context]",
+        "corr": -0.135,
+        "n_months": 121,
+        "asset_appreciation_annual": 0.0059,
+        "asset_vol_annual": 0.0544
+      }
+    },
+    "btc_appreciation_real_annual": 0.603,
+    "cpi_inflation_annual": 0.0339
+  },
+  "trailing_10y_start": "2016-05",
+  "trailing_5y": {
+    "n_months_btc": 61,
+    "btc_first_month": "2021-05",
+    "btc_last_month": "2026-05",
+    "btc_appreciation_nominal_annual": 0.1697,
+    "btc_vol_annual": 0.5745,
+    "correlations": {
+      "growth_eq": {
+        "label": "Growth equities (IWF)",
+        "corr": 0.564,
+        "n_months": 61,
+        "asset_appreciation_annual": 0.1552,
+        "asset_vol_annual": 0.1923
+      },
+      "value_eq": {
+        "label": "Value equities (IWD)",
+        "corr": 0.367,
+        "n_months": 61,
+        "asset_appreciation_annual": 0.1022,
+        "asset_vol_annual": 0.1481
+      },
+      "fi_nom": {
+        "label": "Fixed income, nominal (AGG)",
+        "corr": 0.192,
+        "n_months": 61,
+        "asset_appreciation_annual": 0.0013,
+        "asset_vol_annual": 0.064
+      },
+      "tips": {
+        "label": "Inflation-linked / TIPS (TIP)",
+        "corr": 0.301,
+        "n_months": 61,
+        "asset_appreciation_annual": 0.0107,
+        "asset_vol_annual": 0.0612
+      },
+      "gold": {
+        "label": "Gold (LBMA PM)",
+        "corr": 0.045,
+        "n_months": 61,
+        "asset_appreciation_annual": 0.189,
+        "asset_vol_annual": 0.1579
+      },
+      "usd": {
+        "label": "Broad USD (DTWEXBGS) [context]",
+        "corr": -0.147,
+        "n_months": 61,
+        "asset_appreciation_annual": 0.0149,
+        "asset_vol_annual": 0.056
+      }
+    },
+    "btc_appreciation_real_annual": 0.1093,
+    "cpi_inflation_annual": 0.0453
+  },
+  "trailing_5y_start": "2021-05"
+}
