@@ -1,0 +1,42 @@
+==============================================================================
+GOLD INFLATION-HEDGE EXPERIMENT   1975-01..2025-12  (611 months)
+==============================================================================
+
+[A0] DURATION BACK-OUT, PAPER STYLE  (log price LEVEL on real-yield LEVEL)
+     d ln(P_gold)/d(real yield) = -Duration  (Chicago Fed get ~18y)
+     FULL 1975-2025: level duration =   27.6y   t=-6.38   R2=0.352
+     1975-1999     : level duration =  -16.4y   t=+3.27   R2=0.373
+     2000-2025     : level duration =   51.3y   t=-10.01   R2=0.636
+
+[A] DURATION BACK-OUT  (monthly gold return on yield change; duration = -beta)
+    --- vs NOMINAL 10Y yield ---
+    FULL 1975-2025: dur(nom) =   0.7y   t=-0.88   R2=0.002
+    1975-1999     : dur(nom) =  -0.6y   t=+0.68   R2=0.002
+    2000-2025     : dur(nom) =   4.1y   t=-4.07   R2=0.060
+    --- vs REAL 10Y yield (constructed) ---
+    FULL 1975-2025: dur(real)=   0.8y   t=-1.21   R2=0.003
+    1975-1999     : dur(real)=  -0.4y   t=+0.47   R2=0.001
+    2000-2025     : dur(real)=   3.9y   t=-3.59   R2=0.053
+
+    --- gold vs 10Y-futures return (corr; >0 => gold acts long-duration) ---
+    FULL 1975-2025: corr(gold, futures) = +0.04
+    1975-1999     : corr(gold, futures) = -0.04
+    2000-2025     : corr(gold, futures) = +0.24
+
+[B/C] INFLATION BETA  (gold return per 1.0 of realized CPI inflation)
+      hedge = neutralise gold's exposure to 10Y-futures returns
+
+      sample           horizon      RAW beta    (t)    HEDGED    (t)  hedge_h
+      FULL 1975-2025   monthly          1.43   1.79      1.55   1.95     0.10
+                       12-month         1.82   1.01      1.96   1.10
+      1975-1999        monthly          2.30   1.34      2.13   1.24    -0.09
+                       12-month         3.75   1.76      3.57   1.66
+      2000-2025        monthly          1.43   2.77      2.05   3.95     0.59
+                       12-month         0.80   0.47      1.71   1.13
+
+[D] DURATION-MATCHED SHORT (size short futures to gold's REAL duration), 2000-2025
+    gold real duration = 3.9y  ->  short 0.55 units of 10Y futures per $1 gold
+    RAW    monthly                 beta= +1.430  t=+2.77   R2=0.022  n=311
+    HEDGED monthly                 beta= +2.008  t=+3.88   R2=0.046  n=311
+    RAW    12-month                beta= +0.705  t=+0.43   R2=0.007  n=311
+    HEDGED 12-month                beta= +1.652  t=+1.09   R2=0.039  n=300
