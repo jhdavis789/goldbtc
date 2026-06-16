@@ -8,13 +8,15 @@
   :root{
     --navy:#00294b; --blue:#005f9e; --teal:#007e6c; --magenta:#a6256e;
     --ink:#1a2733; --muted:#5a6b78; --line:#d8dee3; --bg:#f4f6f8; --card:#ffffff;
-    --fam-none:#5a6b78;      /* risk-budget / no target */
-    --fam-network:#007e6c;   /* network adoption */
-    --fam-tam:#a6256e;       /* TAM build-up */
-    --fam-monetary:#005f9e;  /* monetary model */
-    --fam-sov:#9a7b1f;       /* store-of-value / gold share */
-    --fam-volgold:#c25a2e;   /* vol-adjusted gold parity */
-    --fam-flow:#5b3f8c;      /* flow & allocation */
+    --fam-none:#5a6b78;       /* no target / allocation framework */
+    --fam-skeptic:#8a2e2e;    /* skeptic / no allocation */
+    --fam-network:#007e6c;    /* network adoption */
+    --fam-trend:#3f7d8c;      /* trend / regression */
+    --fam-tam:#a6256e;        /* TAM build-up */
+    --fam-monetary:#005f9e;   /* monetary model */
+    --fam-sov:#9a7b1f;        /* store-of-value / gold share */
+    --fam-volgold:#c25a2e;    /* vol-adjusted gold parity */
+    --fam-flow:#5b3f8c;       /* flow / scenario */
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--bg);color:var(--ink);
@@ -22,7 +24,7 @@
        line-height:1.45;font-size:14px}
   header{background:var(--navy);color:#fff;padding:26px 30px 22px}
   header h1{margin:0 0 6px;font-size:23px;font-weight:600;letter-spacing:.2px}
-  header p{margin:0;color:#bcd0e0;font-size:13px;max-width:1100px}
+  header p{margin:0;color:#bcd0e0;font-size:13px;max-width:1150px}
   .wrap{padding:22px 30px 60px}
 
   .legend{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}
@@ -37,9 +39,9 @@
        padding:14px 18px;margin:0 0 20px;font-size:13px}
   .spectrum b{color:var(--navy)}
   .spectrum .bar{display:flex;align-items:stretch;margin:12px 0 4px;border-radius:6px;overflow:hidden;
-       height:34px;border:1px solid var(--line)}
+       height:38px;border:1px solid var(--line)}
   .spectrum .seg{flex:1;display:flex;align-items:center;justify-content:center;color:#fff;
-       font-size:11px;font-weight:600;text-align:center;padding:0 4px;line-height:1.1}
+       font-size:10.5px;font-weight:600;text-align:center;padding:0 4px;line-height:1.12}
   .spectrum .ends{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:2px}
 
   table{width:100%;border-collapse:collapse;background:var(--card);
@@ -68,59 +70,64 @@
   .src .date{color:var(--muted)}
   .flag{display:inline-block;background:#fbeec8;color:#7a5b00;font-size:10px;font-weight:600;
         padding:1px 5px;border-radius:3px;margin-left:4px}
+  .stale{display:inline-block;background:#f6d9d4;color:#8a2e2e;font-size:10px;font-weight:600;
+        padding:1px 5px;border-radius:3px;margin-left:4px}
   .scroll{overflow-x:auto;border-radius:10px}
   footer{color:var(--muted);font-size:11px;margin-top:18px;line-height:1.6}
   .notarget{color:var(--muted);font-style:italic}
   .sec{font-size:18px;color:var(--navy);margin:30px 0 10px;font-weight:600;border-bottom:2px solid var(--navy);padding-bottom:7px}
   .sec.s2{margin-top:46px}
-  .sec .sub{display:block;font-size:12.5px;color:var(--muted);font-weight:400;margin-top:6px;border:0;max-width:1100px}
+  .sec .sub{display:block;font-size:12.5px;color:var(--muted);font-weight:400;margin-top:6px;border:0;max-width:1150px}
 </style>
 </head>
 <body>
 <header>
   <h1>How the Largest Asset Managers Talk About Long-Term Bitcoin Appreciation</h1>
-  <p><b>Section 1</b> is the <b>house view</b> — what each firm officially tells clients, grouped by the <b>method</b> behind it (not just the number). Where a figure is an offhand executive remark rather than published research, it's flagged. <b>Section 2</b> catalogs <b>other approaches</b> — the external, academic and individual models that make up the broader methodological range. Figures as of mid-June 2026; targets move, methods don't.</p>
+  <p><b>Section 1</b> is the <b>house view</b> — what each firm officially tells clients, grouped by the <b>method</b> behind it (not just the number), spanning explicit price-modelers, allocation-framework shops, and outright skeptics. Where a figure is an individual/offhand remark rather than the firm's published position, it's flagged; stale or superseded calls are marked. <b>Section 2</b> catalogs <b>other approaches</b> — the external, academic and individual models that round out the methodological range. Figures verified as of 15 Jun 2026; targets move, methods don't.</p>
 </header>
 
 <div class="wrap">
 
   <div class="legend" id="legend">
-    <button data-fam="none"><span class="dot" style="background:var(--fam-none)"></span>No price target — risk/allocation</button>
+    <button data-fam="none"><span class="dot" style="background:var(--fam-none)"></span>No target / allocation framework</button>
+    <button data-fam="skeptic"><span class="dot" style="background:var(--fam-skeptic)"></span>Skeptic / no allocation</button>
     <button data-fam="network"><span class="dot" style="background:var(--fam-network)"></span>Network adoption (Metcalfe / S-curve)</button>
+    <button data-fam="trend"><span class="dot" style="background:var(--fam-trend)"></span>Trend / regression (log-linear)</button>
     <button data-fam="tam"><span class="dot" style="background:var(--fam-tam)"></span>TAM / use-case build-up</button>
     <button data-fam="monetary"><span class="dot" style="background:var(--fam-monetary)"></span>Monetary model (exchange + reserve)</button>
     <button data-fam="sov"><span class="dot" style="background:var(--fam-sov)"></span>Store-of-value / gold market-share</button>
     <button data-fam="volgold"><span class="dot" style="background:var(--fam-volgold)"></span>Volatility-adjusted gold parity</button>
-    <button data-fam="flow"><span class="dot" style="background:var(--fam-flow)"></span>Flow &amp; allocation / debasement</button>
+    <button data-fam="flow"><span class="dot" style="background:var(--fam-flow)"></span>Flow / scenario decomposition</button>
   </div>
 
   <div class="spectrum">
-    <b>The spectrum of conviction</b> — from "we won't name a price" to "$2.9M per coin."
+    <b>The spectrum of conviction</b> — from "Bitcoin has no place in a portfolio" to "$2.9M per coin."
     <div class="bar">
-      <div class="seg" style="background:var(--fam-none);flex:1.3">BlackRock / Binance<br>no target</div>
-      <div class="seg" style="background:var(--fam-volgold)">JPMorgan<br>$170k–266k</div>
-      <div class="seg" style="background:var(--fam-flow)">Std Chartered<br>$100k→500k</div>
-      <div class="seg" style="background:var(--fam-sov);flex:1.2">Galaxy / Grayscale<br>$250k / gold-share</div>
-      <div class="seg" style="background:var(--fam-network)">Fidelity<br>~$1M by 2030</div>
-      <div class="seg" style="background:var(--fam-tam);flex:1.2">ARK / Bitwise<br>$1–1.5M</div>
-      <div class="seg" style="background:var(--fam-monetary)">VanEck<br>$2.9M by 2050</div>
+      <div class="seg" style="background:var(--fam-skeptic);flex:1.2">Vanguard / Goldman ISG / UBS<br>0% — no allocation</div>
+      <div class="seg" style="background:var(--fam-none);flex:1.2">BlackRock / Morgan Stanley / BofA<br>1–4% sleeve, no target</div>
+      <div class="seg" style="background:var(--fam-volgold)">JPMorgan<br>$170–266k</div>
+      <div class="seg" style="background:var(--fam-flow);flex:1.1">Citi $143k · StanChart<br>$100k (YE26)</div>
+      <div class="seg" style="background:var(--fam-sov);flex:1.1">Galaxy / WisdomTree<br>$250k</div>
+      <div class="seg" style="background:var(--fam-network)">Fidelity<br>~$1M (Timmer)</div>
+      <div class="seg" style="background:var(--fam-tam);flex:1.1">ARK / Bitwise<br>$1.2–1.3M</div>
+      <div class="seg" style="background:var(--fam-monetary)">VanEck<br>$2.9M / 2050</div>
     </div>
-    <div class="ends"><span>Frames it as risk, not price &nbsp;◄</span><span>► &nbsp;Explicit long-dated price model</span></div>
+    <div class="ends"><span>No allocation &nbsp;◄</span><span>► &nbsp;Explicit long-dated price model</span></div>
   </div>
 
-  <h2 class="sec">Section 1 &mdash; The House Views<span class="sub">What each firm officially publishes or tells clients. Use the chips above to filter by approach family. Offhand executive remarks (vs. published research) are flagged in-row.</span></h2>
+  <h2 class="sec">Section 1 &mdash; The House Views<span class="sub">What each firm officially publishes or tells clients (22 institutions). Use the chips above to filter by approach family. Individual/offhand remarks (vs. published research) are flagged; stale calls are marked.</span></h2>
 
   <div class="scroll">
   <table id="tbl">
     <thead>
       <tr>
         <th style="min-width:150px">Institution</th>
-        <th style="min-width:175px">Approach family</th>
-        <th style="min-width:175px">Long-term target &amp; horizon</th>
+        <th style="min-width:180px">Approach family</th>
+        <th style="min-width:185px">Long-term target &amp; horizon</th>
         <th style="min-width:320px">How they get there (methodology)</th>
-        <th style="min-width:260px">Key assumptions / drivers</th>
-        <th style="min-width:250px">Signature framing</th>
-        <th style="min-width:180px">Sources</th>
+        <th style="min-width:255px">Key assumptions / drivers</th>
+        <th style="min-width:245px">Signature framing</th>
+        <th style="min-width:175px">Sources</th>
       </tr>
     </thead>
     <tbody>
@@ -131,13 +138,13 @@
             <div class="ppl">Larry Fink (CEO); Robbie Mitchnick (Head of Digital Assets); Samara Cohen; Russell Brownback</div>
             <div class="type">Asset manager · IBIT</div></td>
         <td><span class="fam" style="background:var(--fam-none)">No price target — portfolio risk-budgeting</span></td>
-        <td><span class="notarget">No formal target.</span> Fink's offhand remark: <span class="target">$500k–$700k</span> <span class="hz">if sovereign wealth funds broadly adopt a 2–5% allocation</span> <span class="flag">informal, not a forecast</span></td>
-        <td>Deliberately a <b>sizing</b> question, not a fair-value question. Size the allocation by how much risk it adds: a 1–2% sleeve in a 60/40 contributes risk "comparable to a single Magnificent-7 stock." Beyond 2% raises portfolio risk disproportionately. Long-run value driver = adoption as a non-sovereign, fixed-supply monetary alternative — return drivers fundamentally <i>uncorrelated</i> with traditional risk assets.</td>
+        <td><span class="notarget">No formal target.</span> Fink's offhand remark (Davos, Jan 2025): <span class="target">$500k–$700k</span> <span class="hz">if sovereign wealth funds take 2–5%</span> <span class="flag">informal, not a forecast</span></td>
+        <td>Deliberately a <b>sizing</b> question, not a fair-value question. Size by risk added: a 1–2% sleeve in a 60/40 carries risk like <i>the average</i> Magnificent-7 stock ("Sizing Bitcoin in Portfolios," Dec 2024); past ~2% the risk share turns outsized. Long-run value driver = adoption as a non-sovereign, fixed-supply monetary alternative, with return drivers <i>uncorrelated</i> from traditional risk assets.</td>
         <td class="assum"><ul>
           <li>Risk/return drivers differ from traditional assets → reject "risk-on/risk-off"</li>
-          <li>Adoption rises with monetary-stability, fiscal &amp; geopolitical worry</li>
+          <li>Adoption rises with monetary, fiscal &amp; geopolitical worry</li>
           <li>Low long-run equity correlation (~0.2, like gold)</li>
-          <li>21M cap underpins store-of-value thesis</li>
+          <li>2026 caveat (Mitchnick): short-term BTC "increasingly resembles a levered NASDAQ" — long-run diversifier thesis intact</li>
         </ul></td>
         <td><div class="quote">"We use a risk budgeting approach: sizing the allocation based on how much it would contribute to total portfolio risk."<span class="who">— BlackRock Investment Institute, Dec 2024</span></div></td>
         <td class="src">
@@ -151,16 +158,16 @@
         <td><div class="firm">Fidelity</div>
             <div class="ppl">Jurrien Timmer (Dir. Global Macro); Chris Kuiper &amp; Jack Neureuter (Fidelity Digital Assets)</div>
             <div class="type">Asset manager</div></td>
-        <td><span class="fam" style="background:var(--fam-network)">Network adoption — Metcalfe + S-curve, bounded by stock-to-flow</span></td>
-        <td><span class="target"><span class="big">~$1M</span> by 2030</span> <span class="hz">(demand-model trendline = the floor)</span><br>Upper band via modified stock-to-flow; gold benchmark ≈ <span class="target">$6T cap</span> <span class="hz">(¼ of "monetary gold")</span></td>
-        <td>"Supply is known, demand is not." Model demand as an <b>adoption S-curve</b> calibrated to internet/mobile diffusion; network growth then drives value via <b>Metcalfe's Law</b> (users grow linearly → value geometrically), producing a power-regression fair-value curve. Overlay a real-rate band (~−2% to +2.5%) plus money-supply growth. Demand model tracks the floor; a modified Plan-B stock-to-flow fits the cyclical peaks — the two form an envelope.</td>
+        <td><span class="fam" style="background:var(--fam-network)">Network adoption — Metcalfe + S-curve (Timmer)</span></td>
+        <td><span class="notarget">House view (FDAS): store-of-value, no committed target.</span><br>Personal (Timmer): <span class="target"><span class="big">~$1M</span> by 2030</span>; <span class="target">~$1.5T</span> cap = ¼ of ~$6T "monetary gold" <span class="flag">Timmer = personal model, not a firm forecast</span></td>
+        <td>The firm's house view (Fidelity Digital Assets) is <b>qualitative store-of-value</b> — it sizes BTC's addressable market against monetary gold and commits to no price target. The widely-cited numbers are Timmer's <b>personal demand model</b>: an adoption S-curve (internet/mobile analog) feeding Metcalfe's-Law network value into a power-regression fair-value curve, with a ±2–2.5% real-rate band width; a modified Plan-B stock-to-flow marks the cyclical-peak ceiling (his aspirational tail runs to ~$1B by 2038–40).</td>
         <td class="assum"><ul>
-          <li>Price ∝ network size (Metcalfe)</li>
-          <li>Adoption steeper than the internet's S-curve</li>
+          <li>FDAS house benchmark: monetary gold ~$6T; BTC ~¼ share ⇒ ~$1.5T target</li>
+          <li>Timmer: price ∝ network size (Metcalfe); adoption steeper than the internet</li>
           <li>Looser policy / negative real rates lift fair value</li>
-          <li>SoV TAM benchmarked to ~$6T "monetary gold"; BTC ~25% share</li>
+          <li>Timmer's 2026 = "off-year" (bottom ~$65–75k); $1M/2030 long-run anchor unchanged</li>
         </ul></td>
-        <td><div class="quote">"As the number of its users grows linearly, a network's value … grows geometrically."<span class="who">— Jurrien Timmer, Fidelity</span></div></td>
+        <td><div class="quote">"As the number of its users grows linearly, a network's value … grows geometrically."<span class="who">— Jurrien Timmer, Fidelity (personal model — "these are not predictions")</span></div></td>
         <td class="src">
           <a href="https://bitcoinmagazine.com/markets/fidelity-investments-director-shares-bitcoins-adoption-and-valuation-models">Timmer adoption/valuation models</a> <span class="date">Nov 2024</span><br>
           <a href="https://www.fidelitydigitalassets.com/research-and-insights/bitcoin-aspirational-store-value-revisited">Aspirational Store of Value, Revisited</a> <span class="date">Feb 2024</span>
@@ -171,20 +178,20 @@
       <tr data-fam="tam">
         <td><div class="firm">ARK Invest</div>
             <div class="ppl">Cathie Wood (CEO/CIO); David Puell (model lead); Yassine Elmandjra (founding framework)</div>
-            <div class="type">Asset manager</div></td>
+            <div class="type">Asset manager · ARKB</div></td>
         <td><span class="fam" style="background:var(--fam-tam)">TAM / use-case build-up (additive capital-accrual)</span></td>
-        <td><span class="hz">Big Ideas 2026, year-end 2030:</span><br>Bear <span class="target">~$300k</span> · Base <span class="target">~$710k</span> · Bull <span class="target big">~$1.5M</span><br><span class="hz">Experimental "active-supply" variant reached $2.4M</span> <span class="flag">scenario bands, not Monte Carlo</span></td>
-        <td>Sum projected capital inflows across ~6 independent demand TAMs — digital gold, institutional investment, EM safe-haven, nation-state &amp; corporate treasuries, BTC-native finance — each with its own bear/base/bull penetration rate. Add to a network value, divide by projected supply → price/coin. The experimental variant divides by <b>active supply</b> (discounting lost/dormant coins via on-chain "liveliness"), lifting targets ~40%.</td>
+        <td><span class="hz">Year-end 2030 (active-supply model):</span><br>Bear <span class="target">~$500k</span> · Base <span class="target">~$1.2M</span> · Bull <span class="target big">~$2.4M</span><br><span class="hz">Big Ideas 2026 build ⇒ ~$16T cap / ~$761k base</span> <span class="flag">scenario bands, not Monte Carlo</span></td>
+        <td>Sum projected capital inflows across ~6 independent demand TAMs — digital gold, institutional investment, EM safe-haven, nation-state &amp; corporate treasuries, BTC-native finance — each with its own bear/base/bull penetration. Divide by <b>active supply</b> (on-chain "liveliness" discounts lost/dormant coins) — the adjustment that produced ARK's current headline targets (~40% above a flat-21M divide).</td>
         <td class="assum"><ul>
-          <li>Digital gold: ~40% of gold's ~$24T → biggest contributor</li>
-          <li>Institutional: ~2.5% of ~$200T investable assets → drives bull</li>
-          <li>EM reserve TAM cut ~80% — stablecoins eating BTC's payment role</li>
-          <li>Nation-state &amp; corporate treasuries: "hundreds of billions"</li>
+          <li>Digital gold: ~40% of gold's ~$24.4T → base-case driver</li>
+          <li>Institutional: ~6.5% of ~$200T market portfolio ex-gold → bull driver</li>
+          <li>EM/payment TAM cut ~80% — stablecoins eating BTC's payment role</li>
+          <li>Active supply ≈ ~14M effective coins</li>
         </ul></td>
         <td><div class="quote">"Stablecoins are usurping part of the role we thought Bitcoin would play … take maybe $300,000 off that bullish case."<span class="who">— Cathie Wood, CNBC, Nov 2025</span></div></td>
         <td class="src">
-          <a href="https://www.coindesk.com/markets/2026/05/01/institutional-demand-to-drive-bitcoin-market-cap-to-usd16-trillion-by-2030-ark-invest">Big Ideas 2026 → $16T cap</a> <span class="date">May 2026</span><br>
-          <a href="https://bitcoinmagazine.com/markets/cathie-wood-lowers-bitcoin-2030-target">Wood lowers 2030 target</a> <span class="date">Nov 2025</span>
+          <a href="https://www.ark-invest.com/articles/valuation-models/arks-bitcoin-price-target-2030">ARK 2030 price target ($500k/$1.2M/$2.4M)</a> <span class="date">Apr 2025</span><br>
+          <a href="https://www.coindesk.com/markets/2026/05/01/institutional-demand-to-drive-bitcoin-market-cap-to-usd16-trillion-by-2030-ark-invest">Big Ideas 2026 → ~$16T cap</a> <span class="date">May 2026</span>
         </td>
       </tr>
 
@@ -193,19 +200,19 @@
         <td><div class="firm">VanEck</div>
             <div class="ppl">Matthew Sigel (Head of Digital Assets Research); Patrick Bush</div>
             <div class="type">Asset manager · HODL</div></td>
-        <td><span class="fam" style="background:var(--fam-monetary)">Monetary model — medium-of-exchange + reserve asset (velocity of money)</span></td>
-        <td><span class="hz">Year 2050:</span> Bear <span class="target">~$130k</span> · Base <span class="target big">$2.9M</span> · Bull <span class="target">~$52M</span><br><span class="hz">~$61T implied cap · cycle peak call ~$180k</span></td>
-        <td>Explicitly rejects DCF/P-E for a non-sovereign reserve asset. Model penetration into two TAMs: (1) a <b>global medium of exchange</b> capturing a share of international + domestic trade settlement, sized via a velocity-of-money (MV=PQ) turnover equation, and (2) a <b>central-bank reserve asset</b> held as a % of CB balance sheets, plus residual store-of-value demand. Resulting 2050 market cap ÷ ~21M supply.</td>
+        <td><span class="fam" style="background:var(--fam-monetary)">Monetary model — medium-of-exchange + reserve asset</span></td>
+        <td><span class="hz">Year 2050:</span> Bear <span class="target">~$130k</span> · Base <span class="target big">$2.9M</span> · Bull <span class="target">~$53.4M</span><br><span class="hz">~$61T implied cap (base) · cycle call ~$160k by end-2026</span></td>
+        <td>Explicitly rejects DCF/P-E for a non-sovereign reserve asset. Models penetration into two TAMs: (1) a <b>global medium of exchange</b> taking a share of international + domestic trade settlement, sized via a velocity-of-money (MV=PQ) turnover equation, and (2) a <b>central-bank reserve asset</b> held as a % of CB balance sheets, plus residual store-of-value demand. The 2050 cap is divided by <i>effective</i> circulating supply (after a store-of-value lock-up haircut), not a flat 21M.</td>
         <td class="assum"><ul>
           <li>~10% of international trade settled in BTC</li>
-          <li>~5% of domestic trade settled in BTC</li>
+          <li>"Bitcoin share of domestic GDP": base 5% / bull 10%</li>
           <li>2.5% of central-bank reserves in BTC</li>
-          <li>≈1.66% of world financial assets at $2.9M</li>
+          <li>Restated Jan 2026 LTCMA: bull ~$53.4M @ 29% CAGR; base ~15%, bear ~2%</li>
         </ul></td>
         <td><div class="quote">"Bitcoin could handle 10% of the world's international trade and 5% of domestic trade by 2050," with central banks holding "2.5% of their assets."<span class="who">— Sigel &amp; Bush, VanEck</span></div></td>
         <td class="src">
-          <a href="https://www.coindesk.com/markets/2026/01/09/asset-manager-vaneck-explains-how-one-bitcoin-could-be-worth-usd2-9-million-by-2050">$2.9M by 2050 base case</a> <span class="date">Jan 2026</span><br>
-          <a href="https://www.vaneck.com/us/en/blogs/digital-assets/matthew-sigel-vanecks-10-crypto-predictions-for-2025/">10 Crypto Predictions ($180k peak)</a> <span class="date">Dec 2024</span>
+          <a href="https://www.vaneck.com/us/en/blogs/digital-assets/matthew-sigel-bitcoin-2050-valuation-scenarios-global-medium-of-exchange-and-reserve-asset/">BTC 2050 valuation scenarios (PDF)</a> <span class="date">Jul 2024 · restated Jan 2026</span><br>
+          <a href="https://www.coindesk.com/markets/2026/01/09/asset-manager-vaneck-explains-how-one-bitcoin-could-be-worth-usd2-9-million-by-2050">$2.9M base-case explainer</a> <span class="date">Jan 2026</span>
         </td>
       </tr>
 
@@ -214,18 +221,18 @@
         <td><div class="firm">Bitwise</div>
             <div class="ppl">Matt Hougan (CIO); Ryan Rasmussen (Head of Research)</div>
             <div class="type">Asset manager</div></td>
-        <td><span class="fam" style="background:var(--fam-sov)">Store-of-value share + supply/demand flow imbalance</span></td>
-        <td><span class="target big">$1M</span> <span class="hz">by ~2029 / "within a decade"</span><br><span class="target">$6.5M</span> <span class="hz">over 20yr (debasement)</span> · <span class="target">$200k</span> <span class="hz">2026 cycle</span></td>
-        <td>Long-run: a <b>store-of-value share</b> model — size the global SoV market, assign BTC a share, ÷ 21M. Crucially the pie <i>grows</i>: gold's market compounded ~13%/yr since the 2004 gold-ETF launch, so projecting forward (~$121T SoV market in ~10yr) means BTC needs only ~17% share to hit $1M. Near-term: a <b>flow imbalance</b> — post-halving issuance (~165k BTC/yr) swamped by ETF + treasury + sovereign demand. Flagship call: ETFs buy &gt;100% of new supply in 2026.</td>
+        <td><span class="fam" style="background:var(--fam-sov)">Store-of-value share (formal LTCMA + CIO overlay)</span></td>
+        <td><span class="hz">House view (LTCMA, Aug 2025):</span> <span class="target big">~$1.3M</span> <span class="hz">by 2035 (28.3% CAGR)</span><br><span class="hz">CIO overlay (Hougan):</span> <span class="target">$1M</span> "within a decade" · <span class="target">$6.5M</span>/20yr · <span class="target">$200k</span> 2026 cycle <span class="flag">MIXED — LTCMA + louder CIO memos</span></td>
+        <td>The <b>formal house view</b> is the Long-Term Capital Market Assumptions: a 10-yr expected return derived from a <b>store-of-value share</b> model — BTC's share of a growing global SoV market ÷ 21M (28.3% CAGR, 32.9% vol, 0.39 equity correlation, 1–5% allocation). Hougan's CIO memos layer a more aggressive debasement/flow overlay: post-halving issuance (~165k BTC/yr) overwhelmed by ETF + treasury demand → <b>seller exhaustion</b>.</td>
         <td class="assum"><ul>
-          <li>SoV market ~$38–40T today; BTC ~4% share</li>
-          <li>Gold/SoV pie grows ~13%/yr → ~$121T; need ~17%</li>
-          <li>New supply ~165k BTC/yr vs ETFs ~2× that cumulatively</li>
+          <li>SoV market ~$38–40T; BTC &lt;4% (~3.7%; gold ~$36T, BTC ~$1.4T)</li>
+          <li>SoV pie compounds ~13%/yr (gold's post-2004-ETF rate)</li>
+          <li>Near-term: ETF demand outpaces new supply → seller exhaustion</li>
           <li>$6.5M/20yr driven by debt growth &amp; debasement, not adoption</li>
         </ul></td>
-        <td><div class="quote">"One million sounds crazy. It implies bitcoin will rise 14× from today's price."<span class="who">— Matt Hougan, CoinDesk, Mar 2026</span></div></td>
+        <td><div class="quote">"One million sounds crazy. It implies bitcoin will rise 14× from today's price."<span class="who">— Matt Hougan, CoinDesk, Mar 2026 (CIO memo)</span></div></td>
         <td class="src">
-          <a href="https://bitbo.io/news/hougan-bitcoin-one-million/">The $1M Bitcoin math</a> <span class="date">Mar 2026</span><br>
+          <a href="https://bitwiseinvestments.com/crypto-market-insights">Bitcoin Long-Term Capital Market Assumptions 2025</a> <span class="date">Aug 2025</span><br>
           <a href="https://www.coindesk.com/markets/2026/01/30/bitwise-cio-matt-hougan-says-bitcoin-could-hit-usd6-5-million-in-20-years">$6.5M in 20 years</a> <span class="date">Jan 2026</span>
         </td>
       </tr>
@@ -236,15 +243,15 @@
             <div class="ppl">Zach Pandl (Head of Research); Michael Zhao</div>
             <div class="type">Asset manager</div></td>
         <td><span class="fam" style="background:var(--fam-sov)">Store-of-value / gold market-share TAM</span></td>
-        <td><span class="notarget">Framework, no point target.</span> Directional: <span class="target">new ATH in 1H 2026</span>. Valuation framed as share of gold's cap.</td>
-        <td>Size BTC's upside as a <b>share of the markets it competes with</b> as a scarce, programmatic monetary asset — primarily gold's store-of-value market, then broader fiat use cases. Core argument: BTC's cap is still a fraction of gold's, leaving "substantial room." Forward thesis — in an economy of AI agents, robots and tokenized markets, the dominant store-of-value will be a <i>digital</i> commodity (BTC), not a physical one (gold). Notes BTC currently trades like growth/tech, not gold — that gap <i>is</i> the bet.</td>
+        <td><span class="notarget">Framework, no point target.</span> Near-term "new ATH in 1H 2026" call <span class="stale">stale — BTC fell to ~$60k in Jun 2026</span></td>
+        <td>Sizes BTC's upside as a <b>share of the markets it competes with</b> as a scarce, programmatic monetary asset — primarily gold's store-of-value market (BTC is still a single-digit % of gold's investment value), then broader fiat use cases. Forward thesis: in an economy of AI agents, robots and tokenized markets, the dominant store of value will be a <i>digital</i> commodity, not a physical one. Notes BTC currently trades like growth/tech, not gold — that gap is the bet.</td>
         <td class="assum"><ul>
           <li>BTC = scarce digital commodity; 21M cap + decentralization</li>
-          <li>Keeps taking SoV share from gold as economy digitizes</li>
-          <li>Gold's cap is the primary anchor (BTC ~10% of it)</li>
+          <li>Keeps taking SoV share from gold as the economy digitizes</li>
+          <li>Gold's cap is the anchor; BTC ~7–9% of it now (qualitative, no fixed ratio)</li>
           <li>2026 tailwinds: debt stress, dollar weakness, ETF/regulatory clarity</li>
         </ul></td>
-        <td><div class="quote">BTC will "continue to take market share from gold as a store of value asset more suited for our digitized age."<span class="who">— Grayscale Research (Zach Pandl)</span></div></td>
+        <td><div class="quote">Bitcoin will continue to take market share from gold as a store-of-value asset more suited for our digitized age.<span class="who">— Grayscale Research (paraphrase)</span></div></td>
         <td class="src">
           <a href="https://research.grayscale.com/reports/bitcoin-addressable-market">Sizing the Addressable Markets</a> <span class="date">Sep 2023</span><br>
           <a href="https://research.grayscale.com/reports/2026-digital-asset-outlook-dawn-of-the-institutional-era">2026 Digital Asset Outlook</a> <span class="date">Dec 2025</span>
@@ -257,13 +264,13 @@
             <div class="ppl">Alex Thorn (Head of Firmwide Research); Mike Novogratz (CEO)</div>
             <div class="type">Asset manager / merchant bank</div></td>
         <td><span class="fam" style="background:var(--fam-sov)">Adoption-flow cycle calls + gold-parity</span></td>
-        <td><span class="target">~$250k</span> <span class="hz">by end-2027</span><br><span class="hz">2025 path $150k→$185k (cut to ~$120k); 2026 "too chaotic"</span><br>Novogratz: BTC cap <span class="target">overtakes gold in 5–8yr</span></td>
-        <td>Year-ahead targets driven by <b>adoption flows</b>, not DCF: spot-ETF inflows, corporate/treasury buying, and nation-state adoption stacked into a price path, benchmarked against gold's market cap as the SoV ceiling (20% of gold's cap = the 2025 milestone). The 2026 report pivoted to "structural maturity" — falling volatility, institutional option-overwriting compressing tails — concluding the year was too path-dependent to forecast, while keeping the ~$250k-by-2027 anchor.</td>
+        <td><span class="target">~$250k</span> <span class="hz">by end-2027</span>; Bitcoin = <span class="target">20% of gold's cap</span> <span class="hz">(2025 prediction)</span>; 2026 "too chaotic" <span class="flag">MIXED — firm research vs CEO remarks</span></td>
+        <td>Year-ahead targets driven by <b>adoption flows</b> (spot-ETF inflows, corporate/treasury buying, nation-state adoption), benchmarked against gold's market cap as the store-of-value ceiling — delivered via Thorn's annual outlook, not a rigorous CMA. The 2026 report pivoted to "structural maturity": falling volatility, institutional option-overwriting compressing tails — too path-dependent to forecast, while keeping the ~$250k-by-2027 anchor.</td>
         <td class="assum"><ul>
           <li>Adoption flywheel: institutional + corporate + nation-state</li>
-          <li>US spot ETPs &gt;$250B AUM (2025 prediction)</li>
-          <li>Gold cap as the yardstick: 20% (2025) → parity in 5–8yr</li>
-          <li>Declining long-run volatility → behaves more like a macro hedge</li>
+          <li>Gold-cap yardstick: 20% (2025 prediction)</li>
+          <li>YE2025 target revised $185k → $120k (~Nov 2025)</li>
+          <li>Novogratz (personal): BTC cap overtakes gold in 5–8yr (reacting to a ~14%-of-gold reading)</li>
         </ul></td>
         <td><div class="quote">"A combination of institutional, corporate, and nation state adoption will propel Bitcoin to new heights."<span class="who">— Alex Thorn, Galaxy Research</span></div></td>
         <td class="src">
@@ -272,24 +279,124 @@
         </td>
       </tr>
 
-      <!-- STANDARD CHARTERED -->
-      <tr data-fam="flow">
-        <td><div class="firm">Standard Chartered</div>
-            <div class="ppl">Geoff Kendrick (Global Head of Digital Assets Research)</div>
-            <div class="type">Global bank</div></td>
-        <td><span class="fam" style="background:var(--fam-flow)">Flow-and-allocation + gold-substitution / debasement</span></td>
-        <td><span class="target big">$500k</span> <span class="hz">by ~2030 (was 2028)</span><br><span class="hz">Walk-down: $200k YE25 → cut to $150k (Dec 25) → $100k for 2026 (Feb 26)</span> <span class="flag">live-moving — cut twice</span></td>
-        <td>BTC's path as a <b>demand-flow story</b> vs post-halving scarcity, on two pillars: institutional ETF inflows and corporate-treasury/MSTR balance-sheet buying. Layered with macro — positive correlation to the US Treasury term premium, rate-cut expectations, and BTC as an under-represented hedge. The bull leg is a debasement/gold-substitution trade ("where gold has gone, Bitcoin will follow"). When both demand pillars weakened, he halved targets twice — kept the framework.</td>
+      <!-- WISDOMTREE -->
+      <tr data-fam="sov">
+        <td><div class="firm">WisdomTree</div>
+            <div class="ppl">Christopher Gannatti; Dovile Silenskyte (research)</div>
+            <div class="type">Asset manager</div></td>
+        <td><span class="fam" style="background:var(--fam-sov)">"Bitcoin in Gold" hard-money model</span></td>
+        <td><span class="hz">By 2030:</span> Deflation <span class="target">~$120k</span> · Base <span class="target big">~$250k</span> · Inflation <span class="target">~$500k</span><br><span class="hz">Inflationary path → ~$1.9M by 2050</span></td>
+        <td>The only traditional US manager publishing an explicit long-horizon model with a gold twin. Treats BTC as <b>hard money</b> and projects its share of total global money supply across three macro regimes (deflation / base / inflation), translating the captured hard-money value into a per-coin price — a direct analogue to gold's store-of-value role.</td>
         <td class="assum"><ul>
-          <li>Continued ETF inflows are the near-term catalyst</li>
-          <li>Treasury accumulation buys a multiple of new issuance</li>
-          <li>Volatility falls as options markets deepen</li>
-          <li>BTC structurally under-allocated institutionally</li>
+          <li>BTC competes for the "hard money" share of global M2-style money supply</li>
+          <li>Outcome is regime-dependent: higher inflation ⇒ larger hard-money demand</li>
+          <li>Gold is the reference asset for the hard-money share</li>
+          <li>Fixed 21M supply anchors the per-coin translation</li>
         </ul></td>
-        <td><div class="quote">"My medium-term target of $500,000 for Bitcoin by the end of 2028 is still 100% achievable."<span class="who">— Geoff Kendrick, Oct 2025 (since pushed to ~2030)</span></div></td>
+        <td><div class="quote">Bitcoin's value is modeled as its share of the world's "hard money," scaled across inflation regimes — a twin to how one would value gold.<span class="who">— WisdomTree research (paraphrase)</span></div></td>
         <td class="src">
-          <a href="https://www.cnbc.com/2025/02/27/standard-chartered-crypto-bull-still-sees-bitcoin-hitting-500000.html">Still sees $500k</a> <span class="date">Feb 2025</span><br>
-          <a href="https://www.cnbc.com/2025/12/09/standard-chartered-cuts-bitcoin-forecast-in-half.html">Cuts forecast in half</a> <span class="date">Dec 2025</span>
+          <a href="https://www.wisdomtree.com/investments/blog">WisdomTree — Hard-Money Forecasts</a> <span class="date">Oct 2025</span>
+        </td>
+      </tr>
+
+      <!-- STATE STREET -->
+      <tr data-fam="sov">
+        <td><div class="firm">State Street (SSGA)</div>
+            <div class="ppl">SSGA Investment Research</div>
+            <div class="type">Asset manager</div></td>
+        <td><span class="fam" style="background:var(--fam-sov)">Penetration × target-market / supply</span></td>
+        <td><span class="notarget">No committed target.</span> Illustrative: <span class="target">&gt;$130k</span> <span class="hz">implied at ~10% of gold</span></td>
+        <td>Publishes an explicit valuation <b>formula</b> rather than a target: implied value = (market penetration × target-market value) ÷ 21M. Frames BTC as "digital gold" and lets the reader dial penetration of an addressable market (gold first) to derive an implied price — a transparent store-of-value sensitivity, distinct from its Galaxy-branded product research.</td>
+        <td class="assum"><ul>
+          <li>Implied value = penetration × target-market value ÷ 21M</li>
+          <li>Gold is the primary addressable market ("digital gold")</li>
+          <li>~10% of gold ⇒ &gt;$130k implied (illustrative, not a call)</li>
+          <li>Deliberately no house price target — a framework for clients</li>
+        </ul></td>
+        <td><div class="quote">"How to value bitcoin": implied value = market penetration × target-market value, divided by supply.<span class="who">— State Street Global Advisors</span></div></td>
+        <td class="src">
+          <a href="https://www.ssga.com/us/en/intermediary/insights">SSGA — How to Value Bitcoin</a> <span class="date">Feb 2026</span>
+        </td>
+      </tr>
+
+      <!-- DEUTSCHE BANK -->
+      <tr data-fam="sov">
+        <td><div class="firm">Deutsche Bank</div>
+            <div class="ppl">Marion Laboure; Camilla Siazon (DB Research)</div>
+            <div class="type">Global bank · research</div></td>
+        <td><span class="fam" style="background:var(--fam-sov)">BTC-as-nascent-reserve-asset (gold twin)</span></td>
+        <td><span class="notarget">No price target.</span> <span class="hz">Role framework: BTC maturing into a gold-like reserve asset by 2030</span></td>
+        <td>A long-horizon <b>role</b> framework rather than a price call: argues BTC is maturing into a gold-like store of value that central banks and reserves could hold alongside gold by 2030. Balances a constructive trajectory with a skeptical "backed by nothing" tone — distinct from both the outright bulls and the no-allocation skeptics.</td>
+        <td class="assum"><ul>
+          <li>BTC's role converges toward gold's as a reserve/store-of-value asset</li>
+          <li>Adoption + regulation mature it over the 2025–2030 window</li>
+          <li>Tempered by "intrinsically backed by nothing" caution</li>
+          <li>Gold remains the dominant reserve metal; BTC a complement</li>
+        </ul></td>
+        <td><div class="quote">"Gold's Reign, Bitcoin's Rise" — Bitcoin is positioned as a nascent reserve asset maturing alongside gold toward 2030.<span class="who">— Deutsche Bank Research</span></div></td>
+        <td class="src">
+          <a href="https://www.dbresearch.com/">DB Research — Gold's Reign, Bitcoin's Rise</a> <span class="date">Oct 2025</span>
+        </td>
+      </tr>
+
+      <!-- 21SHARES -->
+      <tr data-fam="sov">
+        <td><div class="firm">21Shares</div>
+            <div class="ppl">21Shares Research</div>
+            <div class="type">Crypto-native manager</div></td>
+        <td><span class="fam" style="background:var(--fam-sov)">Gold-parity market sizing + on-chain</span></td>
+        <td><span class="target">&gt;$500k</span> <span class="hz">implied if BTC matches gold's market cap</span> <span class="flag">no committed point target</span></td>
+        <td>Sizes BTC against gold's market cap (parity ⇒ &gt;$500k/coin) and overlays on-chain valuation signals (net-unrealized profit/loss, adoption-lifecycle) to judge where in the cycle BTC sits. A market-sizing framework distinct from the ARK targets that drive its ARKB partnership.</td>
+        <td class="assum"><ul>
+          <li>Gold's cap is the reference for store-of-value parity</li>
+          <li>Parity with gold ⇒ &gt;$500k per coin</li>
+          <li>On-chain overlays (NUPL, adoption lifecycle) time the cycle</li>
+          <li>Framework-led; avoids a single committed forecast</li>
+        </ul></td>
+        <td><div class="quote">Matching gold's market capitalization would imply a Bitcoin price north of $500,000 per coin.<span class="who">— 21Shares research (paraphrase)</span></div></td>
+        <td class="src">
+          <a href="https://www.21shares.com/en-us/research">21Shares — Valuing Bitcoin Long-Term</a>
+        </td>
+      </tr>
+
+      <!-- PANTERA -->
+      <tr data-fam="trend">
+        <td><div class="firm">Pantera Capital</div>
+            <div class="ppl">Dan Morehead (Founder/CEO)</div>
+            <div class="type">Crypto-native manager</div></td>
+        <td><span class="fam" style="background:var(--fam-trend)">Log-linear long-run regression</span></td>
+        <td><span class="target big">$740k</span> <span class="hz">by April 2028 (~$15T cap)</span></td>
+        <td>A pure <b>trend-extrapolation</b> model: fits a log-linear regression to Bitcoin's multi-year price history (anchored to the halving cycle) and projects it forward in the firm's Blockchain Letters. Methodologically a cousin of the academic power-law — but used as a firm investment thesis. Morehead notes a prior version landed within ~1% of the realized price.</td>
+        <td class="assum"><ul>
+          <li>Long-run price follows a log-linear (exponential) trendline</li>
+          <li>Halving cadence structures the cycle around the trend</li>
+          <li>~$15T network value implied by April 2028</li>
+          <li>Past-fit accuracy used as evidence for the projection</li>
+        </ul></td>
+        <td><div class="quote">The log-linear trendline projects roughly $740,000 per Bitcoin by April 2028.<span class="who">— Dan Morehead, Pantera Blockchain Letter</span></div></td>
+        <td class="src">
+          <a href="https://panteracapital.com/blockchain-letter/">Pantera Blockchain Letter ($740k / Apr 2028)</a> <span class="date">Nov 2024</span>
+        </td>
+      </tr>
+
+      <!-- COINSHARES -->
+      <tr data-fam="flow">
+        <td><div class="firm">CoinShares</div>
+            <div class="ppl">CoinShares Research (James Butterfill et al.)</div>
+            <div class="type">Crypto-native manager</div></td>
+        <td><span class="fam" style="background:var(--fam-flow)">Savings-adoption flow + monetary TAM</span></td>
+        <td><span class="target">~$317k</span> <span class="hz">by 2029 (savings-adoption)</span>; <span class="target">~$160–170k</span> <span class="hz">base by 2039 (TAM)</span></td>
+        <td>Two distinct quantitative frameworks framed as <b>price-supporting floors</b>: (1) a savings-adoption flow model — household/institutional savings allocated to BTC over time drive a demand floor; and (2) a four-pool monetary TAM (fiat, gold, and other stores of value) capturing a small penetration of each. Crypto-native but methodologically rigorous.</td>
+        <td class="assum"><ul>
+          <li>Savings-adoption: a rising share of global savings flows into BTC</li>
+          <li>TAM: ~2% of fiat + ~20% of gold ⇒ ~$261k (2039) in one build</li>
+          <li>Outputs treated as floors, not ceilings</li>
+          <li>Fixed supply converts captured value to per-coin price</li>
+        </ul></td>
+        <td><div class="quote">A savings-adoption model implies a price floor near $317,000 by 2029.<span class="who">— CoinShares Research</span></div></td>
+        <td class="src">
+          <a href="https://blog.coinshares.com/">CoinShares — Savings-Adoption</a> <span class="date">Jan 2026</span><br>
+          <a href="https://blog.coinshares.com/">CoinShares — TAM model</a> <span class="date">Jul 2025</span>
         </td>
       </tr>
 
@@ -297,41 +404,182 @@
       <tr data-fam="volgold">
         <td><div class="firm">JPMorgan</div>
             <div class="ppl">Nikolaos Panigirtzoglou (MD, Global Markets Strategy)</div>
-            <div class="type">Global bank</div></td>
+            <div class="type">Global bank · research</div></td>
         <td><span class="fam" style="background:var(--fam-volgold)">Volatility-adjusted gold parity (equal risk capital)</span></td>
-        <td><span class="target big">~$170k</span> <span class="hz">fair value, 6–12mo</span><br><span class="target">~$266k</span> <span class="hz">long-term as vol ratio compresses</span></td>
-        <td>A "mechanical exercise." Benchmark BTC's investable cap against the <b>private gold investment market (~$6.2T: ETFs, bars, coins)</b>, but adjust for volatility: a dollar in BTC consumes more risk capital than a dollar in gold. At ~1.8× the risk capital of gold, parity = $6.2T ÷ 1.8 → BTC must rise ~⅔ → ~$170k. As the vol ratio fell toward a record ~1.5×, the same gold base supports ~$266k, and BTC flips to a <i>discount</i> vs gold on a risk-adjusted basis.</td>
+        <td><span class="target">~$170k</span> <span class="hz">fair value, 6–12mo (Nov 2025)</span><br><span class="target big">~$266k</span> <span class="hz">long-term target (Feb 2026)</span></td>
+        <td>A "mechanical exercise." Benchmark BTC's investable cap against the <b>private gold investment market</b>, adjusting for volatility (a dollar in BTC consumes more risk capital than a dollar in gold). The two figures move on <i>both</i> inputs: $170k = $6.2T gold base ÷ ~1.8× vol ratio; $266k = a larger ~$8T gold base (JPM raised its gold outlook to ~$8,000–8,500/oz) ÷ a record-low ~1.5× vol ratio.</td>
         <td class="assum"><ul>
-          <li>Private gold investment market ≈ $6.2T is the comparable pool</li>
+          <li>Private gold investment market ~$6.2T → ~$8T (raised gold target)</li>
           <li>BTC &amp; gold compete for the same risk-capital budget</li>
-          <li>Position sizes scale inversely to volatility</li>
-          <li>BTC realized vol trending down toward gold's (1.8× → 1.5×)</li>
+          <li>BTC-vs-gold volatility ratio 1.8× → 1.5× (record low)</li>
+          <li>At Nov 2025 read, BTC was ~$68k "too low" vs gold</li>
         </ul></td>
         <td><div class="quote">BTC was "around $68,000 too low" vs gold on a vol-adjusted basis.<span class="who">— JPMorgan / Panigirtzoglou team, Nov 2025</span></div></td>
         <td class="src">
           <a href="https://www.coindesk.com/markets/2025/11/06/bitcoin-s-fair-value-is-usd170k-jpmorgan-argues-in-gold-based-model">$170k gold-based fair value</a> <span class="date">Nov 2025</span><br>
-          <a href="https://www.theblock.co/post/388697/jpmorgan-bitcoin-266000-long-term-gold">$266k long-term</a> <span class="date">2026</span> <span class="flag">lightly verified</span>
+          <a href="https://www.theblock.co/post/388697/jpmorgan-bitcoin-266000-long-term-gold">$266k long-term target</a> <span class="date">Feb 2026</span>
+        </td>
+      </tr>
+
+      <!-- CITI -->
+      <tr data-fam="flow">
+        <td><div class="firm">Citi</div>
+            <div class="ppl">Citi Research (Saunders / Willer / Vo)</div>
+            <div class="type">Global bank · research</div></td>
+        <td><span class="fam" style="background:var(--fam-flow)">Quantitative scenario decomposition</span></td>
+        <td><span class="hz">~12-month (Dec 2025):</span> Bear <span class="target">$78.5k</span> · Base <span class="target big">$143k</span> · Bull <span class="target">$189k</span> <span class="flag">tactical horizon, not multi-year</span></td>
+        <td>A regression-style <b>scenario decomposition</b>: attributes BTC's price variance to ETF/spot flows (the single largest factor, &gt;40% of variance), plus adoption and macro drivers, then runs bear/base/bull paths. More tactical (≈12-month) than the structural long-horizon models, but a genuine institutional house framework.</td>
+        <td class="assum"><ul>
+          <li>ETF/spot flows explain &gt;40% of price variance</li>
+          <li>Adoption + macro (rates, risk appetite) are secondary drivers</li>
+          <li>Scenario paths over a ~12-month window</li>
+          <li>Base case $143k assumes continued net inflows</li>
+        </ul></td>
+        <td><div class="quote">ETF flows are the dominant driver; the base case lands near $143,000 over the coming year.<span class="who">— Citi Research, Dec 2025</span></div></td>
+        <td class="src">
+          <a href="https://www.coindesk.com/markets/2025/12/19/citi-sees-bitcoin-at-143-000-in-base-case">Citi base case $143k</a> <span class="date">Dec 2025</span>
+        </td>
+      </tr>
+
+      <!-- STANDARD CHARTERED -->
+      <tr data-fam="flow">
+        <td><div class="firm">Standard Chartered</div>
+            <div class="ppl">Geoff Kendrick (Global Head of Digital Assets Research)</div>
+            <div class="type">Global bank · research</div></td>
+        <td><span class="fam" style="background:var(--fam-flow)">Flow-and-allocation + gold-substitution</span></td>
+        <td><span class="target big">$500k</span> <span class="hz">by ~2030 (was 2028)</span><br><span class="hz">2026 target walked $300k → $150k (Dec 2025) → $100k (Feb 2026); reaffirmed $100k at the ~$59k Jun-2026 bottom</span> <span class="flag">live-moving</span></td>
+        <td>BTC's path as a <b>demand-flow story</b> vs post-halving scarcity, on two pillars: institutional ETF inflows and corporate-treasury/MSTR balance-sheet buying. Layered with macro — correlation to the US Treasury term premium, rate-cut expectations, and BTC as an under-represented hedge. The bull leg is a debasement/gold-substitution trade ("where gold has gone, Bitcoin will follow"). When demand pillars weakened he re-cut targets but kept the framework.</td>
+        <td class="assum"><ul>
+          <li>Continued ETF inflows are the near-term catalyst</li>
+          <li>Treasury accumulation buys a multiple of new issuance</li>
+          <li>Volatility falls as options markets deepen</li>
+          <li>BTC structurally under-allocated institutionally</li>
+        </ul></td>
+        <td><div class="quote">"My medium-term target of $500,000 … is still 100% achievable."<span class="who">— Geoff Kendrick, Oct 2025 (since pushed to ~2030)</span></div></td>
+        <td class="src">
+          <a href="https://www.cnbc.com/2025/12/09/standard-chartered-cuts-bitcoin-forecast-in-half.html">Cuts forecast (Dec note)</a> <span class="date">Dec 2025</span><br>
+          <a href="https://www.cnbc.com/2025/02/27/standard-chartered-crypto-bull-still-sees-bitcoin-hitting-500000.html">$500k thesis</a> <span class="date">Feb 2025</span>
+        </td>
+      </tr>
+
+      <!-- MORGAN STANLEY -->
+      <tr data-fam="none">
+        <td><div class="firm">Morgan Stanley</div>
+            <div class="ppl">Global Investment Committee (GIC)</div>
+            <div class="type">Wealth manager</div></td>
+        <td><span class="fam" style="background:var(--fam-none)">Allocation framework — BTC as real asset</span></td>
+        <td><span class="notarget">No price target.</span> <span class="target">2–4% allocation</span> <span class="hz">by risk tier; 0% for capital-preservation</span></td>
+        <td>The official GIC house view guiding ~16,000 advisors (~$2T AUM): treats BTC as a "real asset" / digital gold and gives a <b>portfolio-allocation</b> recommendation rather than a price call — sized 2–4% by risk profile, zero for capital-preservation mandates. (A separate executive's "$1M by 2030" remark is individual, not the GIC view.)</td>
+        <td class="assum"><ul>
+          <li>BTC as a real asset / store of value, not a cash-flow asset</li>
+          <li>Allocation scaled to client risk tolerance (2–4%)</li>
+          <li>Capital-preservation clients: 0%</li>
+          <li>Diversification, sized for high volatility</li>
+        </ul></td>
+        <td><div class="quote">"Asset Allocation Considerations for Cryptocurrencies" — 2–4% by risk profile, framed as a real asset.<span class="who">— Morgan Stanley GIC, Oct 2025</span></div></td>
+        <td class="src">
+          <a href="https://www.morganstanley.com/ideas">Morgan Stanley GIC — crypto allocation</a> <span class="date">Oct 2025</span>
+        </td>
+      </tr>
+
+      <!-- BANK OF AMERICA -->
+      <tr data-fam="none">
+        <td><div class="firm">Bank of America</div>
+            <div class="ppl">Merrill / BofA Private Bank</div>
+            <div class="type">Wealth manager</div></td>
+        <td><span class="fam" style="background:var(--fam-none)">Allocation framework (ETF-enabled)</span></td>
+        <td><span class="notarget">No price target.</span> <span class="target">1–4% allocation</span> <span class="hz">via spot-BTC ETFs</span></td>
+        <td>A wealth-management <b>allocation framework</b> rather than a valuation: in early 2026 BofA opened formal research coverage of four spot-BTC ETFs across ~15,000 advisors and set a 1–4% crypto sleeve guideline. The house position is "how much, via which wrapper," not "what's it worth." (Strategist Hartnett's tactical "froth" commentary is separate and individual.)</td>
+        <td class="assum"><ul>
+          <li>Access via regulated spot-BTC ETFs, not direct coins</li>
+          <li>1–4% sleeve depending on client profile</li>
+          <li>Advisor-distribution gating (effective ~Jan 2026)</li>
+          <li>No firm fair-value / price model</li>
+        </ul></td>
+        <td><div class="quote">BofA enabled BTC-ETF recommendations with a 1–4% allocation guideline across its advisor base.<span class="who">— BofA / Merrill, Jan 2026</span></div></td>
+        <td class="src">
+          <a href="https://www.privatebank.bankofamerica.com/">BofA — crypto-ETF coverage (1–4%)</a> <span class="date">Jan 2026</span>
         </td>
       </tr>
 
       <!-- BINANCE RESEARCH -->
       <tr data-fam="none">
         <td><div class="firm">Binance Research</div>
-            <div class="ppl">Institutional authorship (no single named lead surfaced)</div>
+            <div class="ppl">Institutional authorship (no single named lead)</div>
             <div class="type">Exchange research</div></td>
-        <td><span class="fam" style="background:var(--fam-none)">No price target — structural-adoption + macro cycle</span></td>
-        <td><span class="notarget">No hard price target.</span> Anchors: 2025 total crypto cap crossed $4T, BTC ATH ~$126k. Cycle work: 12mo post-midterm historically strongest (BTC avg +54%).</td>
-        <td>Prioritizes "structural shifts over short-term price." Two threads: (1) a <b>macro presidential-cycle</b> analysis (midterm-year drawdowns vs strong post-midterm recoveries) plus policy drivers; (2) <b>on-chain → off-chain demand migration</b> — slowing base-layer activity read not as weakness but as price formation moving to ETFs, treasuries and long-term holding, reinforcing BTC as a "macro financial asset rather than a transactional network." 2026 thesis: value accrues to networks capturing recurring, monetizable flows.</td>
+        <td><span class="fam" style="background:var(--fam-none)">No price target — structural + macro cycle</span></td>
+        <td><span class="notarget">No single long-term target.</span> Cycle anchor: 12mo <i>after</i> midterms historically strongest (BTC avg +54%)</td>
+        <td>Prioritizes "structural shifts over short-term price." Two threads: (1) a <b>macro presidential-cycle</b> read (midterm-year drawdowns vs strong post-midterm recoveries); and (2) an <b>on-chain → off-chain demand migration</b> — softening base-layer activity reframed as price formation moving to ETFs, treasuries and tokenized products. 2026 thesis: value accrues to networks capturing recurring, monetizable flows.</td>
         <td class="assum"><ul>
-          <li>On-chain metrics have lost predictive power; macro/flows dominate</li>
-          <li>Regulation + institutional access structurally expand demand</li>
-          <li>Stablecoins becoming default settlement rails</li>
-          <li>Post-2026-midterm seasonality a tailwind</li>
+          <li>Base-layer activity softened (active addresses −16% YoY); base layer now secondary</li>
+          <li>Price formation migrated off-chain to ETFs / treasuries / tokenized products</li>
+          <li>+54% is a 12-mo-after-midterms seasonal (vs midterm-year drawdowns −56/−73/−64%)</li>
+          <li>Near-term caveat (Mar 2026): range-bound ~$66k, Middle East/oil downside</li>
         </ul></td>
         <td><div class="quote">"Infrastructure, access, and rulemaking advanced even when prices did not."<span class="who">— Binance Research, 2026 outlook</span></div></td>
         <td class="src">
           <a href="https://coinmarketcap.com/academy/article/bitcoin-and-stocks-may-rally-after-2026-midterms-says-binance-research">Post-midterm cycle (+54%)</a> <span class="date">Mar 2026</span><br>
           <a href="https://dailycoin.com/binance-report-crypto-2025-2026-outlook/">2025/2026 outlook</a> <span class="date">Dec 2025</span>
+        </td>
+      </tr>
+
+      <!-- VANGUARD -->
+      <tr data-fam="skeptic">
+        <td><div class="firm">Vanguard</div>
+            <div class="ppl">Vanguard (firm policy)</div>
+            <div class="type">Asset manager</div></td>
+        <td><span class="fam" style="background:var(--fam-skeptic)">Skeptic — no place in a portfolio</span></td>
+        <td><span class="notarget">No allocation, no target.</span> Crypto = speculation, not an investment</td>
+        <td>The clearest <b>contrarian house view</b>: crypto has no place in a long-term portfolio because it produces no cash flows, has no inherent economic value, and behaves as speculation. Reaffirmed Dec 2025 even as Vanguard let clients access third-party BTC ETFs on its platform — and it still refuses to launch its own crypto products.</td>
+        <td class="assum"><ul>
+          <li>No cash flows → cannot be valued as an investment</li>
+          <li>No inherent/intrinsic economic value</li>
+          <li>High volatility = speculation, not diversification</li>
+          <li>Won't build or recommend crypto products (policy, not a forecast)</li>
+        </ul></td>
+        <td><div class="quote">Crypto is "an immature asset class" with "little intrinsic value" and no place in a long-term portfolio.<span class="who">— Vanguard, reaffirmed Dec 2025</span></div></td>
+        <td class="src">
+          <a href="https://investor.vanguard.com/investor-resources-education/news">Vanguard — Crypto &amp; Vanguard</a> <span class="date">Dec 2025</span>
+        </td>
+      </tr>
+
+      <!-- GOLDMAN SACHS ISG -->
+      <tr data-fam="skeptic">
+        <td><div class="firm">Goldman Sachs</div>
+            <div class="ppl">Investment Strategy Group / Private Wealth (Mossavar-Rahmani)</div>
+            <div class="type">Bank · private wealth</div></td>
+        <td><span class="fam" style="background:var(--fam-skeptic)">Skeptic — not an investable asset</span></td>
+        <td><span class="notarget">No allocation, no target.</span> Fails ISG investability criteria <span class="flag">desk/AM is tactically constructive</span></td>
+        <td>The canonical Wall-Street <b>private-wealth skeptic</b>: the Investment Strategy Group says crypto is not an investable asset class for client portfolios — no cash flows, no intrinsic value, fails its investability framework. Note the internal tension: Goldman's trading desk and asset-management arm are tactically constructive and hold crypto-ETF exposure.</td>
+        <td class="assum"><ul>
+          <li>ISG investability criteria: cash flows + intrinsic value required</li>
+          <li>Crypto meets neither → excluded from client portfolios</li>
+          <li>Speculative, not a strategic holding</li>
+          <li>Firm-internal split: desk/AM constructive vs ISG skeptic</li>
+        </ul></td>
+        <td><div class="quote">Cryptocurrencies are "not an investable asset class" for client portfolios.<span class="who">— Goldman Sachs ISG (Mossavar-Rahmani)</span></div></td>
+        <td class="src">
+          <a href="https://www.goldmansachs.com/insights">Goldman ISG — investability view</a> <span class="date">2024</span>
+        </td>
+      </tr>
+
+      <!-- UBS -->
+      <tr data-fam="skeptic">
+        <td><div class="firm">UBS</div>
+            <div class="ppl">UBS CIO, Global Wealth Management</div>
+            <div class="type">Bank · global wealth</div></td>
+        <td><span class="fam" style="background:var(--fam-skeptic)">Skeptic — speculative, not strategic</span></td>
+        <td><span class="notarget">No strategic allocation, no target.</span> A "speculative trade, not a strategic investment" <span class="flag">expanding access despite the view</span></td>
+        <td>The UBS CIO house view treats crypto as a <b>speculative trade rather than a strategic investment</b>, with limited portfolio-diversification benefits — reaffirmed in its Year Ahead 2026. A nuance worth noting: UBS is simultaneously expanding direct crypto access for clients even as the official recommendation stays skeptical.</td>
+        <td class="assum"><ul>
+          <li>Crypto = tactical/speculative, not a strategic asset</li>
+          <li>Limited, unstable diversification benefits</li>
+          <li>No fair-value model / no price target</li>
+          <li>Access expanding for clients who want it, against the house view</li>
+        </ul></td>
+        <td><div class="quote">Crypto is "a speculative trade, not a strategic investment."<span class="who">— UBS CIO, Year Ahead 2026</span></div></td>
+        <td class="src">
+          <a href="https://www.ubs.com/global/en/wealthmanagement/insights.html">UBS CIO — crypto house view</a> <span class="date">Nov 2024 · reaffirmed Nov 2025</span>
         </td>
       </tr>
 
@@ -346,8 +594,8 @@
     <thead>
       <tr>
         <th style="min-width:150px">Model / Voice</th>
-        <th style="min-width:155px">Approach</th>
-        <th style="min-width:165px">Implied long-term level</th>
+        <th style="min-width:165px">Approach</th>
+        <th style="min-width:170px">Implied long-term level</th>
         <th style="min-width:320px">How it works</th>
         <th style="min-width:230px">Status / caveat</th>
         <th style="min-width:150px">Source</th>
@@ -367,16 +615,16 @@
       <tr>
         <td><div class="firm">Bitcoin Power Law</div><div class="ppl">Giovanni Santostasi</div></td>
         <td><span class="fam" style="background:#5b3f8c">Power-law time regression</span></td>
-        <td><span class="target">~$1M</span> <span class="hz">in the early-to-mid 2030s (long-run corridor)</span></td>
-        <td>log(price) grows linearly with log(time since genesis), slope ~5.8 &mdash; treats Bitcoin as a network/physical phenomenon on a fixed power-law trajectory, defining a long-run support/resistance corridor rather than a dated point.</td>
-        <td>Strong historical fit; theoretical justification debated. A <b>trajectory/corridor</b>, not a precise forecast.</td>
+        <td><span class="target">~$1M by ~2033</span> <span class="hz">(~$10M by ~2045); a power-law corridor</span></td>
+        <td>log(price) grows linearly with log(time since genesis), slope ~5.8 &mdash; treats Bitcoin as a network/physical phenomenon on a fixed power-law trajectory, defining a long-run support/resistance corridor with a dated ~$1M point around 2033.</td>
+        <td>Strong historical fit; theoretical justification debated. A <b>corridor</b> with a 2033 midpoint, not a precise forecast.</td>
         <td class="src"><a href="https://www.theporkrind.com/bitcoin-power-law/">The Bitcoin Power Law Theory</a></td>
       </tr>
 
       <tr>
         <td><div class="firm">Metcalfe network value</div><div class="ppl">Timothy Peterson, Cane Island</div></td>
         <td><span class="fam" style="background:#007e6c">Network effect</span></td>
-        <td><span class="hz">Probabilistic floors;</span> <span class="target">~$1M+</span> <span class="hz">by ~2030 in adoption scenarios</span></td>
+        <td><span class="hz">Probabilistic floors;</span> <span class="target">~$1.5M within 10yr</span> <span class="hz">(~2035, Jan 2026 update)</span></td>
         <td>Value scales with <b>(active users)&sup2;</b> (Metcalfe's Law), with adoption following a Gompertz / virus-spread curve. Yields "Lowest Price Forward" probabilistic price floors rather than upside targets.</td>
         <td>Published, peer-style methodology; <b>floor-oriented</b> (what BTC is unlikely to fall below).</td>
         <td class="src"><a href="https://www.caneisland.net/research">Cane Island / T. Peterson</a></td>
@@ -410,10 +658,28 @@
       </tr>
 
       <tr>
+        <td><div class="firm">Equation of Exchange (MV=PQ)</div><div class="ppl">Burniske; Bank of England; Weber</div></td>
+        <td><span class="fam" style="background:#2e6b6b">Medium-of-exchange / transactional utility</span></td>
+        <td><span class="hz">Wide range by use-case:</span> <span class="target">~$34k</span> <span class="hz">(card-network) → multi-$M (world money)</span></td>
+        <td>Treats BTC as money, not a stock: project addressable on-chain transactional volume (PQ), estimate velocity V (adjusting for HODLed supply), solve monetary base M = PQ/V, divide by supply, and discount future utility back at a high early-stage rate (~30&ndash;50%). <b>Orthogonal</b> to scarcity/network-size — can yield a LOW value even with fixed supply if velocity is high.</td>
+        <td>A whole distinct valuation school. BoE illustrative outputs: illicit-only ~$19k; card-network ~$34k; all electronic payments ~$619k.</td>
+        <td class="src"><a href="https://bankunderground.co.uk/">BoE "Quantity theory of crypto"</a> <span class="date">May 2026</span>; Burniske</td>
+      </tr>
+
+      <tr>
+        <td><div class="firm">Bottom-up TAM capture</div><div class="ppl">ARK · CoinShares · Bitwise (method)</div></td>
+        <td><span class="fam" style="background:#a6256e">Asset-pool penetration build</span></td>
+        <td><span class="hz">Method, not one number:</span> <span class="target">~$260k → $2.4M</span> <span class="hz">depending on pools/penetration</span></td>
+        <td>Enumerate discrete global asset pools (gold ~$29&ndash;34T; M2/fiat; FX reserves; treasuries; EM inflation-hedge wealth; real estate ~$250T; ARK's ~$200T market portfolio), assign an independent penetration % per pool per year, sum captured dollars, divide by ~21M. The standard institutional build &mdash; distinct from the qualitative "asset-capture" narrative and the one-line "% of gold."</td>
+        <td>The dominant <b>sell-side / institutional</b> framework. Output is only as good as the penetration assumptions.</td>
+        <td class="src"><a href="https://www.ark-invest.com/articles/valuation-models/arks-bitcoin-price-target-2030">ARK</a>; <a href="https://blog.coinshares.com/">CoinShares</a> TAM builds</td>
+      </tr>
+
+      <tr>
         <td><div class="firm">Strategy ("Bitcoin24")</div><div class="ppl">Michael Saylor, Exec. Chairman</div></td>
-        <td><span class="fam" style="background:#a6256e">Asset-capture / monetary debasement</span></td>
+        <td><span class="fam" style="background:#7a3a8c">Asset-capture / monetary debasement</span></td>
         <td><span class="hz">By 2045:</span> <span class="target">~$3M</span> bear &middot; <span class="target big">~$13M</span> base &middot; <span class="target">~$49M</span> bull</td>
-        <td>BTC captures rising share of global stores of value (gold, equities, bonds, real estate, art, money) as monetary inflation erodes them. Long-dated annualized-return scenarios (~21% / 29% / 37%).</td>
+        <td>BTC captures rising share of global stores of value (gold, equities, bonds, real estate, art, money) as monetary inflation erodes them. Long-dated annualized-return scenarios (~21% / 29% / 37%); base ~$280T network value by 2045.</td>
         <td>Deliberately aggressive <b>advocacy</b> &mdash; founder runs the largest corporate BTC treasury. Textbook "pontification."</td>
         <td class="src"><a href="https://www.strategy.com/">Strategy "Bitcoin24" model</a> <span class="date">2024</span></td>
       </tr>
@@ -423,15 +689,15 @@
         <td><span class="fam" style="background:#5a6b78">Sell-side ETF + supply/demand bridge</span></td>
         <td><span class="target">$200k</span> <span class="hz">(2025)</span> &rarr; <span class="target">$500k</span> <span class="hz">(2029)</span> &rarr; <span class="target big">$1M</span> <span class="hz">by 2033</span></td>
         <td>Projects spot-ETF AUM growth plus corporate/sovereign demand against post-halving issuance (~164k BTC/yr), arguing structural demand dwarfs new supply.</td>
-        <td>Brokerage research &mdash; adjacent to the bank house views in &sect;1; <b>well-documented</b>.</td>
+        <td>Brokerage research &mdash; verified; adjacent to the bank house views in &sect;1.</td>
         <td class="src"><a href="https://www.bernsteinresearch.com/">Bernstein research notes</a></td>
       </tr>
 
       <tr>
         <td><div class="firm">Fundstrat</div><div class="ppl">Tom Lee</div></td>
         <td><span class="fam" style="background:#00294b">Multi-factor (flow + digital-gold + cost)</span></td>
-        <td><span class="target">~$250k</span> <span class="hz">near-term;</span> <span class="target">$1M+</span> <span class="hz">long-run "digital gold"</span></td>
-        <td>Blends ETF/supply-demand flow, gold-substitution market share, and cost-of-production support into directional strategist calls.</td>
+        <td><span class="target">~$250k</span> <span class="hz">near-term;</span> <span class="target big">~$2.5M&ndash;$3M</span> <span class="hz">terminal ($1M = gold-parity floor only)</span></td>
+        <td>Blends ETF/supply-demand flow, gold-substitution market share, and cost-of-production support. His ~$1.15M figure is only the gold-parity floor (gold's ~$23T cap &divide; ~20M coins); the long-run terminal is ~$2.5&ndash;3M.</td>
         <td>Strategist <b>conviction calls</b>; widely covered, frequently re-dated.</td>
         <td class="src"><a href="https://fsinsight.com/">Fundstrat / CNBC</a></td>
       </tr>
@@ -439,8 +705,8 @@
       <tr>
         <td><div class="firm">Tim Draper</div><div class="ppl">Venture investor</div></td>
         <td><span class="fam" style="background:#7a5b00">Adoption-conviction call</span></td>
-        <td><span class="target">$250k</span> <span class="hz">(target date repeatedly pushed back)</span></td>
-        <td>Top-down adoption belief (women, emerging markets, merchant adoption driving demand) rather than a quantitative model.</td>
+        <td><span class="target">$250k</span> <span class="hz">(date slipped 2022 → 2023 → 2025 → "within 18 months" ~2027); separate $10M long-horizon</span></td>
+        <td>Top-down adoption belief (women, emerging markets, merchant adoption driving demand) rather than a quantitative model; target date repeatedly pushed back.</td>
         <td>Personal conviction &mdash; an <b>iconic example of "pontification"</b> (no published math).</td>
         <td class="src"><a href="https://www.draper.vc/">Public interviews</a></td>
       </tr>
@@ -450,8 +716,9 @@
   </div>
 
   <footer>
-    <b>Reading the table.</b> The cleanest divide is methodological, not numerical: <b>BlackRock and Binance Research refuse a price target</b> — BlackRock reframes it as "how much risk does a 1–2% sleeve add" and Binance as macro-cycle direction. Everyone else commits to a number, but via three distinct engines — <b>network-adoption math</b> (Fidelity's Metcalfe/S-curve), <b>addressable-market build-ups</b> (ARK's use-case TAMs, VanEck's monetary model, Bitwise/Grayscale/Galaxy's store-of-value share of gold), and a <b>volatility-adjusted gold-parity</b> formula (JPMorgan). Gold is the shared anchor for most — but they use it differently: a TAM to capture a share of (Grayscale, Galaxy, Bitwise), a qualitative debasement narrative (Standard Chartered), or a precise risk-capital divisor (JPMorgan).<br><br>
-    <b>Caveats:</b> targets dated to ~mid-2026 and several are live-moving (Standard Chartered cut twice; ARK revised through 2025–26). Items marked <span class="flag">flag</span> are informal remarks or lightly-verified figures — see each row's note. Many primary PDFs (BlackRock, Grayscale, ARK, Bitwise) are paywalled/Cloudflare-walled; figures were corroborated via reputable secondary coverage where noted. §1 = institutional house views; §2 = the broader external/academic/individual range. Built from a parallel research sweep + an adversarial verification &amp; completeness workflow · JAOD &amp; (mainly) Claude.
+    <b>Reading the table.</b> The cleanest divide is methodological, not numerical. At one extreme, a bloc of major houses publishes <b>no allocation at all</b> — Vanguard, Goldman ISG and UBS call crypto speculation with no cash flows or intrinsic value. Next sit the <b>allocation-framework</b> shops (BlackRock, Morgan Stanley, Bank of America) who answer "how big a sleeve, sized for risk" rather than "what's it worth." Everyone who does commit to a number uses one of a few engines — <b>addressable-market build-ups</b> (ARK use-case TAMs, VanEck's monetary model, Bitwise/Grayscale/WisdomTree/SSGA store-of-value share of gold), <b>network-adoption math</b> (Fidelity's Timmer), <b>trend regression</b> (Pantera's log-linear), <b>flow/scenario decomposition</b> (Citi, Standard Chartered, CoinShares), and a <b>volatility-adjusted gold-parity</b> formula (JPMorgan). Gold is the shared anchor for most — used three ways: a TAM to capture a share of, a qualitative debasement narrative, or a precise risk-capital divisor.<br><br>
+    <b>House view vs pontification.</b> Several widely-quoted numbers are <i>individual</i>, not the firm's house view: Fidelity's ~$1M/2030 is Timmer's personal model (FDAS itself commits to no target); Galaxy's "BTC overtakes gold" is Novogratz's CEO remark, separate from Thorn's $250k/2027 research; Fink's $500–700k is an offhand Davos hypothetical. Section 2 collects the deliberately aggressive calls (Saylor's $13M, Draper's $250k) and the academic/on-chain models that aren't anyone's house view.<br><br>
+    <b>Caveats &amp; freshness.</b> Verified 15 Jun 2026 via an adversarial multi-agent pass. Two near-term house calls are stale after the June-2026 ~$60k drawdown: Grayscale's "ATH in 1H 2026" (effectively missed) and Standard Chartered's curve (re-cut to $100k for 2026, reaffirmed at the ~$59k bottom). Many primary PDFs (BlackRock, Grayscale, ARK, Bitwise, VanEck) are paywalled/Cloudflare-walled; figures were corroborated via reputable secondary coverage where noted. &sect;1 = institutional house views (22 firms); &sect;2 = the broader external/academic/individual range. Built from a parallel research sweep + an adversarial verification &amp; completeness workflow · By JAOD &amp; (mainly) Claude.
   </footer>
 
 </div>
