@@ -125,24 +125,22 @@
 <body>
 <header>
   <h1>How the Largest Asset Managers Talk About Long-Term Bitcoin Appreciation</h1>
-  <p>Three tabs. <b>House Views</b> — what each firm officially tells clients, grouped by the <b>method</b> behind it (not just the number), from explicit price-modelers to allocation-framework shops to outright skeptics; individual/offhand remarks are flagged, stale calls marked. <b>Other Approaches</b> — the external, academic and individual models. <b>Approach &rarr; Firms Map</b> — each method defined (one line + high-fidelity mechanics + pros/cons) and mapped to every firm that has used it, with the specific article. Most firms use several approaches. Verified 15 Jun 2026; targets move, methods don't.</p>
+  <p>Three tabs. <b>House Views</b> — what each firm officially tells clients, grouped by the <b>method</b> behind it (not just the number), from explicit price-modelers to allocation-framework shops; individual/offhand remarks are flagged, stale calls marked. <b>Other Approaches</b> — the external, academic and individual models. <b>Approach &rarr; Firms Map</b> — each method defined (one line + high-fidelity mechanics + pros/cons) and mapped to every firm that has used it, with the specific article. Most firms use several approaches. Verified 15 Jun 2026; targets move, methods don't.</p>
 </header>
 
 <div class="wrap">
 
   <div class="tabs" id="tabs">
-    <button data-tab="house" class="active">House Views (22 firms)</button>
+    <button data-tab="house" class="active">House Views (13 firms)</button>
     <button data-tab="other">Other Approaches (12 models)</button>
-    <button data-tab="map">Approach &rarr; Firms Map (16 approaches)</button>
+    <button data-tab="map">Approach &rarr; Firms Map (6 families)</button>
   </div>
 
   <div class="tab-pane active" id="pane-house">
 
   <div class="legend" id="legend">
     <button data-fam="none"><span class="dot" style="background:var(--fam-none)"></span>No target / allocation framework</button>
-    <button data-fam="skeptic"><span class="dot" style="background:var(--fam-skeptic)"></span>Skeptic / no allocation</button>
     <button data-fam="network"><span class="dot" style="background:var(--fam-network)"></span>Network adoption (Metcalfe / S-curve)</button>
-    <button data-fam="trend"><span class="dot" style="background:var(--fam-trend)"></span>Trend / regression (log-linear)</button>
     <button data-fam="tam"><span class="dot" style="background:var(--fam-tam)"></span>TAM / use-case build-up</button>
     <button data-fam="monetary"><span class="dot" style="background:var(--fam-monetary)"></span>Monetary model (exchange + reserve)</button>
     <button data-fam="sov"><span class="dot" style="background:var(--fam-sov)"></span>Store-of-value / gold market-share</button>
@@ -151,21 +149,21 @@
   </div>
 
   <div class="spectrum">
-    <b>The spectrum of conviction</b> — from "Bitcoin has no place in a portfolio" to "$2.9M per coin."
+    <b>The spectrum of conviction</b> &mdash; from "no price target, just an allocation" to "$2.9M per coin."
     <div class="bar">
-      <div class="seg" style="background:var(--fam-skeptic);flex:1.2">Vanguard / Goldman ISG / UBS<br>0% — no allocation</div>
-      <div class="seg" style="background:var(--fam-none);flex:1.2">BlackRock / Morgan Stanley / BofA<br>1–4% sleeve, no target</div>
+      <div class="seg" style="background:var(--fam-none);flex:1.1">BlackRock<br>1–2% sleeve, no target</div>
+      <div class="seg" style="background:var(--fam-sov);flex:1.3">Grayscale / SSGA / Deutsche<br>framework, no number</div>
       <div class="seg" style="background:var(--fam-volgold)">JPMorgan<br>$170–266k</div>
-      <div class="seg" style="background:var(--fam-flow);flex:1.1">Citi $143k · StanChart<br>$100k (YE26)</div>
-      <div class="seg" style="background:var(--fam-sov);flex:1.1">Galaxy / WisdomTree<br>$250k</div>
+      <div class="seg" style="background:var(--fam-sov);flex:1.3">Galaxy / WisdomTree / CoinShares<br>$250–317k</div>
+      <div class="seg" style="background:var(--fam-sov)">21Shares<br>&gt;$500k</div>
       <div class="seg" style="background:var(--fam-network)">Fidelity<br>~$1M (Timmer)</div>
       <div class="seg" style="background:var(--fam-tam);flex:1.1">ARK / Bitwise<br>$1.2–1.3M</div>
       <div class="seg" style="background:var(--fam-monetary)">VanEck<br>$2.9M / 2050</div>
     </div>
-    <div class="ends"><span>No allocation &nbsp;◄</span><span>► &nbsp;Explicit long-dated price model</span></div>
+    <div class="ends"><span>Allocation, no target &nbsp;◄</span><span>► &nbsp;Explicit long-dated price model</span></div>
   </div>
 
-  <h2 class="sec">Section 1 &mdash; The House Views<span class="sub">What each firm officially publishes or tells clients (22 institutions). Use the chips above to filter by approach family. Individual/offhand remarks (vs. published research) are flagged; stale calls are marked.</span></h2>
+  <h2 class="sec">Section 1 &mdash; The House Views<span class="sub">What each firm officially publishes or tells clients (13 institutions). Use the chips above to filter by approach family. Individual/offhand remarks (vs. published research) are flagged; stale calls are marked.</span></h2>
 
   <div class="scroll">
   <table id="tbl">
@@ -409,25 +407,6 @@
         </td>
       </tr>
 
-      <!-- PANTERA -->
-      <tr data-fam="trend">
-        <td><div class="firm">Pantera Capital</div>
-            <div class="ppl">Dan Morehead (Founder/CEO)</div>
-            <div class="type">Crypto-native manager</div></td>
-        <td><span class="fam" style="background:var(--fam-trend)">Log-linear long-run regression</span></td>
-        <td><span class="target big">$740k</span> <span class="hz">by April 2028 (~$15T cap)</span></td>
-        <td>A pure <b>trend-extrapolation</b> model: fits a log-linear regression to Bitcoin's multi-year price history (anchored to the halving cycle) and projects it forward in the firm's Blockchain Letters. Methodologically a cousin of the academic power-law — but used as a firm investment thesis. Morehead notes a prior version landed within ~1% of the realized price.</td>
-        <td class="assum"><ul>
-          <li>Long-run price follows a log-linear (exponential) trendline</li>
-          <li>Halving cadence structures the cycle around the trend</li>
-          <li>~$15T network value implied by April 2028</li>
-          <li>Past-fit accuracy used as evidence for the projection</li>
-        </ul></td>
-        <td><div class="quote">The log-linear trendline projects roughly $740,000 per Bitcoin by April 2028.<span class="who">— Dan Morehead, Pantera Blockchain Letter</span></div></td>
-        <td class="src">
-          <a href="https://panteracapital.com/blockchain-letter/">Pantera Blockchain Letter ($740k / Apr 2028)</a> <span class="date">Nov 2024</span>
-        </td>
-      </tr>
 
       <!-- COINSHARES -->
       <tr data-fam="flow">
@@ -471,167 +450,13 @@
         </td>
       </tr>
 
-      <!-- CITI -->
-      <tr data-fam="flow">
-        <td><div class="firm">Citi</div>
-            <div class="ppl">Citi Research (Saunders / Willer / Vo)</div>
-            <div class="type">Global bank · research</div></td>
-        <td><span class="fam" style="background:var(--fam-flow)">Quantitative scenario decomposition</span></td>
-        <td><span class="hz">~12-month (Dec 2025):</span> Bear <span class="target">$78.5k</span> · Base <span class="target big">$143k</span> · Bull <span class="target">$189k</span> <span class="flag">tactical horizon, not multi-year</span></td>
-        <td>A regression-style <b>scenario decomposition</b>: attributes BTC's price variance to ETF/spot flows (the single largest factor, &gt;40% of variance), plus adoption and macro drivers, then runs bear/base/bull paths. More tactical (≈12-month) than the structural long-horizon models, but a genuine institutional house framework.</td>
-        <td class="assum"><ul>
-          <li>ETF/spot flows explain &gt;40% of price variance</li>
-          <li>Adoption + macro (rates, risk appetite) are secondary drivers</li>
-          <li>Scenario paths over a ~12-month window</li>
-          <li>Base case $143k assumes continued net inflows</li>
-        </ul></td>
-        <td><div class="quote">ETF flows are the dominant driver; the base case lands near $143,000 over the coming year.<span class="who">— Citi Research, Dec 2025</span></div></td>
-        <td class="src">
-          <a href="https://www.coindesk.com/markets/2025/12/19/citi-sees-bitcoin-at-143-000-in-base-case">Citi base case $143k</a> <span class="date">Dec 2025</span>
-        </td>
-      </tr>
 
-      <!-- STANDARD CHARTERED -->
-      <tr data-fam="flow">
-        <td><div class="firm">Standard Chartered</div>
-            <div class="ppl">Geoff Kendrick (Global Head of Digital Assets Research)</div>
-            <div class="type">Global bank · research</div></td>
-        <td><span class="fam" style="background:var(--fam-flow)">Flow-and-allocation + gold-substitution</span></td>
-        <td><span class="target big">$500k</span> <span class="hz">by ~2030 (was 2028)</span><br><span class="hz">2026 target walked $300k → $150k (Dec 2025) → $100k (Feb 2026); reaffirmed $100k at the ~$59k Jun-2026 bottom</span> <span class="flag">live-moving</span></td>
-        <td>BTC's path as a <b>demand-flow story</b> vs post-halving scarcity, on two pillars: institutional ETF inflows and corporate-treasury/MSTR balance-sheet buying. Layered with macro — correlation to the US Treasury term premium, rate-cut expectations, and BTC as an under-represented hedge. The bull leg is a debasement/gold-substitution trade ("where gold has gone, Bitcoin will follow"). When demand pillars weakened he re-cut targets but kept the framework.</td>
-        <td class="assum"><ul>
-          <li>Continued ETF inflows are the near-term catalyst</li>
-          <li>Treasury accumulation buys a multiple of new issuance</li>
-          <li>Volatility falls as options markets deepen</li>
-          <li>BTC structurally under-allocated institutionally</li>
-        </ul></td>
-        <td><div class="quote">"My medium-term target of $500,000 … is still 100% achievable."<span class="who">— Geoff Kendrick, Oct 2025 (since pushed to ~2030)</span></div></td>
-        <td class="src">
-          <a href="https://www.cnbc.com/2025/12/09/standard-chartered-cuts-bitcoin-forecast-in-half.html">Cuts forecast (Dec note)</a> <span class="date">Dec 2025</span><br>
-          <a href="https://www.cnbc.com/2025/02/27/standard-chartered-crypto-bull-still-sees-bitcoin-hitting-500000.html">$500k thesis</a> <span class="date">Feb 2025</span>
-        </td>
-      </tr>
 
-      <!-- MORGAN STANLEY -->
-      <tr data-fam="none">
-        <td><div class="firm">Morgan Stanley</div>
-            <div class="ppl">Global Investment Committee (GIC)</div>
-            <div class="type">Wealth manager</div></td>
-        <td><span class="fam" style="background:var(--fam-none)">Allocation framework — BTC as real asset</span></td>
-        <td><span class="notarget">No price target.</span> <span class="target">2–4% allocation</span> <span class="hz">by risk tier; 0% for capital-preservation</span></td>
-        <td>The official GIC house view guiding ~16,000 advisors (~$2T AUM): treats BTC as a "real asset" / digital gold and gives a <b>portfolio-allocation</b> recommendation rather than a price call — sized 2–4% by risk profile, zero for capital-preservation mandates. (A separate executive's "$1M by 2030" remark is individual, not the GIC view.)</td>
-        <td class="assum"><ul>
-          <li>BTC as a real asset / store of value, not a cash-flow asset</li>
-          <li>Allocation scaled to client risk tolerance (2–4%)</li>
-          <li>Capital-preservation clients: 0%</li>
-          <li>Diversification, sized for high volatility</li>
-        </ul></td>
-        <td><div class="quote">"Asset Allocation Considerations for Cryptocurrencies" — 2–4% by risk profile, framed as a real asset.<span class="who">— Morgan Stanley GIC, Oct 2025</span></div></td>
-        <td class="src">
-          <a href="https://www.morganstanley.com/ideas">Morgan Stanley GIC — crypto allocation</a> <span class="date">Oct 2025</span>
-        </td>
-      </tr>
 
-      <!-- BANK OF AMERICA -->
-      <tr data-fam="none">
-        <td><div class="firm">Bank of America</div>
-            <div class="ppl">Merrill / BofA Private Bank</div>
-            <div class="type">Wealth manager</div></td>
-        <td><span class="fam" style="background:var(--fam-none)">Allocation framework (ETF-enabled)</span></td>
-        <td><span class="notarget">No price target.</span> <span class="target">1–4% allocation</span> <span class="hz">via spot-BTC ETFs</span></td>
-        <td>A wealth-management <b>allocation framework</b> rather than a valuation: in early 2026 BofA opened formal research coverage of four spot-BTC ETFs across ~15,000 advisors and set a 1–4% crypto sleeve guideline. The house position is "how much, via which wrapper," not "what's it worth." (Strategist Hartnett's tactical "froth" commentary is separate and individual.)</td>
-        <td class="assum"><ul>
-          <li>Access via regulated spot-BTC ETFs, not direct coins</li>
-          <li>1–4% sleeve depending on client profile</li>
-          <li>Advisor-distribution gating (effective ~Jan 2026)</li>
-          <li>No firm fair-value / price model</li>
-        </ul></td>
-        <td><div class="quote">BofA enabled BTC-ETF recommendations with a 1–4% allocation guideline across its advisor base.<span class="who">— BofA / Merrill, Jan 2026</span></div></td>
-        <td class="src">
-          <a href="https://www.privatebank.bankofamerica.com/">BofA — crypto-ETF coverage (1–4%)</a> <span class="date">Jan 2026</span>
-        </td>
-      </tr>
 
-      <!-- BINANCE RESEARCH -->
-      <tr data-fam="none">
-        <td><div class="firm">Binance Research</div>
-            <div class="ppl">Institutional authorship (no single named lead)</div>
-            <div class="type">Exchange research</div></td>
-        <td><span class="fam" style="background:var(--fam-none)">No price target — structural + macro cycle</span></td>
-        <td><span class="notarget">No single long-term target.</span> Cycle anchor: 12mo <i>after</i> midterms historically strongest (BTC avg +54%)</td>
-        <td>Prioritizes "structural shifts over short-term price." Two threads: (1) a <b>macro presidential-cycle</b> read (midterm-year drawdowns vs strong post-midterm recoveries); and (2) an <b>on-chain → off-chain demand migration</b> — softening base-layer activity reframed as price formation moving to ETFs, treasuries and tokenized products. 2026 thesis: value accrues to networks capturing recurring, monetizable flows.</td>
-        <td class="assum"><ul>
-          <li>Base-layer activity softened (active addresses −16% YoY); base layer now secondary</li>
-          <li>Price formation migrated off-chain to ETFs / treasuries / tokenized products</li>
-          <li>+54% is a 12-mo-after-midterms seasonal (vs midterm-year drawdowns −56/−73/−64%)</li>
-          <li>Near-term caveat (Mar 2026): range-bound ~$66k, Middle East/oil downside</li>
-        </ul></td>
-        <td><div class="quote">"Infrastructure, access, and rulemaking advanced even when prices did not."<span class="who">— Binance Research, 2026 outlook</span></div></td>
-        <td class="src">
-          <a href="https://coinmarketcap.com/academy/article/bitcoin-and-stocks-may-rally-after-2026-midterms-says-binance-research">Post-midterm cycle (+54%)</a> <span class="date">Mar 2026</span><br>
-          <a href="https://dailycoin.com/binance-report-crypto-2025-2026-outlook/">2025/2026 outlook</a> <span class="date">Dec 2025</span>
-        </td>
-      </tr>
 
-      <!-- VANGUARD -->
-      <tr data-fam="skeptic">
-        <td><div class="firm">Vanguard</div>
-            <div class="ppl">Vanguard (firm policy)</div>
-            <div class="type">Asset manager</div></td>
-        <td><span class="fam" style="background:var(--fam-skeptic)">Skeptic — no place in a portfolio</span></td>
-        <td><span class="notarget">No allocation, no target.</span> Crypto = speculation, not an investment</td>
-        <td>The clearest <b>contrarian house view</b>: crypto has no place in a long-term portfolio because it produces no cash flows, has no inherent economic value, and behaves as speculation. Reaffirmed Dec 2025 even as Vanguard let clients access third-party BTC ETFs on its platform — and it still refuses to launch its own crypto products.</td>
-        <td class="assum"><ul>
-          <li>No cash flows → cannot be valued as an investment</li>
-          <li>No inherent/intrinsic economic value</li>
-          <li>High volatility = speculation, not diversification</li>
-          <li>Won't build or recommend crypto products (policy, not a forecast)</li>
-        </ul></td>
-        <td><div class="quote">Crypto is "an immature asset class" with "little intrinsic value" and no place in a long-term portfolio.<span class="who">— Vanguard, reaffirmed Dec 2025</span></div></td>
-        <td class="src">
-          <a href="https://investor.vanguard.com/investor-resources-education/news">Vanguard — Crypto &amp; Vanguard</a> <span class="date">Dec 2025</span>
-        </td>
-      </tr>
 
-      <!-- GOLDMAN SACHS ISG -->
-      <tr data-fam="skeptic">
-        <td><div class="firm">Goldman Sachs</div>
-            <div class="ppl">Investment Strategy Group / Private Wealth (Mossavar-Rahmani)</div>
-            <div class="type">Bank · private wealth</div></td>
-        <td><span class="fam" style="background:var(--fam-skeptic)">Skeptic — not an investable asset</span></td>
-        <td><span class="notarget">No allocation, no target.</span> Fails ISG investability criteria <span class="flag">desk/AM is tactically constructive</span></td>
-        <td>The canonical Wall-Street <b>private-wealth skeptic</b>: the Investment Strategy Group says crypto is not an investable asset class for client portfolios — no cash flows, no intrinsic value, fails its investability framework. Note the internal tension: Goldman's trading desk and asset-management arm are tactically constructive and hold crypto-ETF exposure.</td>
-        <td class="assum"><ul>
-          <li>ISG investability criteria: cash flows + intrinsic value required</li>
-          <li>Crypto meets neither → excluded from client portfolios</li>
-          <li>Speculative, not a strategic holding</li>
-          <li>Firm-internal split: desk/AM constructive vs ISG skeptic</li>
-        </ul></td>
-        <td><div class="quote">Cryptocurrencies are "not an investable asset class" for client portfolios.<span class="who">— Goldman Sachs ISG (Mossavar-Rahmani)</span></div></td>
-        <td class="src">
-          <a href="https://www.goldmansachs.com/insights">Goldman ISG — investability view</a> <span class="date">2024</span>
-        </td>
-      </tr>
 
-      <!-- UBS -->
-      <tr data-fam="skeptic">
-        <td><div class="firm">UBS</div>
-            <div class="ppl">UBS CIO, Global Wealth Management</div>
-            <div class="type">Bank · global wealth</div></td>
-        <td><span class="fam" style="background:var(--fam-skeptic)">Skeptic — speculative, not strategic</span></td>
-        <td><span class="notarget">No strategic allocation, no target.</span> A "speculative trade, not a strategic investment" <span class="flag">expanding access despite the view</span></td>
-        <td>The UBS CIO house view treats crypto as a <b>speculative trade rather than a strategic investment</b>, with limited portfolio-diversification benefits — reaffirmed in its Year Ahead 2026. A nuance worth noting: UBS is simultaneously expanding direct crypto access for clients even as the official recommendation stays skeptical.</td>
-        <td class="assum"><ul>
-          <li>Crypto = tactical/speculative, not a strategic asset</li>
-          <li>Limited, unstable diversification benefits</li>
-          <li>No fair-value model / no price target</li>
-          <li>Access expanding for clients who want it, against the house view</li>
-        </ul></td>
-        <td><div class="quote">Crypto is "a speculative trade, not a strategic investment."<span class="who">— UBS CIO, Year Ahead 2026</span></div></td>
-        <td class="src">
-          <a href="https://www.ubs.com/global/en/wealthmanagement/insights.html">UBS CIO — crypto house view</a> <span class="date">Nov 2024 · reaffirmed Nov 2025</span>
-        </td>
-      </tr>
 
     </tbody>
   </table>
@@ -771,52 +596,42 @@
   </div><!-- /pane-other -->
 
   <div class="tab-pane" id="pane-map">
-  <h2 class="sec">Approach &rarr; Firms Who Use It<span class="sub">Each of 16 valuation approaches: a one-line definition, how it works at high fidelity, what it's good and bad at, and the firms that have actually used it &mdash; with the specific article + date. Most firms use several approaches; the matrix shows the overlap. Codes A1&ndash;A16 map to the cards below.</span></h2>
+  <h2 class="sec">Approach &rarr; Firms Who Use It<span class="sub">Each valuation approach: a one-line definition, how it works, pros/cons, and the firms that actually use it &mdash; with the specific article + date. The matrix groups them into 6 families (full names in the headers; sub-approaches on hover); the cards below give the per-approach detail. Most firms use several.</span></h2>
 
   <div class="matrix-wrap">
     <table class="matrix">
-      <thead><tr><th class="firmcol">Firm \ Approach</th>
-        <th title="Gold market-share TAM">A1</th><th title="Multi-market TAM build-up">A2</th><th title="Vol-adjusted gold parity">A3</th><th title="Monetary (MoE + reserve)">A4</th><th title="Equation of exchange MV=PQ">A5</th><th title="Network adoption (Metcalfe/S-curve)">A6</th><th title="Power-law / log-linear regression">A7</th><th title="Scarcity / stock-to-flow">A8</th><th title="Supply/demand flow imbalance">A9</th><th title="Scenario / factor decomposition">A10</th><th title="Cycle / seasonality">A11</th><th title="Risk-budgeting / allocation">A12</th><th title="On-chain valuation">A13</th><th title="Cost-of-production floor">A14</th><th title="Asset-capture / debasement">A15</th><th title="Skeptic / no-intrinsic-value">A16</th>
-      </tr></thead>
+      <thead><tr><th class="firmcol">Firm \ Approach family</th><th title="Gold market-share TAM · Multi-market TAM build-up · Vol-adjusted gold parity · Asset-capture/debasement (cards A1–A3, A15)">Gold / Store-of-value</th><th title="Medium-of-exchange + reserve · Equation of exchange MV=PQ (cards A4–A5)">Monetary</th><th title="Metcalfe / S-curve · Power-law / log-linear · Stock-to-flow (cards A6–A8)">Network / Trend</th><th title="Supply/demand flow imbalance · Scenario / factor decomposition (cards A9–A10)">Flow / Structure</th><th title="On-chain valuation · Cost-of-production floor (cards A13–A14)">On-chain / Cost</th><th title="Portfolio risk-budgeting / allocation framework (card A12)">Allocation</th></tr></thead>
       <tbody>
-        <tr><td class="firmcol">BlackRock</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Fidelity</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
-        <tr><td class="firmcol">ARK Invest</td><td class="on">&bull;</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
-        <tr><td class="firmcol">VanEck</td><td class="on">&bull;</td><td class="on">&bull;</td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Bitwise</td><td class="on">&bull;</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
-        <tr><td class="firmcol">Grayscale</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Galaxy Digital</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">WisdomTree</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">State Street (SSGA)</td><td class="on">&bull;</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Deutsche Bank</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">21Shares</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Pantera</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">CoinShares</td><td></td><td class="on">&bull;</td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td class="on">&bull;</td><td></td><td></td></tr>
-        <tr><td class="firmcol">JPMorgan</td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td></tr>
-        <tr><td class="firmcol">Citi</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Standard Chartered</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Morgan Stanley</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Bank of America</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Binance Research</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Vanguard</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td class="on">&bull;</td></tr>
-        <tr><td class="firmcol">Goldman Sachs (ISG)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td></tr>
-        <tr><td class="firmcol">UBS</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td></tr>
-        <tr><td class="firmcol">Strategy / Saylor</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
-        <tr><td class="firmcol">Bernstein</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Fundstrat / Tom Lee</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">PlanB</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Santostasi</td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Cane Island (Peterson)</td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Capriole (Edwards)</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td></tr>
-        <tr><td class="firmcol">Glassnode</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Willy Woo</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Chris Burniske</td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-        <tr><td class="firmcol">Bank of England</td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">BlackRock</td><td></td><td></td><td></td><td></td><td></td><td class="on">&bull;</td></tr>
+        <tr><td class="firmcol">Fidelity</td><td class="on">&bull;</td><td></td><td class="on">&bull;</td><td></td><td></td><td class="on">&bull;</td></tr>
+        <tr><td class="firmcol">ARK Invest</td><td class="on">&bull;</td><td></td><td></td><td class="on">&bull;</td><td></td><td></td></tr>
+        <tr><td class="firmcol">VanEck</td><td class="on">&bull;</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">Bitwise</td><td class="on">&bull;</td><td></td><td></td><td class="on">&bull;</td><td></td><td></td></tr>
+        <tr><td class="firmcol">Grayscale</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">Galaxy Digital</td><td class="on">&bull;</td><td></td><td></td><td class="on">&bull;</td><td></td><td></td></tr>
+        <tr><td class="firmcol">WisdomTree</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">State Street (SSGA)</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">Deutsche Bank</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">21Shares</td><td class="on">&bull;</td><td></td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
+        <tr><td class="firmcol">CoinShares</td><td class="on">&bull;</td><td class="on">&bull;</td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
+        <tr><td class="firmcol">JPMorgan</td><td class="on">&bull;</td><td></td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
+        <tr><td class="firmcol">Strategy / Saylor</td><td class="on">&bull;</td><td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">Bernstein</td><td></td><td></td><td></td><td class="on">&bull;</td><td></td><td></td></tr>
+        <tr><td class="firmcol">Fundstrat / Tom Lee</td><td class="on">&bull;</td><td></td><td class="on">&bull;</td><td class="on">&bull;</td><td></td><td></td></tr>
+        <tr><td class="firmcol">PlanB</td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">Santostasi</td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">Cane Island (Peterson)</td><td></td><td></td><td class="on">&bull;</td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">Capriole (Edwards)</td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
+        <tr><td class="firmcol">Glassnode</td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
+        <tr><td class="firmcol">Willy Woo</td><td></td><td></td><td></td><td></td><td class="on">&bull;</td><td></td></tr>
+        <tr><td class="firmcol">Chris Burniske</td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td class="firmcol">Bank of England</td><td></td><td class="on">&bull;</td><td></td><td></td><td></td><td></td></tr>
       </tbody>
     </table>
   </div>
   <div class="matrix-legend">
-    <code>A1</code>Gold market-share TAM &nbsp; <code>A2</code>Multi-market TAM build-up &nbsp; <code>A3</code>Vol-adjusted gold parity &nbsp; <code>A4</code>Monetary (MoE + reserve) &nbsp; <code>A5</code>Equation of exchange MV=PQ &nbsp; <code>A6</code>Network adoption (Metcalfe/S-curve) &nbsp; <code>A7</code>Power-law / log-linear regression &nbsp; <code>A8</code>Scarcity / stock-to-flow &nbsp; <code>A9</code>Supply/demand flow imbalance &nbsp; <code>A10</code>Scenario / factor decomposition &nbsp; <code>A11</code>Cycle / seasonality &nbsp; <code>A12</code>Risk-budgeting / allocation &nbsp; <code>A13</code>On-chain valuation &nbsp; <code>A14</code>Cost-of-production floor &nbsp; <code>A15</code>Asset-capture / debasement &nbsp; <code>A16</code>Skeptic / no-intrinsic-value
+    <b>Families</b> (each groups the per-approach cards below): <code>Gold / Store-of-value</code>Gold market-share TAM · Multi-market TAM build-up · Vol-adjusted gold parity · Asset-capture/debasement &nbsp; <code>Monetary</code>Medium-of-exchange + reserve · Equation of exchange MV=PQ &nbsp; <code>Network / Trend</code>Metcalfe / S-curve · Power-law / log-linear · Stock-to-flow &nbsp; <code>Flow / Structure</code>Supply/demand flow imbalance · Scenario / factor decomposition &nbsp; <code>On-chain / Cost</code>On-chain valuation · Cost-of-production floor &nbsp; <code>Allocation</code>Portfolio risk-budgeting / allocation framework (card A12) &nbsp; 
+    <br>Hover a column header for its sub-approaches. A separate <b>Skeptic / no-intrinsic-value</b> approach is detailed in the cards (AQR, Morningstar) but used by no firm in this roster.
   </div>
 
   <!-- ===== APPROACH CARDS ===== -->
@@ -931,7 +746,6 @@
     <table class="firmtbl"><tr><th>Firm</th><th>Where they used it</th><th>How</th></tr>
       <tr><td class="fn">Santostasi</td><td><a href="https://giovannisantostasi.medium.com/the-bitcoin-power-law-theory-962dfaf99ee9">"The Bitcoin Power Law Theory"</a> · Mar 2024</td><td>log(price) ∝ ~5.8&middot;log(time) → ~$1M by ~2033 corridor</td></tr>
       <tr><td class="fn">Cane Island (Peterson)</td><td><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=4760946">"Lowest Price Forward"</a> · 2024</td><td>Never-Look-Back floor fit on a √time scale</td></tr>
-      <tr><td class="fn">Pantera (Morehead)</td><td><a href="https://panteracapital.com/blockchain-letter/1000x-pantera-bitcoin-fund/">"Pantera Bitcoin Fund Hits 1,000x"</a> · Nov 2024</td><td>Log-linear trend → ~$740k by Apr 2028 <span class="conf">(CAGR extrapolation; "power-law" label med-conf)</span></td></tr>
     </table>
   </div>
 
@@ -961,7 +775,6 @@
     <table class="firmtbl"><tr><th>Firm</th><th>Where they used it</th><th>How</th></tr>
       <tr><td class="fn">Bitwise (Hougan)</td><td><a href="https://coingape.com/bitcoin-price-reclaims-96k-as-bitwise-cio-predicts-parabolic-run-from-btc-etf-flows/">"Parabolic Run From ETF Flows"</a> · Jan 2026</td><td>ETFs buy &gt;100% of new supply → seller exhaustion</td></tr>
       <tr><td class="fn">Bernstein</td><td><a href="https://coinjournal.net/news/why-bernstein-sees-bitcoin-hitting-new-highs-in-2025/">"Why Bernstein sees new highs"</a> · Apr 2025</td><td>Supply squeeze; ETFs + treasuries lock ~9% of supply</td></tr>
-      <tr><td class="fn">Standard Chartered</td><td><a href="https://u.today/standard-chartereds-geoff-kendrick-warns-of-50000-bitcoin-risk-as-bank-cuts-2026-targets">"$50k risk as bank cuts targets"</a> · Feb 2026</td><td>ETF + treasury demand pillars vs issuance (cut when they weakened)</td></tr>
       <tr><td class="fn">Fundstrat / Tom Lee</td><td><a href="https://news.bitcoin.com/fundstrats-tom-lee-sees-bitcoin-breaking-the-4-year-cycle-doubles-down-on-250k-target/">"Breaking the 4-Year Cycle... $250K"</a> · Jan 2026</td><td>ETF inflows rebuild a structural bid that overrides the cycle</td></tr>
     </table>
   </div>
@@ -975,28 +788,12 @@
       <div class="cons"><b>Cons</b><ul><li>Factor weights are regime-dependent and shift</li><li>Scenario inputs still discretionary</li><li>Variance-explained ≠ causation</li></ul></div>
     </div>
     <table class="firmtbl"><tr><th>Firm</th><th>Where they used it</th><th>How</th></tr>
-      <tr><td class="fn">Citi</td><td><a href="https://www.coindesk.com/markets/2026/06/03/bitcoin-s-lack-of-fresh-investors-matters-more-than-strategy-s-sale-citi-says">"Lack of fresh investors... 45% variance"</a> · Jun 2026</td><td>ETF flows ≈ 45% of weekly return variance — the primary driver</td></tr>
-      <tr><td class="fn">Citi</td><td><a href="https://www.coindesk.com/markets/2025/12/19/bitcoin-earns-base-case-target-of-usd143-000-at-citigroup">"$143,000 base case"</a> · Dec 2025</td><td>base $143k / bull $189k / bear $78.5k, each driver-linked</td></tr>
       <tr><td class="fn">ARK Invest</td><td><a href="https://www.ark-invest.com/articles/valuation-models/arks-bitcoin-price-target-2030">"ARK's Bitcoin Price Target 2030"</a></td><td>bear/base/bull ($500k/$1.2M/$2.4M) from summed segments</td></tr>
       <tr><td class="fn">Galaxy (Thorn)</td><td><a href="https://www.coindesk.com/markets/2025/12/21/galaxy-digital-s-head-of-research-explains-why-bitcoin-s-outlook-is-so-uncertain-in-2026">"Why outlook is uncertain in 2026"</a> · Dec 2025</td><td>options-implied scenario bands (~$50k vs ~$250k by YE)</td></tr>
     </table>
   </div>
 
-  <div class="approach" style="border-left-color:#46708a">
-    <div class="ap-head"><span class="apnum">A11</span><span class="aptitle">Cycle / seasonality</span><span class="apfam" style="background:#46708a">cycle</span></div>
-    <div class="apline">Time price off recurring cycles — the 4-year halving rhythm or the US presidential/midterm calendar — rather than estimating intrinsic value.</div>
-    <div class="aphow"><b>How it works.</b> Identify a repeating template — e.g. BTC bottoms ~477 days before a halving and peaks ~480 days after (Pantera), or the 12 months after US midterms average +54% (Binance). Overlay the current date on the template to project the path and turning points. It's pattern timing, not valuation.</div>
-    <div class="appc">
-      <div class="pros"><b>Pros</b><ul><li>Actionable timing where valuation models are silent</li><li>Rooted in BTC's actual repeating supply-shock structure (halvings)</li><li>Simple, testable against history</li></ul></div>
-      <div class="cons"><b>Cons</b><ul><li>Tiny sample (~3&ndash;4 cycles) → weak statistics</li><li>"This cycle is different" risk; ETFs may be flattening it</li><li>Pure timing — no level/target</li></ul></div>
-    </div>
-    <table class="firmtbl"><tr><th>Firm</th><th>Where they used it</th><th>How</th></tr>
-      <tr><td class="fn">Binance Research</td><td><a href="https://bitcoinmagazine.com/news/binance-u-s-midterms-bitcoin-gains">"Midterms Followed by Strong BTC Gains"</a> · Mar 2026</td><td>post-midterm 12mo averages +54% across 3 cycles</td></tr>
-      <tr><td class="fn">Pantera</td><td><a href="https://panteracapital.com/blockchain-letter/a-positive-black-swan/">"A Positive Black Swan"</a> · Aug 2023</td><td>bottoms ~477d before the halving, peaks ~480d after</td></tr>
-    </table>
-  </div>
-
-  <div class="approach" style="border-left-color:#5a6b78">
+<div class="approach" style="border-left-color:#5a6b78">
     <div class="ap-head"><span class="apnum">A12</span><span class="aptitle">Portfolio risk-budgeting / allocation framework</span><span class="apfam" style="background:#5a6b78">allocation</span></div>
     <div class="apline">Skip the price target entirely — decide how big a sleeve BTC should be given its volatility and correlation (or set it to zero).</div>
     <div class="aphow"><b>How it works.</b> Treat sizing, not valuation, as the question. Measure BTC's volatility and correlation to the rest of the book; size the allocation so it contributes an acceptable share of total portfolio risk (BlackRock: 1&ndash;2% ≈ the risk of one Magnificent-7 stock; beyond ~2% the risk share balloons). The output is a % weight (typically 1&ndash;4%), implemented via ETFs — not a price.</div>
@@ -1006,11 +803,8 @@
     </div>
     <table class="firmtbl"><tr><th>Firm</th><th>Where they used it</th><th>How</th></tr>
       <tr><td class="fn">BlackRock</td><td><a href="https://www.blackrock.com/institutions/en-us/insights/thought-leadership/portfolio-design/sizing-bitcoin-in-portfolios">"Sizing Bitcoin in Portfolios"</a> · Dec 2024</td><td>1&ndash;2% ≈ one Mag-7 stock's risk; &gt;2% disproportionate</td></tr>
-      <tr><td class="fn">Morgan Stanley (GIC)</td><td><a href="https://cryptobriefing.com/morgan-stanley-bitcoin-flexibility/">"GIC up to 2&ndash;4% crypto"</a> · Oct 2025</td><td>2/3/4% by risk tier; 0% for capital-preservation</td></tr>
-      <tr><td class="fn">Bank of America</td><td><a href="https://www.coindesk.com/business/2025/12/02/bank-of-america-greenlights-wealth-advisors-to-recommend-up-to-4-bitcoin-allocation">"Up to 4% allocation"</a> · Dec 2025</td><td>1&ndash;4% via four approved spot-BTC ETFs</td></tr>
       <tr><td class="fn">Wells Fargo (WFII)</td><td><a href="https://www.wellsfargoadvisors.com/research-analysis/reports/digital-assets/investment-rationale.htm">"Digital assets: investment rationale"</a> · Feb 2025</td><td>cautious diversifier; controlled exposure, no target</td></tr>
       <tr><td class="fn">Fidelity</td><td><a href="https://www.fidelitydigitalassets.com/research-and-insights/getting-zero-bitcoins-role-modern-investment-portfolios">"Getting Off Zero"</a> · Oct 2021</td><td>first 50&ndash;100 bps gives the best risk-adjusted improvement</td></tr>
-      <tr><td class="fn">Vanguard</td><td><a href="https://news.bitcoin.com/vanguard-says-no-to-bitcoin-etfs-views-crypto-as-immature-asset-class-with-no-inherent-economic-value/">"No to Bitcoin ETFs"</a> · Jan 2024</td><td>0% — won't offer crypto products <span class="conf">(also A16)</span></td></tr>
     </table>
   </div>
 
@@ -1070,9 +864,6 @@
       <div class="cons"><b>Cons</b><ul><li>Has been wrong on price for over a decade</li><li>"No intrinsic value" also applies to gold/fiat, which they do hold</li><li>Ignores network-effect / monetary-premium frameworks entirely</li></ul></div>
     </div>
     <table class="firmtbl"><tr><th>Firm</th><th>Where they used it</th><th>How</th></tr>
-      <tr><td class="fn">Vanguard</td><td><a href="https://news.bitcoin.com/vanguard-says-no-to-bitcoin-etfs-views-crypto-as-immature-asset-class-with-no-inherent-economic-value/">"No to Bitcoin ETFs"</a> · Jan 2024</td><td>"immature... no inherent economic value, no cash flow" → speculation</td></tr>
-      <tr><td class="fn">Goldman Sachs (ISG)</td><td><a href="https://www.coindesk.com/business/2024/04/02/goldman-sachs-clients-not-interested-in-crypto-says-chief-investment-officer-wsj">"Clients Not Interested in Crypto"</a> · Apr 2024</td><td>"not an investment asset class"; if you can't value it, can't be bullish</td></tr>
-      <tr><td class="fn">UBS (CIO)</td><td><a href="https://www.ubs.com/global/en/wealthmanagement/insights/marketnews/article.1646792.html">"A speculative trade, not strategic"</a> · Nov 2024</td><td>speculative, not strategic; cites ~79% annualized vol</td></tr>
       <tr><td class="fn">AQR (Asness)</td><td><a href="https://www.cnbc.com/2025/01/13/cliff-asness-says-crypto-is-only-good-for-speculation-and-criminality-and-bitcoin-is-in-a-bubble.html">"Crypto only good for speculation"</a> · Jan 2025</td><td>a bubble; an "imaginary asset"</td></tr>
       <tr><td class="fn">Morningstar (Rekenthaler)</td><td><a href="https://www.morningstar.com/columns/rekenthaler-report/conventional-investors-guide-bitcoin">"Conventional Investor's Guide to Bitcoin"</a> · Mar 2021</td><td>"mirages... possess no intrinsic value"</td></tr>
     </table>
@@ -1081,9 +872,9 @@
   </div><!-- /pane-map -->
 
   <footer>
-    <b>Reading the table.</b> The cleanest divide is methodological, not numerical. At one extreme, a bloc of major houses publishes <b>no allocation at all</b> — Vanguard, Goldman ISG and UBS call crypto speculation with no cash flows or intrinsic value. Next sit the <b>allocation-framework</b> shops (BlackRock, Morgan Stanley, Bank of America) who answer "how big a sleeve, sized for risk" rather than "what's it worth." Everyone who does commit to a number uses one of a few engines — <b>addressable-market build-ups</b> (ARK use-case TAMs, VanEck's monetary model, Bitwise/Grayscale/WisdomTree/SSGA store-of-value share of gold), <b>network-adoption math</b> (Fidelity's Timmer), <b>trend regression</b> (Pantera's log-linear), <b>flow/scenario decomposition</b> (Citi, Standard Chartered, CoinShares), and a <b>volatility-adjusted gold-parity</b> formula (JPMorgan). Gold is the shared anchor for most — used three ways: a TAM to capture a share of, a qualitative debasement narrative, or a precise risk-capital divisor.<br><br>
-    <b>House view vs pontification.</b> Several widely-quoted numbers are <i>individual</i>, not the firm's house view: Fidelity's ~$1M/2030 is Timmer's personal model (FDAS itself commits to no target); Galaxy's "BTC overtakes gold" is Novogratz's CEO remark, separate from Thorn's $250k/2027 research; Fink's $500–700k is an offhand Davos hypothetical. Section 2 collects the deliberately aggressive calls (Saylor's $13M, Draper's $250k) and the academic/on-chain models that aren't anyone's house view.<br><br>
-    <b>Caveats &amp; freshness.</b> Verified 15 Jun 2026 via an adversarial multi-agent pass. Two near-term house calls are stale after the June-2026 ~$60k drawdown: Grayscale's "ATH in 1H 2026" (effectively missed) and Standard Chartered's curve (re-cut to $100k for 2026, reaffirmed at the ~$59k bottom). Many primary PDFs (BlackRock, Grayscale, ARK, Bitwise, VanEck) are paywalled/Cloudflare-walled; figures were corroborated via reputable secondary coverage where noted. &sect;1 = institutional house views (22 firms); &sect;2 = the broader external/academic/individual range. Built from a parallel research sweep + an adversarial verification &amp; completeness workflow · By JAOD &amp; (mainly) Claude.
+    <b>Reading the table.</b> The cleanest divide is methodological, not numerical. BlackRock (and, for clients, Fidelity) answers the <b>allocation</b> question &mdash; "how big a sleeve, sized for risk" &mdash; rather than naming a price. Everyone who does commit to a number uses one of a few engines &mdash; <b>addressable-market build-ups</b> (ARK use-case TAMs, VanEck's monetary model, Bitwise/Grayscale/WisdomTree/SSGA store-of-value share of gold), <b>network-adoption math</b> (Fidelity's Timmer), and a <b>volatility-adjusted gold-parity</b> formula (JPMorgan). Gold is the shared anchor for most &mdash; used three ways: a TAM to capture a share of, a qualitative debasement narrative, or a precise risk-capital divisor.<br><br>
+    <b>House view vs pontification.</b> Several widely-quoted numbers are <i>individual</i>, not the firm's house view: Fidelity's ~$1M/2030 is Timmer's personal model (FDAS itself commits to no target); Galaxy's "BTC overtakes gold" is Novogratz's CEO remark, separate from Thorn's $250k/2027 research; Fink's $500–700k is an offhand Davos hypothetical. The Other Approaches tab collects the deliberately aggressive calls (Saylor's $13M, Draper's $250k) and the academic/on-chain models that aren't anyone's house view.<br><br>
+    <b>Caveats &amp; freshness.</b> Verified 15 Jun 2026 via an adversarial multi-agent pass. Grayscale's near-term "ATH in 1H 2026" call is stale after the June-2026 ~$60k drawdown. Many primary PDFs (BlackRock, Grayscale, ARK, Bitwise, VanEck) are paywalled/Cloudflare-walled; figures were corroborated via reputable secondary coverage where noted. &sect;1 = institutional house views (13 firms); &sect;2 = the broader external/academic/individual range; &sect;3 maps each approach to the firms that use it. Built from a parallel research sweep + an adversarial verification &amp; completeness workflow · By JAOD &amp; (mainly) Claude.
   </footer>
 
 </div>
